@@ -8,7 +8,7 @@ import {
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LoggerMiddleware } from './middleware/LoggerMiddleware';
+import { LoggerMiddleware } from './common/middleware/LoggerMiddleware';
 
 import { DatabaseModule } from './database/database.module';
 

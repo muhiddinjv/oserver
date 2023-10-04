@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { createConnection, ConnectionOptions } from 'typeorm';
-import { configService } from '../config/config.service';
+import { configService } from '../common/config/config.service';
 import { UsersService } from "../modules/users/users.service";
 import {Users} from "../modules/users/entities/users.entity"
 // import { User } from '../user.decorator';
