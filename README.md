@@ -119,6 +119,7 @@ Nest is [MIT licensed](LICENSE).
 - **refac**: refactor some code
 - **test**: test a feature
 - **chore**: regular code maintenance
+ @types/bcrypt @types/cli-color @types/faker @types/pino rimraf
 
 
 
