@@ -4,7 +4,7 @@
 ```$ Docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres```
 3. In Dbeaver, create a postgres db collection with password & name = ``postgres``
 4. Create a db called ```olliodb``` in postgres 
-5. ```npm run dev``` OR ```yarn dev```
+5. ```npm run dev``` OR ```yarn dev``` you'll see query logs in the terminal
 
 
 ### Workflow
