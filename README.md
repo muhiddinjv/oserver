@@ -1,4 +1,4 @@
-# How to Start the Server
+## How to start the server
 1. Start docker and remove any running containers ``docker ps -a`` and ``docker stop/rm container-id-here``
 2. Run postgresql remote image in docker using terminal: 
 ```$ Docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres```
@@ -24,3 +24,4 @@
 - **refac**: refactor some code
 - **test**: test a feature
 - **chore**: regular code maintenance
+- **hotfix**: used to quickly patch production releases
