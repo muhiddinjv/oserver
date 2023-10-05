@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { generateFromEmail } from 'unique-username-generator';
-import { UserDto } from '../../users/dto/user.dto';
+import { UserDto } from '../../users/dto/create-user.dto';
 import { Users } from '../../entities';
 
 @Injectable()

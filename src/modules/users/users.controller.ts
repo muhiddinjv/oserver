@@ -1,7 +1,10 @@
 import { Body, Controller, Get, Post, Response } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import * as bcrypt from 'bcryptjs';
+
 import { UsersService } from './users.service';
-import { UserDto } from './dto/user.dto';
+import { UserDto } from './dto/create-user.dto';
 import { SignInDto } from '../auth/signin.dto';
 import { SignInVeryfyDto } from '../auth/signin.verify.dto';
 

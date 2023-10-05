@@ -2,6 +2,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
 
 export class AuthDto {
+  constructor(partial: Partial<AuthDto>) {
+    Object.assign(this, partial);
+  }
+
   @IsString()
   @ApiProperty()
   readonly username: string;
