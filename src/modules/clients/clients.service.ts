@@ -7,7 +7,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Shop} from "../shop/shop.entity";
 
 import {ClientsGroup} from "../clientgroup/entities/clientgroup.entity";
-import {Address} from "../common/address.entity";
+import {Address} from "../../common/entities/address.entity";
 
 @Injectable()
 export class ClientsService {

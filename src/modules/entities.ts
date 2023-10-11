@@ -1,5 +1,5 @@
-export * from './common/address.entity';
-export * from './common/model.entity';
+export * from '../common/entities/address.entity';
+export * from '../common/entities/model.entity';
 export * from './permissions/entities/permissions.entity';
 export * from './products/products.entity';
 export * from './products/productprice/productprice.entity';

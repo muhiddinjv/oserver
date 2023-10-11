@@ -1,6 +1,6 @@
 import {Column, Entity, JoinTable, OneToMany} from "typeorm";
 import {Shop} from "../../shop/shop.entity";
-import {Model} from "../../common/model.entity";
+import {Model} from "../../../common/entities/model.entity";
 
 @Entity('ShopType')
 export class Shoptype extends Model{

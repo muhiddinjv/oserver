@@ -12,7 +12,7 @@ import {DistrictsService} from "./districts.service";
   imports: [TypeOrmModule.forFeature([Regions,District])],
   controllers: [RegionsController],
   providers: [RegionsService,DistrictsService],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule,RegionsService,DistrictsService],
 })
 export class RegionsModule {
   constructor(private regionService: RegionsService) {}

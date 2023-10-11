@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, ManyToOne, OneToMany} from 'typeorm';
 import {District} from "./districts.entity";
 import {Users} from "../users/entities/users.entity";
-import {Model} from "../common/model.entity";
+import {Model} from "../../common/entities/model.entity";
 
 @Entity('Regions')
 export class Regions extends Model {

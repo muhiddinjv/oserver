@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Users, Shop, Clients } from '../entities';
+import { Users, Shop, Clients } from '../../modules/entities';
 import { Model } from './model.entity'
 
 @Entity('Address')
