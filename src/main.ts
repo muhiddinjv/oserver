@@ -1,8 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
+import { NestFastifyApplication } from "@nestjs/platform-fastify";
 import { ValidationPipe, VersioningType } from "@nestjs/common";
-import * as csurf from 'csurf';
 import { LoggingInterceptor } from './common/utils/logging.interceptor';
 import { configService } from './common/config/config.service';
 import { AppModule } from './app.module';
@@ -10,9 +9,9 @@ import { AppModule } from './app.module';
 async function bootstrap() {
 
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, {
-    logger: ['error', 'warn'],
-    bufferLogs: true,
-    snapshot: true,
+    // logger: ['error', 'warn'],
+    // bufferLogs: true,
+    // snapshot: true,
   });
   app.enableCors();
   app.useGlobalInterceptors(new LoggingInterceptor());

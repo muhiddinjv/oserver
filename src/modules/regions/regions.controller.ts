@@ -8,7 +8,6 @@ import {
   ParseIntPipe,
   Post,
   Res,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';

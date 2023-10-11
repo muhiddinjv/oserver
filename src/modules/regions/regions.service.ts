@@ -13,7 +13,6 @@ export class RegionsService {
   getAllRegion() {
     return this.regionRepository.find();
   }
-
   insertRegion(regionDto: RegionDto) {
     return this.regionRepository.save(regionDto);
   }
