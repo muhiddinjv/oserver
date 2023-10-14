@@ -6,7 +6,7 @@ import {
   ModelDefinition,
   InjectModel,
 } from '@nestjs/mongoose';
-import { SellerType } from './user.enum';
+import { Role } from '../../common/role.enum';
 
 @Schema({ collection: 'users' })
 export class User {
@@ -22,8 +22,8 @@ export class User {
   @Prop({ unique: true, required: true, type: Number })
   phoneNumber: number;
 
-  @Prop({ type: String, required: true, enum: SellerType })
-  sellerType: SellerType;
+  @Prop({ type: String, required: true, enum: Role })
+  role: Role;
 
   @Prop({ type: Types.ObjectId })
   shopId: Types.ObjectId;
