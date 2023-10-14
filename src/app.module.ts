@@ -10,8 +10,6 @@ import { UserModule } from './modules/user/user.module';
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
     UserModule,
-  ],
-  controllers: [],
-  providers: [],
+  ]
 })
 export class AppModule {}
