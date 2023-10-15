@@ -22,9 +22,10 @@ export class AuthService {
         if (userExists) {
             throw new BadRequestException('User already exists');
         }
-
+        console.log(2222,createUserDto.password)
         // Hash password
         const hash = await this.hashData(createUserDto.password);
+        console.log(111,hash)
         const newUser = await this.userService.create({
             ...createUserDto,
             password: hash,
@@ -38,7 +39,7 @@ export class AuthService {
         // Check if user exists
         const user = await this.userService.findByPhoneNumber(data.phoneNumber);
         if (!user) throw new BadRequestException('User does not exist');
-        const passwordMatches = await bcryptjs.verify(user.password, data.password);
+        const passwordMatches = await bcryptjs.compare(user.password, data.password);
         if (!passwordMatches)
             throw new BadRequestException('Password is incorrect');
         const tokens = await this.getTokens(user._id, user.phoneNumber);
@@ -50,8 +51,9 @@ export class AuthService {
         return this.userService.update(userId, { refreshToken: null });
     }
 
-    hashData(data: string) {
-        return bcryptjs.hash(data);
+    async hashData(data: string) {
+        const salt = bcryptjs.genSaltSync(10);
+        return bcryptjs.hashSync(data, salt);
     }
 
     async updateRefreshToken(userId: string, refreshToken: string) {
