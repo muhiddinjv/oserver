@@ -10,8 +10,8 @@ import { Request } from 'express';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
-import { AccessTokenGuard } from 'src/common/acessToken.guard';
-import { RefreshTokenGuard } from 'src/common/refreshToken.guard';
+import { AccessTokenGuard } from 'src/common/guards/acessToken.guard';
+import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
 
 @Controller('auth')
 export class AuthController {

@@ -13,10 +13,11 @@ export class AuthService {
         private jwtService: JwtService,
         private configService: ConfigService,
     ) { }
+
     async signUp(createUserDto: CreateUserDto): Promise<any> {
         // Check if user exists
-        const userExists = await this.userService.findByUsername(
-            createUserDto.username,
+        const userExists = await this.userService.findByPhoneNumber(
+            createUserDto.phoneNumber,
         );
         if (userExists) {
             throw new BadRequestException('User already exists');
@@ -28,19 +29,19 @@ export class AuthService {
             ...createUserDto,
             password: hash,
         });
-        const tokens = await this.getTokens(newUser._id, newUser.username);
+        const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
         await this.updateRefreshToken(newUser._id, tokens.refreshToken);
         return tokens;
     }
 
     async signIn(data: AuthDto) {
         // Check if user exists
-        const user = await this.userService.findByUsername(data.username);
+        const user = await this.userService.findByPhoneNumber(data.phoneNumber);
         if (!user) throw new BadRequestException('User does not exist');
         const passwordMatches = await bcryptjs.verify(user.password, data.password);
         if (!passwordMatches)
             throw new BadRequestException('Password is incorrect');
-        const tokens = await this.getTokens(user._id, user.username);
+        const tokens = await this.getTokens(user._id, user.phoneNumber);
         await this.updateRefreshToken(user._id, tokens.refreshToken);
         return tokens;
     }
@@ -60,12 +61,12 @@ export class AuthService {
         });
     }
 
-    async getTokens(userId: string, username: string) {
+    async getTokens(userId: string, phoneNumber: string) {
         const [accessToken, refreshToken] = await Promise.all([
             this.jwtService.signAsync(
                 {
                     sub: userId,
-                    username,
+                    phoneNumber,
                 },
                 {
                     secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
@@ -75,7 +76,7 @@ export class AuthService {
             this.jwtService.signAsync(
                 {
                     sub: userId,
-                    username,
+                    phoneNumber,
                 },
                 {
                     secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
@@ -89,17 +90,18 @@ export class AuthService {
             refreshToken,
         };
     }
+
     async refreshTokens(userId: string, refreshToken: string) {
         const user = await this.userService.findById(userId);
         if (!user || !user.refreshToken)
-          throw new ForbiddenException('Access Denied');
+            throw new ForbiddenException('Access Denied');
         const refreshTokenMatches = await bcryptjs.verify(
-          user.refreshToken,
-          refreshToken,
+            user.refreshToken,
+            refreshToken,
         );
         if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
-        const tokens = await this.getTokens(user.id, user.username);
+        const tokens = await this.getTokens(user.id, user.phoneNumber);
         await this.updateRefreshToken(user.id, tokens.refreshToken);
         return tokens;
-      }
+    }
 }

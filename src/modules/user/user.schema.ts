@@ -1,14 +1,10 @@
-import { HydratedDocument, Model, Types } from 'mongoose';
+import { Types, Document } from 'mongoose';
 import {
   Prop,
   Schema,
-  SchemaFactory,
-  ModelDefinition,
-  InjectModel,
+  SchemaFactory
 } from '@nestjs/mongoose';
-import { Role } from '../../common/role.enum';
-
-import { Document } from 'mongoose';
+import { Role } from 'src/common/role.enum';
 
 export type UserDocument = User & Document;
 
@@ -80,18 +76,3 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-
-// export type UserDocument = HydratedDocument<User>;
-
-// export type UserModel = Model<User>;
-
-// export const UserModelDefinition: ModelDefinition = {
-//   name: User.name,
-//   schema: UserSchema,
-// };
-
-// export function InjectUserModel() {
-//   return function (target, key, index) {
-//     InjectModel(User.name)(target, key, index);
-//   };
-// }

@@ -43,6 +43,9 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# generate jwt secret
+$ node -e "console.log(require('crypto').randomBytes(256).toString('base64'));" 
 ```
 
 ## Test
