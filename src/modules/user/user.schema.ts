@@ -11,37 +11,37 @@ export type UserDocument = User & Document;
 @Schema({ collection: 'users' })
 
 export class User {
-  @Prop({ maxlength: 64 })
+  @Prop({ maxlength: 64, required: true })
   firstName: string;
 
-  @Prop({ maxlength: 64 })
+  @Prop({ maxlength: 64, required: true })
   lastName: string;
 
   @Prop({ maxlength: 64 })
   businessName: string;
 
-  @Prop({ maxlength: 192 })
+  @Prop({ maxlength: 192, required: true })
   address: string;
 
   @Prop({ maxlength: 64 })
   city: string;
-
+ 
   @Prop({maxlength: 64 })
   region: string;
 
-  @Prop({ nullable: true, maxlength: 100, unique: true })
+  @Prop({ nullable: true, maxlength: 100 })
   email: string;
 
-  @Prop({ nullable: true })
+  @Prop({ nullable: true, maxlength: 100 })
   password: string;
 
   @Prop()
   refreshToken: string;
 
-  @Prop({ unique: true, required: true, maxlength: 12 })
+  @Prop({ unique: true, maxlength: 15, required: true })
   phoneNumber: string;
 
-  @Prop({ type: String, required: true, enum: Role })
+  @Prop({ type: String, enum: Role, required: true })
   role: Role;
 
   @Prop({ type: Types.ObjectId })
@@ -53,8 +53,8 @@ export class User {
   @Prop({ default: 'defaultavatar.png'})
   photo: string;
 
-  @Prop({ maxlength: 40 })
-  userQRCode: string;
+  @Prop({ maxlength: 40, required: true })
+  userQRcode: string;
 
   @Prop({ maxlength: 255 })
   note: string;
@@ -75,4 +75,4 @@ export class User {
   totalPoints: number;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User).set('versionKey', false);

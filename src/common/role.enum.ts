@@ -1,7 +1,7 @@
 export enum Role {
-  Wholesaler = 'WHOLESALER',
-  Retailer = 'RETAILER',
-  Customer = 'CUSTOMER',
-  Cashier = 'CASHIER',
-  Loader = 'LOADER',
+  Wholesaler = 'wholesaler',
+  Retailer = 'retailer',
+  Customer = 'customer',
+  Cashier = 'cashier',
+  Loader = 'loader',
 }

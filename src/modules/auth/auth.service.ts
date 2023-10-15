@@ -22,10 +22,8 @@ export class AuthService {
         if (userExists) {
             throw new BadRequestException('User already exists');
         }
-        console.log(2222,createUserDto.password)
         // Hash password
         const hash = await this.hashData(createUserDto.password);
-        console.log(111,hash)
         const newUser = await this.userService.create({
             ...createUserDto,
             password: hash,
