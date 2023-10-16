@@ -1,4 +1,4 @@
 export class AuthDto {
-    phoneNumber: string;
-    password: string;
+  phone_number: string;
+  password: string;
 }

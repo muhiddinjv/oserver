@@ -21,7 +21,7 @@ export class AuthService {
   async signUp(createUserDto: CreateUserDto): Promise<any> {
     // Check if user exists
     const userExists = await this.userService.findByPhoneNumber(
-      createUserDto.phoneNumber,
+      createUserDto.phone_number,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
@@ -32,14 +32,14 @@ export class AuthService {
       ...createUserDto,
       password: hash,
     });
-    const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
-    await this.updateRefreshToken(newUser._id, tokens.refreshToken);
+    const tokens = await this.getTokens(newUser._id, newUser.phone_number);
+    await this.updateRefreshToken(newUser._id, tokens.refresh_token);
     return tokens;
   }
 
   async signIn(data: AuthDto) {
     // Check if user exists
-    const user = await this.userService.findByPhoneNumber(data.phoneNumber);
+    const user = await this.userService.findByPhoneNumber(data.phone_number);
     if (!user) throw new BadRequestException('User does not exist');
     const passwordMatches = await bcryptjs.compare(
       data.password,
@@ -47,13 +47,13 @@ export class AuthService {
     );
     if (!passwordMatches)
       throw new BadRequestException('Password is incorrect');
-    const tokens = await this.getTokens(user._id, user.phoneNumber);
-    await this.updateRefreshToken(user._id, tokens.refreshToken);
+    const tokens = await this.getTokens(user._id, user.phone_number);
+    await this.updateRefreshToken(user._id, tokens.refresh_token);
     return tokens;
   }
 
   async logout(userId: string) {
-    return this.userService.update(userId, { refreshToken: null });
+    return this.userService.update(userId, { refresh_token: null });
   }
 
   async hashData(data: string) {
@@ -61,19 +61,19 @@ export class AuthService {
     return bcryptjs.hashSync(data, salt);
   }
 
-  async updateRefreshToken(userId: string, refreshToken: string) {
-    const hashedRefreshToken = await this.hashData(refreshToken);
+  async updateRefreshToken(userId: string, refresh_token: string) {
+    const hashedRefreshToken = await this.hashData(refresh_token);
     await this.userService.update(userId, {
-      refreshToken: hashedRefreshToken,
+      refresh_token: hashedRefreshToken,
     });
   }
 
-  async getTokens(userId: string, phoneNumber: string) {
-    const [accessToken, refreshToken] = await Promise.all([
+  async getTokens(user_id: string, phone_number: string) {
+    const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(
         {
-          sub: userId,
-          phoneNumber,
+          sub: user_id,
+          phone_number,
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
@@ -82,8 +82,8 @@ export class AuthService {
       ),
       this.jwtService.signAsync(
         {
-          sub: userId,
-          phoneNumber,
+          sub: user_id,
+          phone_number,
         },
         {
           secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
@@ -92,22 +92,22 @@ export class AuthService {
       ),
     ]);
     return {
-      accessToken,
-      refreshToken,
+      access_token,
+      refresh_token,
     };
   }
 
-  async refreshTokens(userId: string, refreshToken: string) {
-    const user = await this.userService.findById(userId);
-    if (!user || !user.refreshToken)
+  async refreshTokens(user_id: string, refresh_token: string) {
+    const user = await this.userService.findById(user_id);
+    if (!user || !user.refresh_token)
       throw new ForbiddenException('Access Denied');
     const refreshTokenMatches = await bcryptjs.compare(
-      user.refreshToken,
-      refreshToken,
+      user.refresh_token,
+      refresh_token,
     );
     if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
-    const tokens = await this.getTokens(user.id, user.phoneNumber);
-    await this.updateRefreshToken(user.id, tokens.refreshToken);
+    const tokens = await this.getTokens(user.id, user.phone_number);
+    await this.updateRefreshToken(user.id, tokens.refresh_token);
     return tokens;
   }
 }

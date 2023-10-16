@@ -2,25 +2,25 @@ import { Document, Types } from 'mongoose';
 import { Role } from 'src/common/role.enum';
 
 export interface IUser extends Document {
-    readonly firstName: string;
-    readonly lastName: string;
-    readonly businessName: string;
+    readonly first_name: string;
+    readonly last_name: string;
+    readonly business_name: string;
     readonly address: string;
     readonly city: string;
     readonly region: string;
     readonly email: string | null;
     readonly password: string | null;
-    readonly refreshToken: string;
-    readonly phoneNumber: string;
+    readonly refresh_noken: string;
+    readonly phone_number: string;
     readonly role: Role;
-    readonly shopId: Types.ObjectId;
-    readonly isActive: boolean;
+    readonly shop_id: Types.ObjectId;
+    readonly is_active: boolean;
     readonly photo: string;
-    readonly userQRCode: string;
+    readonly user_qr_code: string;
     readonly note: string;
-    readonly firstVisit: Date;
-    readonly lastVisit: Date;
-    readonly totalVisits: number;
-    readonly totalSpent: number;
-    readonly totalPoints: number;
+    readonly first_visit: Date;
+    readonly last_visit: Date;
+    readonly total_visits: number;
+    readonly total_spent: number;
+    readonly total_points: number;
 }

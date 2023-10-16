@@ -22,8 +22,8 @@ export class UserService {
     return this.userModel.findById(id);
   }
 
-  async findByPhoneNumber(phoneNumber: string): Promise<UserDocument> {
-    return this.userModel.findOne({ phoneNumber }).exec();
+  async findByPhoneNumber(phone_number: string): Promise<UserDocument> {
+    return this.userModel.findOne({ phone_number }).exec();
   }
 
   async update(

@@ -1,32 +1,27 @@
 import { Types, Document } from 'mongoose';
-import {
-  Prop,
-  Schema,
-  SchemaFactory
-} from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Role } from 'src/common/role.enum';
 
 export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
-
 export class User {
   @Prop({ maxlength: 64, required: true })
-  firstName: string;
+  first_name: string;
 
   @Prop({ maxlength: 64, required: true })
-  lastName: string;
+  last_name: string;
 
   @Prop({ maxlength: 64 })
-  businessName: string;
+  business_mame: string;
 
   @Prop({ maxlength: 192, required: true })
   address: string;
 
   @Prop({ maxlength: 64 })
   city: string;
- 
-  @Prop({maxlength: 64 })
+
+  @Prop({ maxlength: 64 })
   region: string;
 
   @Prop({ nullable: true, maxlength: 100 })
@@ -36,43 +31,46 @@ export class User {
   password: string;
 
   @Prop()
-  refreshToken: string;
+  refresh_token: string;
 
   @Prop({ unique: true, maxlength: 15, required: true })
-  phoneNumber: string;
+  phone_number: string;
 
   @Prop({ type: String, enum: Role, required: true })
   role: Role;
 
   @Prop({ type: Types.ObjectId })
-  shopId: Types.ObjectId;
+  shop_id: Types.ObjectId;
 
   @Prop({ default: true })
-  isActive: boolean;
+  is_active: boolean;
 
-  @Prop({ default: 'defaultavatar.png'})
+  @Prop({ default: 'defaultavatar.png' })
   photo: string;
 
   @Prop({ maxlength: 40, required: true })
-  userQRcode: string;
+  user_qr_code: string;
 
   @Prop({ maxlength: 255 })
   note: string;
 
   @Prop()
-  firstVisit: Date;
+  first_visit: Date;
 
   @Prop()
-  lastVisit: Date;
+  last_visit: Date;
 
   @Prop({ default: 0 })
-  totalVisits: number;
+  total_visits: number;
 
   @Prop({ default: 0 })
-  totalSpent: number;
+  total_spent: number;
 
   @Prop({ default: 0 })
-  totalPoints: number;
+  total_points: number;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User).set('versionKey', false);
+export const UserSchema = SchemaFactory.createForClass(User).set(
+  'versionKey',
+  false,
+);
