@@ -42,8 +42,8 @@ export class AuthService {
     const user = await this.userService.findByPhoneNumber(data.phoneNumber);
     if (!user) throw new BadRequestException('User does not exist');
     const passwordMatches = await bcryptjs.compare(
-      user.password,
       data.password,
+      user.password,
     );
     if (!passwordMatches)
       throw new BadRequestException('Password is incorrect');
@@ -91,7 +91,6 @@ export class AuthService {
         },
       ),
     ]);
- 
     return {
       accessToken,
       refreshToken,
