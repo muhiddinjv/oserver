@@ -28,7 +28,7 @@ export class Items {
   @Prop({ default: false })
   use_production: boolean;
 
-  @Prop({ type: [String] })
+  @Prop({ type: [] })
   components: [];
 
   @Prop({ type: Types.ObjectId })
