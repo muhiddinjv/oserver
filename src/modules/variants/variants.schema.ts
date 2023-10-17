@@ -1,4 +1,5 @@
 import { Document, Types } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { PricingType } from 'src/common/pricing_type.enum';
 export type VariantsDocument = Variants & Document;
@@ -6,10 +7,10 @@ export type VariantsDocument = Variants & Document;
 @Schema({ collection: 'variants' })
 export class Variants {
   @Prop({ type: Types.ObjectId })
-  item_id: Types.ObjectId;
+  item_id: string;
 
-  @Prop({ type: Types.ObjectId, maxlength: 128 })
-  reference_variant_id: Types.ObjectId;
+  @Prop({ default: () => uuidv4() })
+  reference_variant_id: string;
 
   @Prop({ maxlength: 40, required: true })
   sku: string;

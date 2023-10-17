@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Variants, VariantsDocument } from '../variants/variants.schema';
 import { CreateItemsDto } from './dto/create-items.dto';
 import { UpdateItemsDto } from './dto/update-items.dto';
 import { Items, ItemsDocument } from './items.schema';
@@ -18,11 +19,22 @@ export class ItemsService {
   }
 
   async findAll(): Promise<ItemsDocument[]> {
-    return this.itemsModel.find().exec();
+    return await this.itemsModel
+      .find()
+      .populate('variants')
+      .populate('components');
   }
 
   async findById(id: string): Promise<ItemsDocument> {
-    return this.itemsModel.findById(id);
+    try {
+      return this.itemsModel.findById(id).populate('variants');
+    } catch (error) {
+      new BadRequestException('Item not found.');
+    }
+  }
+
+  async findByreferenceId(id: string): Promise<ItemsDocument> {
+    return this.itemsModel.findOne({ reference_id: id });
   }
 
   async update(

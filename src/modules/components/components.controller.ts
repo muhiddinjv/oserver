@@ -6,10 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 
-import { AccessTokenGuard } from 'src/common/guards/acessToken.guard';
 import { ComponentsService } from './components.service';
 import { CreateComponentsDto } from './dto/create-components.dto';
 import { UpdateComponentsDto } from './dto/update-components.dto';
@@ -19,8 +17,8 @@ export class ComponentsController {
   constructor(private readonly ComponentsService: ComponentsService) {}
 
   @Post()
-  create(@Body() createComponentsDto: CreateComponentsDto) {
-    return this.ComponentsService.create(createComponentsDto);
+  async create(@Body() createComponentsDto: CreateComponentsDto) {
+    return await this.ComponentsService.create(createComponentsDto);
   }
 
   @Get()

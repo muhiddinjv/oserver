@@ -1,5 +1,8 @@
 import { Document, Types } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Variants } from '../variants/variants.schema';
+import { Components } from '../components/components.schema';
 export type ItemsDocument = Items & Document;
 
 @Schema({ collection: 'items' })
@@ -10,11 +13,14 @@ export class Items {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ type: Types.ObjectId })
-  reference_id: Types.ObjectId;
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Variants' }] })
+  variants: Variants[];
+
+  @Prop({ default: () => uuidv4() })
+  reference_id: string;
 
   @Prop({ type: Types.ObjectId })
-  category_id: Types.ObjectId;
+  category_id: { type: Types.ObjectId; ref: 'Categories' };
 
   @Prop({ default: false })
   track_stock: boolean;
@@ -28,8 +34,8 @@ export class Items {
   @Prop({ default: false })
   use_production: boolean;
 
-  @Prop({ type: [] })
-  components: [];
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Components' }] })
+  components: Components[];
 
   @Prop({ type: Types.ObjectId })
   primary_supplier_id: Types.ObjectId;

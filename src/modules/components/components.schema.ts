@@ -1,12 +1,11 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { PricingType } from 'src/common/pricing_type.enum';
 export type ComponentsDocument = Components & Document;
 
 @Schema({ collection: 'components' })
 export class Components {
   @Prop({ type: Types.ObjectId })
-  variant_id: Types.ObjectId;
+  variant_id: string;
 
   @Prop()
   quantity: number;

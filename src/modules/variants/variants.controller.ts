@@ -6,10 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 
-import { AccessTokenGuard } from 'src/common/guards/acessToken.guard';
 import { VariantsService } from './variants.service';
 import { CreateVariantsDto } from './dto/create-variants.dto';
 import { UpdateVariantsDto } from './dto/update-variants.dto';
