@@ -7,7 +7,7 @@ export type ItemsDocument = Items & Document;
 
 @Schema({ collection: 'items' })
 export class Items {
-  @Prop({ maxlength: 64 })
+  @Prop({ maxlength: 64, required: true })
   item_name: string;
 
   @Prop({ required: true })

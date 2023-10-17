@@ -1,5 +1,6 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Items } from '../items/items.schema';
 export type CategoriesDocument = Categories & Document;
 
 @Schema({ collection: 'categories' })
@@ -19,8 +20,8 @@ export class Categories {
   @Prop({ type: Types.ObjectId })
   shop_id: Types.ObjectId;
 
-  @Prop({ type: [String] })
-  products: string[];
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Items' }] })
+  products: Items[];
 
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;

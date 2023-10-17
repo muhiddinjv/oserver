@@ -1,6 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import {
+  Categories,
+  CategoriesDocument,
+} from '../categories/categories.schema';
 import { Variants, VariantsDocument } from '../variants/variants.schema';
 import { CreateItemsDto } from './dto/create-items.dto';
 import { UpdateItemsDto } from './dto/update-items.dto';
@@ -11,11 +15,22 @@ export class ItemsService {
   constructor(
     @InjectModel(Items?.name)
     private itemsModel: Model<ItemsDocument>,
+    @InjectModel(Categories?.name)
+    private categoriesModel: Model<CategoriesDocument>,
   ) {}
 
-  async create(createItemsDto: CreateItemsDto): Promise<ItemsDocument> {
-    const createdUser = new this.itemsModel(createItemsDto);
-    return createdUser.save();
+  async create(createItemsDto: CreateItemsDto) {
+    const category = await this.categoriesModel
+      .findById(createItemsDto?.category_id)
+      .exec();
+    if (!category) {
+      throw new BadRequestException('category not found.');
+    }
+
+    const createdItems = new this.itemsModel(createItemsDto);
+    category?.products.push(createdItems);
+    await category.save();
+    return createdItems.save();
   }
 
   async findAll(): Promise<ItemsDocument[]> {
@@ -27,7 +42,10 @@ export class ItemsService {
 
   async findById(id: string): Promise<ItemsDocument> {
     try {
-      return this.itemsModel.findById(id).populate('variants');
+      return this.itemsModel
+        .findById(id)
+        .populate('variants')
+        .populate('components');
     } catch (error) {
       new BadRequestException('Item not found.');
     }
