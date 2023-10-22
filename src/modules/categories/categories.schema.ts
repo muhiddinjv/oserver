@@ -20,7 +20,7 @@ export class Categories {
   @Prop({ type: Types.ObjectId })
   shop_id: Types.ObjectId;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Items' }] })
+  @Prop({ type: [{ type: Types.ObjectId }] })
   products: Items[];
 
   @Prop({ type: Date, default: Date.now })

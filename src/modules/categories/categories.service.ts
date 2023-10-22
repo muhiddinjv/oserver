@@ -20,7 +20,16 @@ export class CategoriesService {
   }
 
   async findAll(): Promise<CategoriesDocument[]> {
-    return this.categoriesModel.find().exec();
+    return this.categoriesModel.aggregate([
+      {
+        $lookup: {
+          from: 'items',
+          localField: 'products',
+          foreignField: '_id',
+          as: 'productsArr',
+        },
+      },
+    ]);
   }
 
   async findById(id: string): Promise<CategoriesDocument> {

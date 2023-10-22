@@ -34,10 +34,32 @@ export class ItemsService {
   }
 
   async findAll(): Promise<ItemsDocument[]> {
-    return await this.itemsModel
-      .find()
-      .populate('variants')
-      .populate('components');
+    return await this.itemsModel.aggregate([
+      {
+        $lookup: {
+          from: 'variants',
+          localField: 'variants',
+          foreignField: '_id',
+          as: 'variantsArr',
+        },
+      },
+      {
+        $lookup: {
+          from: 'components',
+          localField: 'components',
+          foreignField: '_id',
+          as: 'componentsArr',
+        },
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: 'category_id',
+          as: 'category',
+        },
+      },
+    ]);
   }
 
   async findById(id: string): Promise<ItemsDocument> {

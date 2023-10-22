@@ -13,14 +13,14 @@ export class Items {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Variants' }] })
+  @Prop({ type: [{ type: Types.ObjectId }] })
   variants: Variants[];
 
   @Prop({ default: () => uuidv4() })
   reference_id: string;
 
   @Prop({ type: Types.ObjectId })
-  category_id: { type: Types.ObjectId; ref: 'Categories' };
+  category_id: { type: Types.ObjectId };
 
   @Prop({ default: false })
   track_stock: boolean;
