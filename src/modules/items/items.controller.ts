@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { AccessTokenGuard } from 'src/common/guards/acessToken.guard';
+import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 import { ItemsService } from './items.service';
 import { CreateItemsDto } from './dto/create-items.dto';
 import { UpdateItemsDto } from './dto/update-items.dto';

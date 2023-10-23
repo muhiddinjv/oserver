@@ -1,5 +1,5 @@
 import { Document, Types } from 'mongoose';
-import { Role } from 'src/common/role.enum';
+import { Role } from './role.enum';
 
 export interface IUser extends Document {
   readonly first_name: string;
