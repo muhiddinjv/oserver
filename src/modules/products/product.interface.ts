@@ -1,8 +1,8 @@
 import { Document } from 'mongoose';
-import { IComponents } from '../components/components.interface';
-import { IVariants } from '../variants/variants.interface';
+import { Icomponent } from '../components/component.interface';
+import { IVariant } from '../variants/variant.interface';
 
-export interface IItems extends Document {
+export interface IProduct extends Document {
   readonly item_name: string;
   readonly description: string;
   readonly reference_id: string;
@@ -11,7 +11,7 @@ export interface IItems extends Document {
   readonly sold_by_weight: boolean;
   readonly is_composite: boolean;
   readonly use_production: boolean;
-  readonly components: IComponents[];
+  readonly components: Icomponent[];
   readonly primary_supplier_id: string;
   readonly tax_ids: string;
   readonly form: string;
@@ -19,5 +19,5 @@ export interface IItems extends Document {
   readonly option1_name: string;
   readonly option2_name: string;
   readonly option3_name: string;
-  readonly variants: IVariants[];
+  readonly variants: IVariant[];
 }

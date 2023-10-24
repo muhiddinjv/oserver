@@ -1,12 +1,12 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Items } from '../items/items.schema';
-export type CategoriesDocument = Categories & Document;
+import { Product } from '../products/product.schema';
+export type CategoryDocument = Category & Document;
 
 @Schema({ collection: 'categories' })
-export class Categories {
+export class Category {
   @Prop({ maxlength: 64 })
-  categories_image: string;
+  category_image: string;
 
   @Prop({ maxlength: 64, required: true })
   category_name: string;
@@ -21,7 +21,7 @@ export class Categories {
   shop_id: Types.ObjectId;
 
   @Prop({ type: [{ type: Types.ObjectId }] })
-  products: Items[];
+  products: Product[];
 
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;
@@ -30,7 +30,7 @@ export class Categories {
   updatedAt: Date;
 }
 
-export const CategoriesSchema = SchemaFactory.createForClass(Categories).set(
+export const CategorySchema = SchemaFactory.createForClass(Category).set(
   'versionKey',
   false,
 );

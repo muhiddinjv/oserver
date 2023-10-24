@@ -1,10 +1,10 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { PricingType } from 'src/common/pricing_type.enum';
-export type ShopsDocument = Shops & Document;
+export type ShopDocument = Shop & Document;
 
 @Schema({ collection: 'shops' })
-export class Shops {
+export class Shop {
   @Prop({ default: PricingType.VARIABLE, enum: PricingType })
   pricing_type: PricingType;
 
@@ -27,7 +27,7 @@ export class Shops {
   updatedAt: Date;
 }
 
-export const ShopsSchema = SchemaFactory.createForClass(Shops).set(
+export const ShopSchema = SchemaFactory.createForClass(Shop).set(
   'versionKey',
   false,
 );

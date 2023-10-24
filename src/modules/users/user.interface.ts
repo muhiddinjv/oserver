@@ -10,7 +10,7 @@ export interface IUser extends Document {
   readonly region: string;
   readonly email: string | null;
   readonly password: string | null;
-  readonly refresh_noken: string;
+  readonly refresh_token: string;
   readonly phone_number: string;
   readonly role: Role;
   readonly shop_id: Types.ObjectId;

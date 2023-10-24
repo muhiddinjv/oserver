@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Items, ItemsDocument } from '../items/items.schema';
-import { Variants, VariantsDocument } from '../variants/variants.schema';
-import { Components, ComponentsDocument } from './components.schema';
+import { Products, ProductsDocument } from '../products/products.schema';
+import { Variants, VariantsDocument } from '../variants/variant.schema';
+import { Components, ComponentDocument } from './component.schema';
 import { CreateComponentsDto } from './dto/create-components.dto';
 import { UpdateComponentsDto } from './dto/update-components.dto';
 
@@ -11,8 +11,8 @@ import { UpdateComponentsDto } from './dto/update-components.dto';
 export class ComponentsService {
   constructor(
     @InjectModel(Components?.name)
-    private ComponentsModel: Model<ComponentsDocument>,
-    @InjectModel(Items?.name) private ItemsModel: Model<ItemsDocument>,
+    private ComponentsModel: Model<ComponentDocument>,
+    @InjectModel(Products?.name) private ProductsModel: Model<ProductsDocument>,
     @InjectModel(Variants?.name) private VariantsModel: Model<VariantsDocument>,
   ) {}
 
@@ -23,39 +23,39 @@ export class ComponentsService {
     if (!Variant) {
       throw new BadRequestException('Variant not found.');
     }
-    const Items = await this.ItemsModel.findById(Variant?.item_id).exec();
-    if (!Items) {
-      throw new BadRequestException('Items not found.');
+    const Products = await this.ProductsModel.findById(Variant?.item_id).exec();
+    if (!Products) {
+      throw new BadRequestException('Products not found.');
     }
-    console.log(Items?.components);
+    console.log(Products?.components);
 
     const createdComponents = new this.ComponentsModel(createComponentsDto);
 
-    Items?.components.push(createdComponents);
+    Products?.components.push(createdComponents);
     createdComponents.save();
-    Items.save();
+    Products.save();
 
     return createdComponents;
   }
 
-  async findAll(): Promise<ComponentsDocument[]> {
+  async findAll(): Promise<ComponentDocument[]> {
     return this.ComponentsModel.find().exec();
   }
 
-  async findById(id: string): Promise<ComponentsDocument> {
+  async findById(id: string): Promise<ComponentDocument> {
     return this.ComponentsModel.findById(id);
   }
 
   async update(
     id: string,
     updateComponentsDto: UpdateComponentsDto,
-  ): Promise<ComponentsDocument> {
+  ): Promise<ComponentDocument> {
     return this.ComponentsModel.findByIdAndUpdate(id, updateComponentsDto, {
       new: true,
     }).exec();
   }
 
-  async remove(id: string): Promise<ComponentsDocument> {
+  async remove(id: string): Promise<ComponentDocument> {
     return this.ComponentsModel.findByIdAndDelete(id).exec();
   }
 }

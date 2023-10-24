@@ -1,12 +1,12 @@
 import { Document, Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Variants } from '../variants/variants.schema';
-import { Components } from '../components/components.schema';
-export type ItemsDocument = Items & Document;
+import { Variant } from '../variants/variant.schema';
+import { Components } from '../components/component.schema';
+export type ProductDocument = Product & Document;
 
-@Schema({ collection: 'items' })
-export class Items {
+@Schema({ collection: 'products' })
+export class Product {
   @Prop({ maxlength: 64, required: true })
   item_name: string;
 
@@ -14,7 +14,7 @@ export class Items {
   description: string;
 
   @Prop({ type: [{ type: Types.ObjectId }] })
-  variants: Variants[];
+  variants: Variant[];
 
   @Prop({ default: () => uuidv4() })
   reference_id: string;
@@ -71,7 +71,7 @@ export class Items {
   updatedAt: Date;
 }
 
-export const ItemsSchema = SchemaFactory.createForClass(Items).set(
+export const ProductSchema = SchemaFactory.createForClass(Product).set(
   'versionKey',
   false,
 );

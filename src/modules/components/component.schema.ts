@@ -1,9 +1,9 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-export type ComponentsDocument = Components & Document;
+export type ComponentDocument = Component & Document;
 
 @Schema({ collection: 'components' })
-export class Components {
+export class Component {
   @Prop({ type: Types.ObjectId })
   variant_id: string;
 
@@ -17,7 +17,7 @@ export class Components {
   updatedAt: Date;
 }
 
-export const ComponentsSchema = SchemaFactory.createForClass(Components).set(
+export const ComponentSchema = SchemaFactory.createForClass(Component).set(
   'versionKey',
   false,
 );

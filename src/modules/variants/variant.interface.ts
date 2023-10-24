@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IVariants extends Document {
+export interface IVariant extends Document {
   readonly item_id: string;
   readonly sku: string;
   readonly reference_variant_id: string;

@@ -19,10 +19,10 @@ exports.permits = [
     "CUSTOMERS_READ", // Read customer information
     "CUSTOMERS_WRITE", // Edit customer information
     "EMPLOYEES_READ", // Read employee information
-    "ITEMS_READ", // Read items, categories, discounts and modifiers
+    "PRODUCTS_READ", // Read products, categories, discounts and modifiers
     "INVENTORY_READ", // Read inventory
     "INVENTORY_WRITE",// Edit inventory
-    "ITEMS_WRITE",// Edit items, discounts, categories and modifiers
+    "PRODUCTS_WRITE",// Edit products, discounts, categories and modifiers
     "MERCHANT_READ", // Read merchant information
     "PAYMENT_TYPES_READ", // Read payment types
     "POS_DEVICES_READ", // Read POS devices information
@@ -40,13 +40,13 @@ exports.pos_permits = [
     "Apply discounts with restricted access",
     "Change taxes in a sale",
     "Manage all open tickets",
-    "Void saved items in open tickets",
+    "Void saved products in open tickets",
     "Open cash drawer without making a sale",
     "View all receipts",
     "Perform refunds",
     "Reprint and resend receipts",
-    "Manage items",
-    "View cost of items",
+    "Manage products",
+    "View cost of products",
     "Change settings",
     "Access to live chat support"
 ];
@@ -54,8 +54,8 @@ exports.pos_permits = [
 exports.web_permits = [
     "View sales reports",
     "Cancel receipts",
-    "Manage items",
-    "View cost of items",
+    "Manage products",
+    "View cost of products",
     "Manage employees",
     "Manage customers",
     "Edit general settings",

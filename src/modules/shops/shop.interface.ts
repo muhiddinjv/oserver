@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IShops extends Document {
+export interface IShop extends Document {
   readonly pricing_type: string;
   readonly price: number;
   readonly available_for_sale: boolean;

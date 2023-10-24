@@ -2,10 +2,10 @@ import { Document, Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { PricingType } from 'src/common/pricing_type.enum';
-export type VariantsDocument = Variants & Document;
+export type VariantDocument = Variant & Document;
 
 @Schema({ collection: 'variants' })
-export class Variants {
+export class Variant {
   @Prop({ type: Types.ObjectId })
   item_id: string;
 
@@ -49,7 +49,7 @@ export class Variants {
   updatedAt: Date;
 }
 
-export const VariantsSchema = SchemaFactory.createForClass(Variants).set(
+export const VariantSchema = SchemaFactory.createForClass(Variant).set(
   'versionKey',
   false,
 );

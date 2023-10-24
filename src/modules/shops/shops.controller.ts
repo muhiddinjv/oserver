@@ -9,16 +9,16 @@ import {
 } from '@nestjs/common';
 
 import { ShopsService } from './shops.service';
-import { CreateShopsDto } from './dto/create-shops.dto';
-import { UpdateShopsDto } from './dto/update-shops.dto';
+import { CreateShopDto } from './dto/create-shop.dto';
+import { UpdateShopDto } from './dto/update-shop.dto';
 
 @Controller('shops')
 export class ShopsController {
   constructor(private readonly ShopsService: ShopsService) {}
 
   @Post()
-  async create(@Body() createShopsDto: CreateShopsDto) {
-    return await this.ShopsService.create(createShopsDto);
+  async create(@Body() createShopDto: CreateShopDto) {
+    return await this.ShopsService.create(createShopDto);
   }
 
   @Get()
@@ -32,8 +32,8 @@ export class ShopsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateShopsDto: UpdateShopsDto) {
-    return this.ShopsService.update(id, updateShopsDto);
+  update(@Param('id') id: string, @Body() updateShopDto: UpdateShopDto) {
+    return this.ShopsService.update(id, updateShopDto);
   }
 
   @Delete(':id')

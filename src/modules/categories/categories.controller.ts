@@ -11,16 +11,16 @@ import {
 
 import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 import { CategoriesService } from './categories.service';
-import { CreateCategoriesDto } from './dto/create-categories.dto';
-import { UpdateCategoriesDto } from './dto/update-categories.dto';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  create(@Body() createCategoriesDto: CreateCategoriesDto) {
-    return this.categoriesService.create(createCategoriesDto);
+  create(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
@@ -36,9 +36,9 @@ export class CategoriesController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateCategoriesDto: UpdateCategoriesDto,
+    @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(id, updateCategoriesDto);
+    return this.categoriesService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')

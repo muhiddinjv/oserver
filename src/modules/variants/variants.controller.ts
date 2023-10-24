@@ -9,16 +9,16 @@ import {
 } from '@nestjs/common';
 
 import { VariantsService } from './variants.service';
-import { CreateVariantsDto } from './dto/create-variants.dto';
-import { UpdateVariantsDto } from './dto/update-variants.dto';
+import { CreateVariantDto } from './dto/create-variant.dto';
+import { UpdateVariantDto } from './dto/update-variant.dto';
 
 @Controller('variants')
 export class VariantsController {
   constructor(private readonly VariantsService: VariantsService) {}
 
   @Post()
-  create(@Body() createVariantsDto: CreateVariantsDto) {
-    return this.VariantsService.create(createVariantsDto);
+  create(@Body() createVariantDto: CreateVariantDto) {
+    return this.VariantsService.create(createVariantDto);
   }
 
   @Get()
@@ -34,9 +34,9 @@ export class VariantsController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateVariantsDto: UpdateVariantsDto,
+    @Body() updateVariantDto: UpdateVariantDto,
   ) {
-    return this.VariantsService.update(id, updateVariantsDto);
+    return this.VariantsService.update(id, updateVariantDto);
   }
 
   @Delete(':id')

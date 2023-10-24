@@ -1,4 +1,4 @@
-export class CreateVariantsDto {
+export class CreateVariantDto {
   item_id: string;
   sku: string;
   option1_value: string;
