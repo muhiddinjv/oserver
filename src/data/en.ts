@@ -30,7 +30,7 @@ exports.permits = [
     "RECEIPTS_READ", // Read receipts
     "RECEIPTS_WRITE", // Create receipts
     "SHIFTS_READ", // Read shifts
-    "STORES_READ", // Read store information
+    "SHOPS_READ", // Read store information
     "SUPPLIERS_READ", // Read supplier information
     "SUPPLIERS_WRITE", // Edit supplier information
 ];
@@ -67,3 +67,8 @@ exports.web_permits = [
     "This permission also allows to sign into POS using email and password",
     "Access to live chat support"
 ];
+
+/*
+MERCHANTS can: CRUD their own products, retailers, roles for retailers, check on/off permissions for retailers,
+RETAILERS can: CRUD their own products, customers, roles for customers, check on/off permissions for customers
+*/

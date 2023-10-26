@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="FbO4DC4GYSVrm8Huperx" name="Page-1">
-        <mxGraphModel dx="1387" dy="467" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="none" math="0" shadow="0">
+        <mxGraphModel dx="1747" dy="784" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -24,7 +24,7 @@
                     <mxGeometry y="26" width="90" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="31" value="PRODUCT" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#d80073;fontColor=#ffffff;strokeColor=#A50040;" parent="1" vertex="1">
-                    <mxGeometry x="160" y="40" width="120" height="296" as="geometry">
+                    <mxGeometry x="320" y="40" width="120" height="296" as="geometry">
                         <mxRectangle x="320" y="50" width="110" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
@@ -56,7 +56,7 @@
                     <mxGeometry y="266" width="120" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="42" value="USER" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" parent="1" vertex="1">
-                    <mxGeometry x="320" y="40" width="120" height="296" as="geometry">
+                    <mxGeometry x="160" y="40" width="120" height="296" as="geometry">
                         <mxRectangle x="490" y="50" width="80" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
@@ -88,7 +88,7 @@
                     <mxGeometry y="266" width="120" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="52" value="ORDER" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#f0a30a;strokeColor=#BD7000;fontColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="480" y="40" width="120" height="146" as="geometry">
+                    <mxGeometry x="480" y="190" width="120" height="146" as="geometry">
                         <mxRectangle x="650" y="50" width="90" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
@@ -105,7 +105,7 @@
                     <mxGeometry y="116" width="120" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="65" value="ORDER_ITEM" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#76608a;strokeColor=#432D57;fontColor=#ffffff;" parent="1" vertex="1">
-                    <mxGeometry x="640" y="40" width="120" height="116" as="geometry">
+                    <mxGeometry x="480" y="40" width="120" height="116" as="geometry">
                         <mxRectangle x="650" y="50" width="90" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>

@@ -1,35 +1,35 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Products, ProductsDocument } from '../products/products.schema';
-import { Variants, VariantsDocument } from '../variants/variant.schema';
-import { Components, ComponentDocument } from './component.schema';
-import { CreateComponentsDto } from './dto/create-components.dto';
-import { UpdateComponentsDto } from './dto/update-components.dto';
+import { Product, ProductDocument } from '../products/product.schema';
+import { Variant, VariantDocument } from '../variants/variant.schema';
+import { Component, ComponentDocument } from './component.schema';
+import { CreateComponentDto } from './dto/create-component.dto';
+import { UpdateComponentDto } from './dto/update-component.dto';
 
 @Injectable()
 export class ComponentsService {
   constructor(
-    @InjectModel(Components?.name)
+    @InjectModel(Component?.name)
     private ComponentsModel: Model<ComponentDocument>,
-    @InjectModel(Products?.name) private ProductsModel: Model<ProductsDocument>,
-    @InjectModel(Variants?.name) private VariantsModel: Model<VariantsDocument>,
+    @InjectModel(Product?.name) private ProductsModel: Model<ProductDocument>,
+    @InjectModel(Variant?.name) private VariantsModel: Model<VariantDocument>,
   ) {}
 
-  async create(createComponentsDto: CreateComponentsDto) {
+  async create(createComponentDto: CreateComponentDto) {
     const Variant = await this.VariantsModel.findById(
-      createComponentsDto?.variants_id,
+      createComponentDto?.variantId,
     ).exec();
     if (!Variant) {
       throw new BadRequestException('Variant not found.');
     }
-    const Products = await this.ProductsModel.findById(Variant?.item_id).exec();
+    const Products = await this.ProductsModel.findById(Variant?.productId).exec();
     if (!Products) {
       throw new BadRequestException('Products not found.');
     }
     console.log(Products?.components);
 
-    const createdComponents = new this.ComponentsModel(createComponentsDto);
+    const createdComponents = new this.ComponentsModel(createComponentDto);
 
     Products?.components.push(createdComponents);
     createdComponents.save();
@@ -48,9 +48,9 @@ export class ComponentsService {
 
   async update(
     id: string,
-    updateComponentsDto: UpdateComponentsDto,
+    updateComponentDto: UpdateComponentDto,
   ): Promise<ComponentDocument> {
-    return this.ComponentsModel.findByIdAndUpdate(id, updateComponentsDto, {
+    return this.ComponentsModel.findByIdAndUpdate(id, updateComponentDto, {
       new: true,
     }).exec();
   }

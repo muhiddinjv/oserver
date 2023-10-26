@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 
 import { ComponentsService } from './components.service';
-import { CreateComponentsDto } from './dto/create-components.dto';
-import { UpdateComponentsDto } from './dto/update-components.dto';
+import { CreateComponentsDto } from './dto/create-component.dto';
+import { UpdateComponentsDto } from './dto/update-component.dto';
 
 @Controller('components')
 export class ComponentsController {

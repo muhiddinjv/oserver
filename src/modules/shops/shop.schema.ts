@@ -1,24 +1,24 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { PricingType } from 'src/common/pricing_type.enum';
+import { PricingType } from 'src/enums/pricing_type.enum';
 export type ShopDocument = Shop & Document;
 
 @Schema({ collection: 'shops' })
 export class Shop {
   @Prop({ default: PricingType.VARIABLE, enum: PricingType })
-  pricing_type: PricingType;
+  pricingType: PricingType;
 
   @Prop()
   price: number;
 
   @Prop({ default: true })
-  available_for_sale: boolean;
+  availableForSale: boolean;
 
   @Prop({ default: null })
-  optimal_stock: number;
+  optimalStock: number;
 
   @Prop({ default: null })
-  low_stock: number;
+  lowStock: number;
 
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;

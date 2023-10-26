@@ -1,19 +1,19 @@
 import { Types, Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Role } from './role.enum';
+import { Role } from '../../enums/role.enum';
 
 export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
 export class User {
   @Prop({ maxlength: 64, required: true })
-  first_name: string;
+  firstName: string;
 
   @Prop({ maxlength: 64, required: true })
-  last_name: string;
+  lastName: string;
 
   @Prop({ maxlength: 64 })
-  business_mame: string;
+  businessName: string;
 
   @Prop({ maxlength: 192, required: true })
   address: string;
@@ -31,43 +31,43 @@ export class User {
   password: string;
 
   @Prop()
-  refresh_token: string;
+  refreshToken: string;
 
   @Prop({ unique: true, maxlength: 15, required: true })
-  phone_number: string;
+  phoneNumber: string;
 
   @Prop({ type: String, enum: Role, required: true })
   role: Role;
 
   @Prop({ type: Types.ObjectId })
-  shop_id: Types.ObjectId;
+  shopId: Types.ObjectId;
 
   @Prop({ default: true })
-  is_active: boolean;
+  isActive: boolean;
 
   @Prop({ default: 'defaultavatar.png' })
   photo: string;
 
   @Prop({ maxlength: 40, required: true })
-  user_qr_code: string;
+  userQrCode: string;
 
   @Prop({ maxlength: 255 })
   note: string;
 
   @Prop()
-  first_visit: Date;
+  firstVisit: Date;
 
   @Prop()
-  last_visit: Date;
+  lastVisit: Date;
 
   @Prop({ default: 0 })
-  total_visits: number;
+  totalVisits: number;
 
   @Prop({ default: 0 })
-  total_spent: number;
+  totalSpent: number;
 
   @Prop({ default: 0 })
-  total_points: number;
+  totalPoints: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User).set(

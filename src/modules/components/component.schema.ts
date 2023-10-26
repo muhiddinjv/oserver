@@ -5,7 +5,7 @@ export type ComponentDocument = Component & Document;
 @Schema({ collection: 'components' })
 export class Component {
   @Prop({ type: Types.ObjectId })
-  variant_id: string;
+  variantId: string;
 
   @Prop()
   quantity: number;

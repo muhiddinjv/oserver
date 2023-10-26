@@ -1,28 +1,28 @@
 import { Document, Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { PricingType } from 'src/common/pricing_type.enum';
+import { PricingType } from 'src/enums/pricing_type.enum';
 export type VariantDocument = Variant & Document;
 
 @Schema({ collection: 'variants' })
 export class Variant {
   @Prop({ type: Types.ObjectId })
-  item_id: string;
+  productId: string;
 
   @Prop({ default: () => uuidv4() })
-  reference_variant_id: string;
+  referenceVariantId: string;
 
   @Prop({ maxlength: 40, required: true })
   sku: string;
 
   @Prop({ maxlength: 20, required: true })
-  option1_value: string;
+  option1Value: string;
 
   @Prop({ maxlength: 20, required: true })
-  option2_value: string;
+  option2Value: string;
 
   @Prop({ maxlength: 20, required: true })
-  option3_value: string;
+  option3Value: string;
 
   @Prop({ maxlength: 128, required: true })
   barcode: string;
@@ -31,16 +31,16 @@ export class Variant {
   cost: number;
 
   @Prop({ default: 0 })
-  purchase_cost: number;
+  purchaseCost: number;
 
   @Prop({ default: PricingType.VARIABLE, enum: PricingType })
-  default_pricing_type: PricingType;
+  defaultPricingType: PricingType;
 
   @Prop()
-  default_price: number;
+  defaultPrice: number;
 
   @Prop({ type: [] })
-  stores: [];
+  shops: [];
 
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;

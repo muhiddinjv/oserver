@@ -2,13 +2,13 @@ import { Document, Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Variant } from '../variants/variant.schema';
-import { Components } from '../components/component.schema';
+import { Component } from '../components/component.schema';
 export type ProductDocument = Product & Document;
 
 @Schema({ collection: 'products' })
 export class Product {
   @Prop({ maxlength: 64, required: true })
-  item_name: string;
+  productName: string;
 
   @Prop({ required: true })
   description: string;
@@ -17,34 +17,31 @@ export class Product {
   variants: Variant[];
 
   @Prop({ default: () => uuidv4() })
-  reference_id: string;
+  referenceId: string;
 
   @Prop({ type: Types.ObjectId })
-  category_id: { type: Types.ObjectId };
+  categoryId: { type: Types.ObjectId };
 
   @Prop({ default: false })
-  track_stock: boolean;
+  trackStock: boolean;
 
   @Prop({ default: false })
-  sold_by_weight: boolean;
+  soldByWeight: boolean;
 
   @Prop({ default: false })
-  is_composite: boolean;
+  isComposite: boolean;
 
   @Prop({ default: false })
-  use_production: boolean;
+  useProduction: boolean;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Components' }] })
-  components: Components[];
+  components: Component[];
 
   @Prop({ type: Types.ObjectId })
-  primary_supplier_id: Types.ObjectId;
+  primarySupplierId: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId })
-  tax_ids: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId })
-  modifiers_ids: Types.ObjectId;
+  modifiersIds: Types.ObjectId;
 
   @Prop({ required: true })
   form: string;
@@ -56,13 +53,13 @@ export class Product {
   image_url: string;
 
   @Prop({ required: true })
-  option1_name: string;
+  option1Name: string;
 
   @Prop({ required: true })
-  option2_name: string;
+  option2Name: string;
 
   @Prop({ required: true })
-  option3_name: string;
+  option3Name: string;
 
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;

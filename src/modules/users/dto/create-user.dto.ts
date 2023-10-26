@@ -1,10 +1,10 @@
 export class CreateUserDto {
-  first_name: string;
-  phone_number: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   password: string;
   role: string;
-  refresh_token: string;
-  last_name: string;
+  refreshToken: string;
   address: string;
-  user_qr_code: string;
+  userQrCode: string;
 }
