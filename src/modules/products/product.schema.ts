@@ -27,6 +27,7 @@ export class Product {
 
   @Prop({ default: false })
   soldByWeight: boolean;
+  
 
   @Prop({ default: false })
   isComposite: boolean;

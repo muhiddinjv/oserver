@@ -1,4 +1,11 @@
+import { ApiProperty } from '@nestjs/swagger';
 export class CreateShopDto {
-  quantity: number;
-  variants_id: string;
+
+  
+  @ApiProperty({
+    description: `price`,
+    example: 5,
+  })
+  price: number;
+ 
 }
