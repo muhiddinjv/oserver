@@ -21,7 +21,7 @@ export class ProductsService {
 
   async create(createProductDto: CreateProductDto) {
     const category = await this.categoriesModel
-      .findById(createProductDto?.category_id)
+      .findById(createProductDto?.categoryId)
       .exec();
     if (!category) {
       throw new BadRequestException('category not found.');
@@ -55,7 +55,7 @@ export class ProductsService {
         $lookup: {
           from: 'categories',
           localField: 'categories',
-          foreignField: 'category_id',
+          foreignField: 'categoryId',
           as: 'category',
         },
       },
