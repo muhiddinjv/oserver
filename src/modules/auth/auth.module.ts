@@ -5,10 +5,11 @@ import { AuthService } from './auth.service';
 import { AccessTokenStrategy } from './strategies/accessToken.strategy';
 import { RefreshTokenStrategy } from './strategies/refreshToken.strategy';
 import { UsersModule } from '../users/users.module';
+import { InfobipService } from './send-sms/send-sms.service';
 
 @Module({
   imports: [JwtModule.register({}), UsersModule],
   controllers: [AuthController],
-  providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy],
+  providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy,InfobipService],
 })
 export class AuthModule {}

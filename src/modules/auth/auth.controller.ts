@@ -4,7 +4,9 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { AccessTokenGuard } from 'src/guards/acessToken.guard';
+import { InfobipService } from './send-sms/send-sms.service';
 import { RefreshTokenGuard } from 'src/guards/refreshToken.guard';
+import { SendSmsDto } from './dto/send-sms.dto';
 import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -12,10 +14,14 @@ import {
   ApiTags,
   ApiOperation,
 } from '@nestjs/swagger';
+
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private infobipService: InfobipService
+  ) { }
 
   @ApiOperation({ summary: 'Method: Signup' })
   @ApiOkResponse({
@@ -36,6 +42,20 @@ export class AuthController {
   signin(@Body() data: AuthDto) {
     return this.authService.signIn(data);
   }
+
+
+  @ApiOperation({ summary: 'Method: Checking user phone number' })
+  @ApiOkResponse({
+    description: 'When user will write a phone number this method will send sms to his phone to verify',
+  })
+  @ApiForbiddenResponse({ description: 'Number not found' })
+  @Post('send-sms')
+  async sendSMS(@Body() sendSmsDto:SendSmsDto) {
+   
+    const response = await this.infobipService.sendSMS( sendSmsDto.phoneNumber);
+    return response;
+  }
+
 
   @ApiOperation({ summary: 'Method: logout' })
   @ApiOkResponse({
