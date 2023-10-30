@@ -64,7 +64,7 @@ var AuthService = /** @class */ (function () {
     }
     AuthService.prototype.signUp = function (createUserDto) {
         return __awaiter(this, void 0, Promise, function () {
-            var userExists, hash, newUser, tokens;
+            var userExists, passwordPattern, hash, newUser, tokens;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.userService.findByPhoneNumber(createUserDto.phoneNumber)];
@@ -72,6 +72,10 @@ var AuthService = /** @class */ (function () {
                         userExists = _a.sent();
                         if (userExists) {
                             throw new common_1.BadRequestException('User already exists');
+                        }
+                        passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
+                        if (!passwordPattern.test(createUserDto.password)) {
+                            throw new common_1.BadRequestException('Invalid password. It should meet the criteria.');
                         }
                         return [4 /*yield*/, this.hashData(createUserDto.password)];
                     case 2:

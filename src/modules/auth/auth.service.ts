@@ -27,6 +27,12 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
     // Hash password
+    const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
+
+    if (!passwordPattern.test(createUserDto.password)) {
+      throw new BadRequestException('Invalid password. It should meet the criteria.');
+    }
+
     const hash = await this.hashData(createUserDto.password);
     const newUser = await this.userService.create({
       ...createUserDto,

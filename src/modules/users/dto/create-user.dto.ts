@@ -23,18 +23,16 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: `Password`,
-    example: 'dsk_45llsd',
+    example: 'dsk_45lldD&',
   })
   password: string;
 
 
   @ApiProperty({
     description: `role`,
-    example: 'casher',
+    example: 'merchant',
   })
   role: string;
-
-
  
   refreshToken: string;
 
