@@ -51,9 +51,8 @@ var acessToken_guard_1 = require("src/guards/acessToken.guard");
 var refreshToken_guard_1 = require("src/guards/refreshToken.guard");
 var swagger_1 = require("@nestjs/swagger");
 var AuthController = /** @class */ (function () {
-    function AuthController(authService, infobipService) {
+    function AuthController(authService) {
         this.authService = authService;
-        this.infobipService = infobipService;
     }
     AuthController.prototype.signup = function (createUserDto) {
         return this.authService.signUp(createUserDto);
@@ -63,13 +62,27 @@ var AuthController = /** @class */ (function () {
     };
     AuthController.prototype.sendSMS = function (sendSmsDto) {
         return __awaiter(this, void 0, void 0, function () {
-            var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.infobipService.sendSMS(sendSmsDto.phoneNumber)];
-                    case 1:
-                        response = _a.sent();
-                        return [2 /*return*/, response];
+                    case 0: return [4 /*yield*/, this.authService.sendSmsNumber(sendSmsDto)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    AuthController.prototype.resetPassword = function (sendSmsDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.authService.ResetPassword(sendSmsDto.phoneNumber)];
+            });
+        });
+    };
+    AuthController.prototype.newPassword = function (passwordDot, token) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.authService.NewPassword(token, passwordDot)];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
@@ -109,6 +122,24 @@ var AuthController = /** @class */ (function () {
         common_1.Post('send-sms'),
         __param(0, common_1.Body())
     ], AuthController.prototype, "sendSMS");
+    __decorate([
+        swagger_1.ApiOperation({ summary: 'Method: reset password' }),
+        swagger_1.ApiOkResponse({
+            description: 'This method will send sms link to set new password'
+        }),
+        swagger_1.ApiForbiddenResponse({ description: 'not found' }),
+        common_1.Post('pwdforgot'),
+        __param(0, common_1.Body())
+    ], AuthController.prototype, "resetPassword");
+    __decorate([
+        swagger_1.ApiOperation({ summary: 'Method:new password' }),
+        swagger_1.ApiOkResponse({
+            description: 'This method will send sms link to set new password'
+        }),
+        swagger_1.ApiForbiddenResponse({ description: 'not found' }),
+        common_1.Post('pwdreset'),
+        __param(0, common_1.Body()), __param(1, common_1.Query('token'))
+    ], AuthController.prototype, "newPassword");
     __decorate([
         swagger_1.ApiOperation({ summary: 'Method: logout' }),
         swagger_1.ApiOkResponse({

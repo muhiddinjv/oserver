@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -14,13 +14,13 @@ import {
   ApiTags,
   ApiOperation,
 } from '@nestjs/swagger';
+import { PassworgDto } from './dto/password.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private infobipService: InfobipService
   ) { }
 
   @ApiOperation({ summary: 'Method: Signup' })
@@ -50,12 +50,35 @@ export class AuthController {
   })
   @ApiForbiddenResponse({ description: 'Number not found' })
   @Post('send-sms')
-  async sendSMS(@Body() sendSmsDto:SendSmsDto) {
-   
-    const response = await this.infobipService.sendSMS( sendSmsDto.phoneNumber);
-    return response;
+  async sendSMS(@Body() sendSmsDto: SendSmsDto) {
+
+    return await this.authService.sendSmsNumber(sendSmsDto)
   }
 
+
+  @ApiOperation({ summary: 'Method: reset password' })
+  @ApiOkResponse({
+    description: 'This method will send sms link to set new password',
+  })
+  @ApiForbiddenResponse({ description: 'not found' })
+  @Post('pwdforgot')
+  async resetPassword(@Body() sendSmsDto: SendSmsDto) {
+    return this.authService.ResetPassword(sendSmsDto.phoneNumber);
+   
+  }
+
+
+  
+  @ApiOperation({ summary: 'Method:new password' })
+  @ApiOkResponse({
+    description: 'This method will send sms link to set new password',
+  })
+  @ApiForbiddenResponse({ description: 'not found' })
+  @Post('pwdreset')
+  async newPassword(@Body() passwordDot: PassworgDto, @Query('token') token: string) {
+    
+    return  await this.authService.NewPassword(token,passwordDot)
+  }
 
   @ApiOperation({ summary: 'Method: logout' })
   @ApiOkResponse({

@@ -57,10 +57,11 @@ exports.AuthService = void 0;
 var common_1 = require("@nestjs/common");
 var bcryptjs = require("bcryptjs");
 var AuthService = /** @class */ (function () {
-    function AuthService(userService, jwtService, configService) {
+    function AuthService(userService, jwtService, configService, infobipService) {
         this.userService = userService;
         this.jwtService = jwtService;
         this.configService = configService;
+        this.infobipService = infobipService;
     }
     AuthService.prototype.signUp = function (createUserDto) {
         return __awaiter(this, void 0, Promise, function () {
@@ -116,6 +117,47 @@ var AuthService = /** @class */ (function () {
                     case 4:
                         _a.sent();
                         return [2 /*return*/, tokens];
+                }
+            });
+        });
+    };
+    AuthService.prototype.getuserbynumber = function (phoneNumber) {
+        return __awaiter(this, void 0, void 0, function () {
+            var userExists;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userService.findByPhoneNumber(phoneNumber)];
+                    case 1:
+                        userExists = _a.sent();
+                        if (userExists) {
+                            throw new common_1.BadRequestException('User already exists');
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AuthService.prototype.sendSmsNumber = function (sendSmsDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var code, userExists;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.generateRandomCode()];
+                    case 1:
+                        code = _a.sent();
+                        return [4 /*yield*/, this.infobipService.sendSMS(sendSmsDto.phoneNumber, "Authorization code :" + code)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.userService.findByPhoneNumber(sendSmsDto.phoneNumber)];
+                    case 3:
+                        userExists = _a.sent();
+                        if (userExists) {
+                            throw new common_1.BadRequestException('User already exists');
+                        }
+                        return [2 /*return*/, {
+                                success: true,
+                                code: code
+                            }];
                 }
             });
         });
@@ -185,6 +227,21 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
+    AuthService.prototype.getTokenById = function (token) {
+        return __awaiter(this, void 0, void 0, function () {
+            var tokens;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.jwtService.verify(token, {
+                            secret: this.configService.get('JWT_ACCESS_SECRET')
+                        })];
+                    case 1:
+                        tokens = _a.sent();
+                        return [2 /*return*/, tokens];
+                }
+            });
+        });
+    };
     AuthService.prototype.refreshTokens = function (userId, refreshToken) {
         return __awaiter(this, void 0, void 0, function () {
             var user, refreshTokenMatches, tokens;
@@ -208,6 +265,81 @@ var AuthService = /** @class */ (function () {
                         _a.sent();
                         return [2 /*return*/, tokens];
                 }
+            });
+        });
+    };
+    AuthService.prototype.ResetPassword = function (phoneNumber) {
+        return __awaiter(this, void 0, void 0, function () {
+            var userExists, tokens, link;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userService.findByPhoneNumber(phoneNumber)];
+                    case 1:
+                        userExists = _a.sent();
+                        if (!userExists) {
+                            throw new common_1.BadRequestException('user with given phone number doesn\'t exist');
+                        }
+                        return [4 /*yield*/, this.getTokens(userExists._id, userExists.phoneNumber)];
+                    case 2:
+                        tokens = _a.sent();
+                        return [4 /*yield*/, this.updateRefreshToken(userExists._id, tokens.refreshToken)];
+                    case 3:
+                        _a.sent();
+                        link = "http://localhost:3000/password-reset?token=" + tokens.access_token;
+                        return [4 /*yield*/, this.infobipService.sendSMS(phoneNumber, "Reset password : " + link)];
+                    case 4:
+                        _a.sent();
+                        return [2 /*return*/, {
+                                success: true,
+                                message: 'We sended sms to your number a link to reset your password'
+                            }];
+                }
+            });
+        });
+    };
+    AuthService.prototype.NewPassword = function (token, PassworgDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var newToken, userId, passwordPattern, hash;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getTokenById(token)];
+                    case 1:
+                        newToken = _a.sent();
+                        if (!newToken) {
+                            throw new common_1.BadRequestException('Invalid link or expired');
+                        }
+                        userId = newToken['sub'];
+                        passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
+                        if (!passwordPattern.test(PassworgDto.password)) {
+                            throw new common_1.BadRequestException('Invalid password. It should meet the criteria.');
+                        }
+                        if (PassworgDto.password != PassworgDto.passwordConfig) {
+                            throw new common_1.BadRequestException('password config is incorrect');
+                        }
+                        return [4 /*yield*/, this.hashData(PassworgDto.password)];
+                    case 2:
+                        hash = _a.sent();
+                        return [4 /*yield*/, this.userService.update(userId, { password: hash })];
+                    case 3:
+                        _a.sent();
+                        return [2 /*return*/, {
+                                success: true,
+                                message: 'password successful changet'
+                            }];
+                }
+            });
+        });
+    };
+    AuthService.prototype.generateRandomCode = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var randomNumbers, i, randomNumber;
+            return __generator(this, function (_a) {
+                randomNumbers = [];
+                for (i = 0; i < 6; i++) {
+                    randomNumber = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
+                    randomNumbers.push(randomNumber);
+                }
+                return [2 /*return*/, randomNumbers.join("")];
             });
         });
     };

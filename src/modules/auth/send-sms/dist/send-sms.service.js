@@ -43,59 +43,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.InfobipService = void 0;
-// src/infobip/infobip.service.ts
 var common_1 = require("@nestjs/common");
 var axios_1 = require("axios");
 var InfobipService = /** @class */ (function () {
     function InfobipService() {
-        this.infobipBaseUrl = 'https://api.infobip.com';
-        this.apiKey = '4062b60f62db380646bea69bb6148fe6-79ae0579-3711-490b-aaf8-9c4b412800d9';
+        this.apiKey = "4062b60f62db380646bea69bb6148fe6-79ae0579-3711-490b-aaf8-9c4b412800d9";
+        this.baseUrl = "https://xlke8g.api.infobip.com/sms/2/text/advanced";
     }
-    InfobipService.prototype.sendSMS = function (phoneNumber) {
-        return __awaiter(this, void 0, void 0, function () {
-            var code, url, messege, data, config, error_1;
+    InfobipService.prototype.sendSMS = function (phoneNumber, messages) {
+        return __awaiter(this, void 0, Promise, function () {
+            var data, headers, response, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.generateRandomCode()];
-                    case 1:
-                        code = _a.sent();
-                        url = this.infobipBaseUrl + "/sms/1/text/single";
-                        messege = "Authorization code:" + code;
+                    case 0:
                         data = {
-                            from: 'Ollio App',
-                            to: phoneNumber,
-                            text: messege
+                            messages: [
+                                {
+                                    destinations: [
+                                        {
+                                            to: phoneNumber
+                                        }
+                                    ],
+                                    from: "Ollio app",
+                                    text: messages
+                                }
+                            ]
                         };
-                        config = {
-                            headers: {
-                                'Authorization': "App " + this.apiKey
-                            }
+                        headers = {
+                            Authorization: "App " + this.apiKey,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
                         };
-                        _a.label = 2;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, axios_1["default"].post(this.baseUrl, data, { headers: headers })];
                     case 2:
-                        _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, axios_1["default"].post(url, data, config)];
+                        response = _a.sent();
+                        return [2 /*return*/, response.data];
                     case 3:
-                        _a.sent();
-                        return [2 /*return*/, { status: 200, body: code }];
-                    case 4:
                         error_1 = _a.sent();
-                        throw new Error('Failed to send SMS');
-                    case 5: return [2 /*return*/];
+                        throw new Error("Failed to send SMS: " + error_1.message);
+                    case 4: return [2 /*return*/];
                 }
-            });
-        });
-    };
-    InfobipService.prototype.generateRandomCode = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var randomNumbers, i, randomNumber;
-            return __generator(this, function (_a) {
-                randomNumbers = [];
-                for (i = 0; i < 6; i++) {
-                    randomNumber = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
-                    randomNumbers.push(randomNumber);
-                }
-                return [2 /*return*/, randomNumbers.join("")];
             });
         });
     };
