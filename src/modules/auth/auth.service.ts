@@ -210,7 +210,7 @@ export class AuthService {
       message: 'password successful changet'
   }
   }
-
+  
   async generateRandomCode() {
     const randomNumbers = [];
     for (let i = 0; i < 6; i++) {
