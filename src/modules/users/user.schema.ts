@@ -36,7 +36,7 @@ export class User {
   @Prop({ unique: true, maxlength: 15, required: true })
   phoneNumber: string;
 
-  @Prop({ type: String, enum: Role, required: true })
+  @Prop({ type: String, enum: Role, default:Role.MERCHANT })
   role: Role;
 
   @Prop({ type: Types.ObjectId })

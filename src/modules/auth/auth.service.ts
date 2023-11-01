@@ -9,6 +9,9 @@ import * as bcryptjs from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { AuthDto } from './dto/auth.dto';
+import { PassworgDto } from './dto/password.dto';
+import { SendSmsDto } from './dto/send-sms.dto';
+import { InfobipService } from './send-sms/send-sms.service';
 
 @Injectable()
 export class AuthService {
@@ -16,6 +19,7 @@ export class AuthService {
     private userService: UsersService,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private infobipService: InfobipService,
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<any> {
@@ -26,12 +30,21 @@ export class AuthService {
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
-    // Hash password
+    // Password Validation
+    const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
+
+
+    if (!passwordPattern.test(createUserDto.password)) {
+      throw new BadRequestException('Invalid password. It should meet the criteria.');
+    }
+
+     // Hash password
     const hash = await this.hashData(createUserDto.password);
     const newUser = await this.userService.create({
       ...createUserDto,
       password: hash,
     });
+   
     const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
     await this.updateRefreshToken(newUser._id, tokens.refreshToken);
     return tokens;
@@ -52,6 +65,38 @@ export class AuthService {
     return tokens;
   }
 
+  async getuserbynumber(phoneNumber: string) {
+    const userExists = await this.userService.findByPhoneNumber(
+      phoneNumber,
+    );
+    if (userExists) {
+      throw new BadRequestException('User already exists');
+    }
+
+  }
+
+  async sendSmsNumber(sendSmsDto: SendSmsDto) {
+    
+    const code = await this.generateRandomCode()
+    
+    await this.infobipService.sendSMS(sendSmsDto.phoneNumber, `Authorization code :${code}`);
+
+   
+    const userExists = await this.userService.findByPhoneNumber(
+      sendSmsDto.phoneNumber,
+    );
+    if (userExists) {
+      throw new BadRequestException('User already exists');
+    }
+
+    return {
+      success: true,
+      code:code 
+    };
+  }
+
+
+
   async logout(userId: string) {
     return this.userService.update(userId, { refreshToken: null });
   }
@@ -60,6 +105,8 @@ export class AuthService {
     const salt = bcryptjs.genSaltSync(10);
     return bcryptjs.hashSync(data, salt);
   }
+
+
 
   async updateRefreshToken(userId: string, refreshToken: string) {
     const hashedRefreshToken = await this.hashData(refreshToken);
@@ -97,6 +144,15 @@ export class AuthService {
     };
   }
 
+  async getTokenById(token:string) {
+    const tokens = await this.jwtService.verify(token,
+      {
+      secret: this.configService.get<string>('JWT_ACCESS_SECRET')
+      },);
+   
+    return tokens;
+  }
+
   async refreshTokens(userId: string, refreshToken: string) {
     const user = await this.userService.findById(userId);
     if (!user || !user.refreshToken)
@@ -109,5 +165,58 @@ export class AuthService {
     const tokens = await this.getTokens(user.id, user.phoneNumber);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
+  }
+
+  async ResetPassword( phoneNumber: string) {
+    const userExists = await this.userService.findByPhoneNumber(phoneNumber,);
+    if (!userExists) {
+      throw new BadRequestException('user with given phone number doesn\'t exist');
+    }
+    const tokens = await this.getTokens(userExists._id, userExists.phoneNumber);
+    await this.updateRefreshToken(userExists._id, tokens.refreshToken);
+    const link = `http://localhost:3000/password-reset?token=${tokens.access_token}`
+
+    await this.infobipService.sendSMS(phoneNumber, `Reset password : ${link}`);
+    
+    return {
+      success: true,
+      message: 'We sended sms to your number a link to reset your password'
+  }
+  }
+
+
+  async NewPassword( token: string,PassworgDto:PassworgDto) {
+    const newToken = await this.getTokenById(token)
+    if (!newToken) {
+      throw new BadRequestException('Invalid link or expired');
+    }
+    const userId = newToken['sub'];
+
+    const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
+    if (!passwordPattern.test(PassworgDto.password)) {
+      throw new BadRequestException('Invalid password. It should meet the criteria.');
+    }
+
+    if (PassworgDto.password != PassworgDto.passwordConfig) {
+      throw new BadRequestException('password config is incorrect');
+    
+    }
+    const hash = await this.hashData(PassworgDto.password);
+    await this.userService.update(userId, {password: hash })
+  
+
+    return {
+      success: true,
+      message: 'password successful changet'
+  }
+  }
+  
+  async generateRandomCode() {
+    const randomNumbers = [];
+    for (let i = 0; i < 6; i++) {
+      const randomNumber = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
+      randomNumbers.push(randomNumber);
+    }
+    return randomNumbers.join("");
   }
 }

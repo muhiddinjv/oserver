@@ -16,6 +16,7 @@ export class ProductsService {
     @InjectModel(Product?.name)
     private productsModel: Model<ProductDocument>,
     @InjectModel(Category?.name)
+      
     private categoriesModel: Model<CategoryDocument>,
   ) {}
 

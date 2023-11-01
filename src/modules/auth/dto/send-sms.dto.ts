@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class AuthDto {
+export class SendSmsDto {
   @ApiProperty({
     description: `phoneNumber`,
     example: '+998997811356',
@@ -7,9 +7,4 @@ export class AuthDto {
   phoneNumber: string;
 
 
-  @ApiProperty({
-    description: `Password`,
-    example: 'dsk_45lldD&',
-  })
-  password: string;
 }
