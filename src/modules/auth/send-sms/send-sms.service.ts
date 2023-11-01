@@ -2,16 +2,14 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
-
-
 @Injectable()
 export class InfobipService {
   private readonly apiKey: string;
   private readonly baseUrl: string;
 
   constructor() {
-    this.apiKey ="4062b60f62db380646bea69bb6148fe6-79ae0579-3711-490b-aaf8-9c4b412800d9" ;
-    this.baseUrl = "https://xlke8g.api.infobip.com/sms/2/text/advanced";
+    this.apiKey = process.env.INFOBIP_API_KEY ;
+    this.baseUrl = process.env.INFOBIP_BASE_URL;
   }
 
   async sendSMS(phoneNumber: string,messages:string): Promise<any> {
