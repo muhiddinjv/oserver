@@ -9,6 +9,9 @@ export class Shop {
   pricingType: PricingType;
 
   @Prop()
+  name: string;
+
+@Prop()
   price: number;
 
   @Prop({ default: true })

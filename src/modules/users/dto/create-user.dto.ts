@@ -13,7 +13,15 @@ export class CreateUserDto {
   })
   lastName: string;
 
+  @ApiProperty({
+    description: `businessName`,
+    example: 'businessName',
+  })
+  businessName: string;
 
+  business: string;
+
+ 
   @ApiProperty({
     description: `phoneNumber`,
     example: '+998997811356',
@@ -46,7 +54,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: `userQrCode`,
-    example: 'dsk_45llsd',
+    example: 4444,
   })
-  userQrCode: string;
+  userQrCode: number;
 }

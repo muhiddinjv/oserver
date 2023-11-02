@@ -4,10 +4,12 @@ import {
   Post,
   Body,
   Patch,
+  Req,
   Param,
   Delete,
   UseGuards,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -18,6 +20,7 @@ import {
   ApiTags,
   ApiOperation,
 } from '@nestjs/swagger';
+import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -29,9 +32,14 @@ export class UsersController {
     description: 'The user was created successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @UseGuards(AccessTokenGuard)
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
+    
+    const merchantId = req.user['sub']
+   
+
+    return this.usersService.create({business:merchantId,...createUserDto});
   }
 
   @ApiOperation({ summary: 'Method: returns current user' })
@@ -39,6 +47,8 @@ export class UsersController {
     description: 'The user was returned successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+      
+  
   @Get()
   findAll() {
     return this.usersService.findAll();

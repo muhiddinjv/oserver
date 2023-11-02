@@ -25,6 +25,12 @@ var CreateUserDto = /** @class */ (function () {
     ], CreateUserDto.prototype, "lastName");
     __decorate([
         swagger_1.ApiProperty({
+            description: "businessName",
+            example: 'businessName'
+        })
+    ], CreateUserDto.prototype, "businessName");
+    __decorate([
+        swagger_1.ApiProperty({
             description: "phoneNumber",
             example: '+998997811356'
         })
@@ -50,7 +56,7 @@ var CreateUserDto = /** @class */ (function () {
     __decorate([
         swagger_1.ApiProperty({
             description: "userQrCode",
-            example: 'dsk_45llsd'
+            example: 4444
         })
     ], CreateUserDto.prototype, "userQrCode");
     return CreateUserDto;

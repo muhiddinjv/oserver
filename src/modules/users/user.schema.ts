@@ -12,9 +12,9 @@ export class User {
   @Prop({ maxlength: 64, required: true })
   lastName: string;
 
-  @Prop({ maxlength: 64 })
-  businessName: string;
-
+  @Prop({ type: Types.ObjectId })
+  business: Types.ObjectId;
+  
   @Prop({ maxlength: 192, required: true })
   address: string;
 
