@@ -99,4 +99,15 @@ export class AuthController {
     const refreshToken = req.user['refreshToken'];
     return this.authService.refreshTokens(userId, refreshToken);
   }
+
+  @ApiOperation({ summary: 'Method:Geterate PinCode' })
+  @ApiOkResponse({
+    description: 'This method will return a pin code for the user',
+  })
+  @ApiForbiddenResponse({ description: 'not found' })
+  @Get('getPinCode')
+  async newPinCode() {
+
+    return await this.authService.sendPinCode()
+  }
 }

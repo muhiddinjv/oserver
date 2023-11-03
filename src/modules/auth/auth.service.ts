@@ -12,6 +12,7 @@ import { AuthDto } from './dto/auth.dto';
 import { PassworgDto } from './dto/password.dto';
 import { SendSmsDto } from './dto/send-sms.dto';
 import { InfobipService } from './send-sms/send-sms.service';
+import { BusinessService } from '../business/business.service';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,7 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
     private infobipService: InfobipService,
+    private businessService: BusinessService,
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<any> {
@@ -33,17 +35,25 @@ export class AuthService {
     // Password Validation
     const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
 
-
     if (!passwordPattern.test(createUserDto.password)) {
       throw new BadRequestException('Invalid password. It should meet the criteria.');
     }
 
      // Hash password
     const hash = await this.hashData(createUserDto.password);
+
+    if (!createUserDto.businessName) {
+      throw new BadRequestException('business Name is required.');
+    }
+
+    const business = await this.businessService.create({name:createUserDto.businessName})
+
     const newUser = await this.userService.create({
       ...createUserDto,
+      business:business?.id,
       password: hash,
     });
+    await this.businessService.update( business.id,{owner:newUser.id})
    
     const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
     await this.updateRefreshToken(newUser._id, tokens.refreshToken);
@@ -77,17 +87,15 @@ export class AuthService {
 
   async sendSmsNumber(sendSmsDto: SendSmsDto) {
     
-    const code = await this.generateRandomCode()
+    const code = await this.generateRandomCode(6)    
     
-    await this.infobipService.sendSMS(sendSmsDto.phoneNumber, `Authorization code :${code}`);
-
-   
     const userExists = await this.userService.findByPhoneNumber(
       sendSmsDto.phoneNumber,
-    );
-    if (userExists) {
-      throw new BadRequestException('User already exists');
-    }
+      );
+      if (userExists) {
+        throw new BadRequestException('User already exists');
+      }
+      await this.infobipService.sendSMS(sendSmsDto.phoneNumber, `Authorization code :${code}`);
 
     return {
       success: true,
@@ -210,13 +218,24 @@ export class AuthService {
       message: 'password successful changet'
   }
   }
+   async sendPinCode() {
+    
+     const code = await this.generateRandomCode(4)
+     return {
+       seccess: true,
+       code
+     }
   
-  async generateRandomCode() {
+  }
+  
+  async generateRandomCode(length:number) {
     const randomNumbers = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < length; i++) {
       const randomNumber = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
       randomNumbers.push(randomNumber);
     }
     return randomNumbers.join("");
   }
-}
+
+  }
+
