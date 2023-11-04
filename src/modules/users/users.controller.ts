@@ -14,7 +14,6 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {
-  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiOkResponse,
   ApiTags,
@@ -37,10 +36,8 @@ export class UsersController {
   @UseGuards(AccessTokenGuard)
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
-    const merchantId = req.user['sub']
-    const Business = await this.usersService.findbusinessByownerId(merchantId)
-    
-    return this.usersService.createUser({business:Business.id,...createUserDto})
+    req.user['sub']
+    return this.usersService.create(createUserDto)
   }
 
   @ApiOperation({ summary: 'Method: returns current user' })

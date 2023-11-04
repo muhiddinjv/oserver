@@ -44,6 +44,17 @@ export class AuthController {
   }
 
 
+  @ApiOperation({ summary: 'Method: create new user' })
+  @ApiOkResponse({
+    description: 'for merchant  createing new  employee',
+  })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @UseGuards(AccessTokenGuard)
+  @Post('user')
+  newUser(@Body() createUserDto: CreateUserDto,@Req() req: Request) {
+    return this.authService.createUser(createUserDto,req.user['sub']);
+  }
+
   @ApiOperation({ summary: 'Method: Checking user phone number' })
   @ApiOkResponse({
     description: 'When user will write a phone number this method will send sms to his phone to verify',
@@ -51,7 +62,6 @@ export class AuthController {
   @ApiForbiddenResponse({ description: 'Number not found' })
   @Post('send-sms')
   async sendSMS(@Body() sendSmsDto: SendSmsDto) {
-
     return await this.authService.sendSmsNumber(sendSmsDto)
   }
 
@@ -66,7 +76,6 @@ export class AuthController {
     return this.authService.ResetPassword(sendSmsDto.phoneNumber);
    
   }
-
 
   
   @ApiOperation({ summary: 'Method:new password' })

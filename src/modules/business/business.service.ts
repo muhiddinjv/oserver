@@ -31,6 +31,10 @@ export class BusinessService {
     return this.businessModel.findById(id)
   }
 
+  findbusinessbyOwnerId(id: string) {
+    return this.businessModel.findOne({owner:id})
+  }
+
   async update(
     id: string,
     updateUserDto: any,

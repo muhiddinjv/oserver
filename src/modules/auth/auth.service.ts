@@ -176,7 +176,7 @@ export class AuthService {
   }
 
   async ResetPassword( phoneNumber: string) {
-    const userExists = await this.userService.findByPhoneNumber(phoneNumber,);
+    const userExists = await this.userService.findByPhoneNumber(phoneNumber);
     if (!userExists) {
       throw new BadRequestException('user with given phone number doesn\'t exist');
     }
@@ -216,16 +216,42 @@ export class AuthService {
     return {
       success: true,
       message: 'password successful changet'
+    }
   }
-  }
-   async sendPinCode() {
+
+  async createUser(createUserDto: CreateUserDto,userId:string) {
+    const userExists = await this.userService.findByPhoneNumber(
+      createUserDto?.phoneNumber,
+    );
+    if (userExists) {
+      throw new BadRequestException('User already exists');
+    }
+    const owner = await this.userService.findById(userId) 
+    const Business = await this.businessService.findbusinessbyOwnerId(userId)
+    const newUser = await this.userService.create({
+      ...createUserDto,
+      business:Business?.id
+    });
     
+    const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
+    await this.updateRefreshToken(newUser._id, tokens.refreshToken);
+    const link = `http://localhost:3000/password-reset?token=${tokens.access_token}`
+
+    await this.infobipService.sendSMS(createUserDto?.phoneNumber, `
+    ${owner?.firstName} invites you to join your organization and obtain access to the Loyverse back office. : ${link}
+    your pincode:${createUserDto?.userQrCode}
+    `);
+
+ 
+    return newUser
+  }
+  
+   async sendPinCode() {
      const code = await this.generateRandomCode(4)
      return {
        seccess: true,
        code
      }
-  
   }
   
   async generateRandomCode(length:number) {
