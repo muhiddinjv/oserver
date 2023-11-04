@@ -105,7 +105,7 @@ export class AuthController {
     description: 'This method will return a pin code for the user',
   })
   @ApiForbiddenResponse({ description: 'not found' })
-  @Get('getPinCode')
+  @Get('pincode')
   async newPinCode() {
 
     return await this.authService.sendPinCode()
