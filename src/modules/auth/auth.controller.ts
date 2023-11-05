@@ -15,6 +15,7 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { PassworgDto } from './dto/password.dto';
+import { SingUpUserDto } from '../users/dto/singup-user.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -51,7 +52,7 @@ export class AuthController {
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @UseGuards(AccessTokenGuard)
   @Post('user')
-  newUser(@Body() createUserDto: CreateUserDto,@Req() req: Request) {
+  newUser(@Body() createUserDto: SingUpUserDto,@Req() req: Request) {
     return this.authService.createUser(createUserDto,req.user['sub']);
   }
 

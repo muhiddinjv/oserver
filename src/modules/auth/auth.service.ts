@@ -13,6 +13,7 @@ import { PassworgDto } from './dto/password.dto';
 import { SendSmsDto } from './dto/send-sms.dto';
 import { InfobipService } from './send-sms/send-sms.service';
 import { BusinessService } from '../business/business.service';
+import { SingUpUserDto } from '../users/dto/singup-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -219,7 +220,7 @@ export class AuthService {
     }
   }
 
-  async createUser(createUserDto: CreateUserDto,userId:string) {
+  async createUser(createUserDto: SingUpUserDto,userId:string) {
     const userExists = await this.userService.findByPhoneNumber(
       createUserDto?.phoneNumber,
     );
