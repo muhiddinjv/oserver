@@ -24,7 +24,16 @@ export class BusinessService {
   }
 
   findAll() {
-    return this.businessModel.find();
+    return this.businessModel.aggregate([
+      {
+        $lookup: {
+          from: 'role',
+          localField: 'role',
+          foreignField: '_id',
+          as: 'role',
+        },
+      },
+    ]);
   }
 
   findOne(id: string) {

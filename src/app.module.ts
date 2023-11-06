@@ -10,6 +10,7 @@ import { ComponentsModule } from './modules/components/components.module';
 import { ShopsModule } from './modules/shops/shops.module';
 import { BusinessModule } from './modules/business/business.module';
 import { RolesModule } from './modules/role/role.module';
+import { PermissionsModule } from './modules/permission/permission.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { RolesModule } from './modules/role/role.module';
     ComponentsModule,
     ShopsModule,
     BusinessModule,
-    RolesModule
+    RolesModule,
+    PermissionsModule
   ],
 })
 export class AppModule {}
