@@ -234,6 +234,9 @@ export class AuthService {
       business:Business?.id
     });
     
+    Business.employees.push(newUser._id)
+    Business.save()
+
     const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
     await this.updateRefreshToken(newUser._id, tokens.refreshToken);
     const link = `http://localhost:3000/password-reset?token=${tokens.access_token}`
