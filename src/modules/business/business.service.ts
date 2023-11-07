@@ -34,8 +34,8 @@ export class BusinessService {
         },
       },
     ]);
-  }
-
+  } 
+ 
   findOne(id: string) {
     return this.businessModel.findById(id)
   }
