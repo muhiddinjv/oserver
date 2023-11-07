@@ -14,7 +14,6 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {
-  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiOkResponse,
   ApiTags,
@@ -25,7 +24,9 @@ import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(
+    private readonly usersService: UsersService
+  ) { }
   
   @ApiOperation({ summary: 'Method: Create New User' })
   @ApiOkResponse({
@@ -34,12 +35,9 @@ export class UsersController {
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @UseGuards(AccessTokenGuard)
   @Post()
-  create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
-    
-    const merchantId = req.user['sub']
-   
-
-    return this.usersService.create({business:merchantId,...createUserDto});
+  async create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
+    req.user['sub']
+    return this.usersService.create(createUserDto)
   }
 
   @ApiOperation({ summary: 'Method: returns current user' })

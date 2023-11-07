@@ -1,6 +1,7 @@
 import { Types, Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Role } from '../../enums/role.enum';
+import { Shop } from '../shops/shop.schema';
 
 export type UserDocument = User & Document;
 
@@ -39,8 +40,9 @@ export class User {
   @Prop({ type: String, enum: Role, default:Role.MERCHANT })
   role: Role;
 
-  @Prop({ type: Types.ObjectId })
-  shopId: Types.ObjectId;
+  
+  @Prop({ type: [{ type: Types.ObjectId }] })
+  shop: Shop[];
 
   @Prop({ default: true })
   isActive: boolean;

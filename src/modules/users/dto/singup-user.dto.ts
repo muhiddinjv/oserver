@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class CreateUserDto {
+export class SingUpUserDto {
   @ApiProperty({
     description: `firstName`,
     example: 'Jones',
@@ -13,10 +13,7 @@ export class CreateUserDto {
   })
   lastName: string;
 
-  @ApiProperty({
-    description: `businessName`,
-    example: 'businessName',
-  })
+  
   businessName: string;
 
   business: string;
@@ -36,13 +33,19 @@ export class CreateUserDto {
   password: string;
 
 
+  @ApiProperty({
+    description: `shop`,
+    example: ['shopId','shopId'],
+  })
   shop: string;
+
 
   @ApiProperty({
     description: `role`,
     example: 'merchant',
   })
   role: string;
+
  
   refreshToken: string;
 
