@@ -11,6 +11,9 @@ import { ShopsModule } from './modules/shops/shops.module';
 import { BusinessModule } from './modules/business/business.module';
 import { RolesModule } from './modules/role/role.module';
 import { PermissionsModule } from './modules/permission/permission.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AbilitiesGuard } from './ability/ability.guard';
+import { AbilityModule } from './ability/ability.module';
 
 @Module({
   imports: [
@@ -25,7 +28,14 @@ import { PermissionsModule } from './modules/permission/permission.module';
     ShopsModule,
     BusinessModule,
     RolesModule,
-    PermissionsModule
+    PermissionsModule,
+    AbilityModule
+  ],
+  providers: [
+    {
+    provide: APP_GUARD,
+    useClass:AbilitiesGuard
+    }
   ],
 })
 export class AppModule {}
