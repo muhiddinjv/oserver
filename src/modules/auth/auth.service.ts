@@ -44,7 +44,7 @@ export class AuthService {
     const hash = await this.hashData(createUserDto.password);
 
     if (!createUserDto.businessName) {
-      throw new BadRequestException('business Name is required.');
+      throw new BadRequestException('Business name is required.');
     }
 
     const business = await this.businessService.create({name:createUserDto.businessName})
@@ -104,8 +104,6 @@ export class AuthService {
     };
   }
 
-
-
   async logout(userId: string) {
     return this.userService.update(userId, { refreshToken: null });
   }
@@ -115,8 +113,6 @@ export class AuthService {
     return bcryptjs.hashSync(data, salt);
   }
 
-
-
   async updateRefreshToken(userId: string, refreshToken: string) {
     const hashedRefreshToken = await this.hashData(refreshToken);
     await this.userService.update(userId, {
@@ -125,7 +121,7 @@ export class AuthService {
   }
 
   async getTokens(userId: string, phoneNumber: string) {
-    const [access_token, refreshToken] = await Promise.all([
+    const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
           sub: userId,
@@ -148,7 +144,7 @@ export class AuthService {
       ),
     ]);
     return {
-      access_token,
+      accessToken,
       refreshToken,
     };
   }
@@ -183,7 +179,7 @@ export class AuthService {
     }
     const tokens = await this.getTokens(userExists._id, userExists.phoneNumber);
     await this.updateRefreshToken(userExists._id, tokens.refreshToken);
-    const link = `http://localhost:3000/password-reset?token=${tokens.access_token}`
+    const link = `http://localhost:3000/password-reset?token=${tokens.accessToken}`
 
     await this.infobipService.sendSMS(phoneNumber, `Reset password : ${link}`);
     
@@ -239,7 +235,7 @@ export class AuthService {
 
     const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
     await this.updateRefreshToken(newUser._id, tokens.refreshToken);
-    const link = `http://localhost:3000/password-reset?token=${tokens.access_token}`
+    const link = `http://localhost:3000/password-reset?token=${tokens.accessToken}`
 
     await this.infobipService.sendSMS(createUserDto?.phoneNumber, `
     ${owner?.firstName} invites you to join your organization and obtain access to the Loyverse back office. : ${link}

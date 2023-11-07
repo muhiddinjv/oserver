@@ -20,7 +20,7 @@ export class User {
   address: string;
 
   @Prop({ maxlength: 64 })
-  city: string;
+  city: string; 
 
   @Prop({ maxlength: 64 })
   region: string;
@@ -37,7 +37,7 @@ export class User {
   @Prop({ unique: true, maxlength: 15, required: true })
   phoneNumber: string;
 
-  @Prop({ type: String, enum: Role, default:Role.MERCHANT })
+  @Prop({ type: String, enum: Role, default:Role.MERCHANT }) 
   role: Role;
 
   
