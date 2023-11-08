@@ -50,9 +50,9 @@ export class UsersController {
       
   
   @Get()
-  @UseGuards(AccessTokenGuard)
-  @UseGuards(AbilitiesGuard)
-  @CheckAbilites(new ReadUserAbility())
+  // @UseGuards(AccessTokenGuard)
+  // @UseGuards(AbilitiesGuard)
+  // @CheckAbilites(new ReadUserAbility())
   findAll() {
     return this.usersService.findAll();
   }

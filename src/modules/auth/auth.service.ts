@@ -14,6 +14,8 @@ import { SendSmsDto } from './dto/send-sms.dto';
 import { InfobipService } from './send-sms/send-sms.service';
 import { BusinessService } from '../business/business.service';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
+import { PhoneValidationService } from './phone-validation/phone-validation';
+import { EmailValidationService } from './email-validation/email-validation.service';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +25,8 @@ export class AuthService {
     private configService: ConfigService,
     private infobipService: InfobipService,
     private businessService: BusinessService,
+    private phoneValidationService: PhoneValidationService,
+    private emailValidationService: EmailValidationService,
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<any> {
@@ -40,12 +44,34 @@ export class AuthService {
       throw new BadRequestException('Invalid password. It should meet the criteria.');
     }
 
+    // phoneNumber Validation 
+    const isValid = this.phoneValidationService.validatePhoneNumber(createUserDto.phoneNumber);
+
+    if (!isValid) {
+      throw new BadRequestException('Invalid phone number');
+    }
+    // email Validation 
+    if (createUserDto.email) {
+      const userExists = await this.userService.findByEmail(
+        createUserDto.email,
+      );
+     
+      if (userExists) {
+        throw new BadRequestException('User already exists');
+      }
+
+      if (!this.emailValidationService.validateEmail(createUserDto.email.toString()) ) {
+        throw new BadRequestException('Invalid email');
+      }
+   }
+
      // Hash password
     const hash = await this.hashData(createUserDto.password);
 
     if (!createUserDto.businessName) {
       throw new BadRequestException('Business name is required.');
     }
+
 
     const business = await this.businessService.create({name:createUserDto.businessName})
 
@@ -65,10 +91,19 @@ export class AuthService {
     // Check if user exists
     const user = await this.userService.findByPhoneNumber(data.phoneNumber);
     if (!user) throw new BadRequestException('User does not exist');
+
+      // phoneNumber Validation 
+      const isValid = this.phoneValidationService.validatePhoneNumber(data.phoneNumber);
+
+      if (!isValid) {
+        throw new BadRequestException('Invalid phone number');
+    }
+    
     const passwordMatches = await bcryptjs.compare(
       data.password,
       user.password,
     );
+    
     if (!passwordMatches)
       throw new BadRequestException('Password is incorrect');
     const tokens = await this.getTokens(user._id, user.phoneNumber);
@@ -77,6 +112,14 @@ export class AuthService {
   }
 
   async getuserbynumber(phoneNumber: string) {
+
+    // phoneNumber Validation 
+    const isValid = this.phoneValidationService.validatePhoneNumber(phoneNumber);
+
+    if (!isValid) {
+      throw new BadRequestException('Invalid phone number');
+    }
+
     const userExists = await this.userService.findByPhoneNumber(
       phoneNumber,
     );
@@ -88,6 +131,13 @@ export class AuthService {
 
   async sendSmsNumber(sendSmsDto: SendSmsDto) {
     
+      // phoneNumber Validation 
+    const isValid = this.phoneValidationService.validatePhoneNumber(sendSmsDto.phoneNumber);
+
+    if (!isValid) {
+      throw new BadRequestException('Invalid phone number');
+    }
+
     const code = await this.generateRandomCode(6)    
     
     const userExists = await this.userService.findByPhoneNumber(
@@ -177,6 +227,13 @@ export class AuthService {
     if (!userExists) {
       throw new BadRequestException('user with given phone number doesn\'t exist');
     }
+    // phoneNumber Validation 
+    const isValid = this.phoneValidationService.validatePhoneNumber(phoneNumber);
+
+    if (!isValid) {
+      throw new BadRequestException('Invalid phone number');
+    }
+      
     const tokens = await this.getTokens(userExists._id, userExists.phoneNumber);
     await this.updateRefreshToken(userExists._id, tokens.refreshToken);
     const link = `http://localhost:3000/password-reset?token=${tokens.accessToken}`
@@ -216,7 +273,13 @@ export class AuthService {
     }
   }
 
-  async createUser(createUserDto: SingUpUserDto,userId:string) {
+  async createUser(createUserDto: SingUpUserDto, userId: string) {
+    // phoneNumber Validation 
+    const isValid = this.phoneValidationService.validatePhoneNumber(createUserDto.phoneNumber);
+    if (!isValid) {
+      throw new BadRequestException('Invalid phone number');
+    } 
+    
     const userExists = await this.userService.findByPhoneNumber(
       createUserDto?.phoneNumber,
     );
