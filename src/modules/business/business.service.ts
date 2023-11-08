@@ -32,6 +32,14 @@ export class BusinessService {
           as: 'role',
         },
       },
+      {
+        $lookup: {
+          from: 'shop',
+          localField: 'shops',
+          foreignField: '_id',
+          as: 'shops',
+        },
+      },
     ]);
   } 
  

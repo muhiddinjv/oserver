@@ -18,12 +18,11 @@ export class ShopsService {
     return createdShops.save();
   }
 
+  
   async createByBussines(createShopDto: CreateShopDto, userId: string) {
-
-    const Business = await this.BusinessModel.findOne({ ownerId: userId })
-    
+    const Business = await this.BusinessModel.findOne({ owner: userId })
+  
     const createdShops = new this.ShopsModel(createShopDto);
-    
     Business.shops.push(createdShops.id)
     Business.save()
     return createdShops.save();
