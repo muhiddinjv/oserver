@@ -22,6 +22,7 @@ export class AbilityFactory {
         const {can,cannot,build} = new AbilityBuilder(Ability)
 
             can(Action.Manage, User);
+            cannot(Action.Read, User)
         
             // cannot(Action.Manage, User, { orgId: { $ne: user.orgId } }).because('You can only manage users in your own organization')
 

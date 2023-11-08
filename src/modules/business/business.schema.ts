@@ -4,7 +4,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { PricingType } from 'src/enums/pricing_type.enum';
 import { Shop } from '../shops/shop.schema';
 import { User } from '../users/user.schema';
-import { Role } from '../role/role.schema';
+import { Role } from '../roles/role.schema';
 export type BusinessDocument = Business & Document;
 
 @Schema({ collection: 'business' })
