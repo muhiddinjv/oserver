@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="hkiAnnFHgj5nF-T-ockl" name="Page-1">
-        <mxGraphModel dx="14423" dy="2152" grid="1" gridSize="1" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+        <mxGraphModel dx="18470" dy="4055" grid="1" gridSize="1" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -166,7 +166,7 @@
                 <mxCell id="117" value="TRANSFER" style="rounded=1;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=17;fillColor=#7db343;align=center;strokeColor=none;fontColor=#ffffff;labelBackgroundColor=none;labelBorderColor=none;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;connectable=0;" vertex="1" parent="1">
                     <mxGeometry x="-1119" y="256" width="250" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="118" value="Bill Gates" style="rounded=0;fillColor=#F1F2F4;strokeColor=#ededed;html=1;fontColor=#596780;align=left;fontSize=22;spacingLeft=10;labelBackgroundColor=none;labelBorderColor=default;shadow=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;fontStyle=1" vertex="1" parent="1">
+                <mxCell id="118" value="Bill Gates" style="rounded=0;fillColor=#F1F2F4;strokeColor=#ededed;html=1;fontColor=#596780;align=left;fontSize=22;spacingLeft=10;labelBackgroundColor=none;labelBorderColor=default;shadow=0;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;connectable=0;fontStyle=1" vertex="1" parent="1">
                     <mxGeometry x="-1316" y="-677" width="457" height="59" as="geometry"/>
                 </mxCell>
                 <mxCell id="119" value="" style="shape=triangle;direction=south;fillColor=#596780;strokeColor=none;html=1;sketch=0;labelBackgroundColor=none;labelBorderColor=none;fontSize=17;fontColor=#333333;" vertex="1" parent="118">
