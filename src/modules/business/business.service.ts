@@ -34,7 +34,7 @@ export class BusinessService {
       },
       {
         $lookup: {
-          from: 'shop',
+          from: 'shops',
           localField: 'shops',
           foreignField: '_id',
           as: 'shops',
