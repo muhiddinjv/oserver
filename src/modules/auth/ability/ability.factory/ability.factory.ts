@@ -16,14 +16,14 @@ export type AppAbility = Ability<[Action, Subjects]>;
 
 @Injectable()
 export class AbilityFactory {
-    defineAbility(user) {
+    defineAbility(user:User) {
         const { can, cannot, build } = new AbilityBuilder(Ability)
-        if (user.role == "merchant") {
+        // if (user.role == "merchant") {
             can(Action.Manage, "All")
-        }
-        else {
-            can(Action.Read, "All")
-        }
+        // }
+        // else {
+        //     can(Action.Read, "All")
+        // }
         return build({
             detectSubjectType: (item) => 
             item.constructor as ExtractSubjectType<Subjects>
