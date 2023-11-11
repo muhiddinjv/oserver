@@ -14,9 +14,8 @@ export class AbilitiesGuard implements CanActivate{
     async canActivate(context: ExecutionContext):  Promise<boolean>  {
         const rules = this.reflector.get<RequiredRule[]>(CHECK_ABILITY, context.getHandler()) || []
         
-        const req= context.switchToHttp().getRequest();
-      
-        const ability = this.caslAbilityFactory.defineAbility()
+        const {user} = context.switchToHttp().getRequest();
+        const ability = this.caslAbilityFactory.defineAbility(user)
 
         try {
             rules.forEach((rule) =>
