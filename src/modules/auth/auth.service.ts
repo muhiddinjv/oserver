@@ -90,6 +90,7 @@ export class AuthService {
   async signIn(data: AuthDto) {
     // Check if user exists
     const user = await this.userService.findByPhoneNumber(data.phoneNumber);
+    console.log(user)
     if (!user) throw new BadRequestException('User does not exist');
 
     // phoneNumber Validation
@@ -145,7 +146,7 @@ export class AuthService {
     };
   }
 
-  async logout(userId: string) {
+  async signout(userId: string) {
     return this.userService.update(userId, { refreshToken: null });
   }
 
@@ -167,7 +168,7 @@ export class AuthService {
 
     return {
       success: true,
-      message: 'We sended sms to your number a link to reset your password',
+      message: 'We sent a link to your number via sms to reset your password',
     };
   }
 

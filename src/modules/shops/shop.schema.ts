@@ -11,7 +11,7 @@ export class Shop {
   @Prop()
   name: string;
 
-@Prop()
+  @Prop()
   price: number;
 
   @Prop({ default: true })

@@ -48,7 +48,7 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Method: create new user' })
   @ApiOkResponse({
-    description: 'for merchant  createing new  employee',
+    description: 'for merchant createing a new employee',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiBearerAuth()
@@ -91,15 +91,15 @@ export class AuthController {
     return  await this.authService.NewPassword(token,passwordDot)
   }
 
-  @ApiOperation({ summary: 'Method: logout' })
+  @ApiOperation({ summary: 'Method: signout' })
   @ApiOkResponse({
-    description: 'The user was logged out successfully',
+    description: 'The user was signed out successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @UseGuards(AccessTokenGuard)
-  @Get('logout')
-  logout(@Req() req: Request) {
-    this.authService.logout(req.user['sub']);
+  @Get('signout')
+  signout(@Req() req: Request) {
+    this.authService.signout(req.user['sub']);
   }
 
 
