@@ -11,9 +11,9 @@ import { PassworgDto } from './dto/password.dto';
 import { SendSmsDto } from './dto/send-sms.dto';
 import { BusinessService } from '../business/business.service';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
-import { validatePhoneNumber, validateEmail } from '../../infra/validators';
+import { validatePhoneNumber, validateEmail } from '../../common/validators';
 import { SmsService } from '../sms/sms.service';
-import { generateRandomCode, hashData } from 'src/infra/heleprs';
+import { generateRandomCode, hashData } from 'src/common/heleprs';
 import { JwtTokenService } from './jwt.service';
 
 @Injectable()

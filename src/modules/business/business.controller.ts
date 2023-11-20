@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { BusinessService } from './business.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { UpdateBusinessDto } from './dto/update-business.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Business')
 @Controller('business')
 export class BusinessController {
   constructor(private readonly businessService: BusinessService) {}
