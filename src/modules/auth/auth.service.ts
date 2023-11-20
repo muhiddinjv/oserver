@@ -236,6 +236,13 @@ export class AuthService {
     return newUser;
   }
 
+  async validateUserById(userId: string) {
+    const user = await this.userService.findById(userId).catch(() => {
+      throw new BadRequestException('Valid token with non-existent user.');
+    });
+    return user;
+  }
+
   async sendPinCode() {
     const code = generateRandomCode(4);
     return {
