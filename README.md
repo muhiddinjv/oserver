@@ -66,3 +66,19 @@ As a customer, I want to have a mobile app that allows me to make orders from re
 5. Display products with relevant details and enable customers to make orders.
 
 These user stories, acceptance criteria, and tasks cover the main features of the point of sale and inventory management system. Please note that these are high-level examples, and we need to adapt and refine them based on our specific requirements and business processes.
+
+### Conventional Commits Cheat Sheet
+
+| Type     | Description                                           |
+| -------- | ----------------------------------------------------- |
+| feat     | A new feature                                         |
+| fix      | A bug fix                                             |
+| docs     | Documentation only changes                            |
+| style    | Changes that do not affect the meaning of the code    |
+| refactor | A code change that neither fixes a bug nor adds a feature |
+| perf     | A code change that improves performance              |
+| test     | Adding missing tests or correcting existing tests      |
+| build    | Changes that affect the build system or external dependencies |
+| ci       | Changes to our CI configuration files and scripts     |
+| chore    | Other changes that don't modify src or test files      |
+| revert   | Reverts a previous commit                             |

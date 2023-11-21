@@ -11,9 +11,9 @@ import { PassworgDto } from './dto/password.dto';
 import { SendSmsDto } from './dto/send-sms.dto';
 import { BusinessService } from '../business/business.service';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
-import { validatePhoneNumber, validateEmail } from '../../common/validators';
+import { validatePhoneNumber, validateEmail } from '../../shared/validators';
 import { SmsService } from '../sms/sms.service';
-import { generateRandomCode, hashData } from 'src/common/heleprs';
+import { generateRandomCode, hashData } from 'src/shared/helpers';
 import { JwtTokenService } from './jwt.service';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class AuthService {
     private jwtTokenService: JwtTokenService,
     private infobipService: SmsService,
     private businessService: BusinessService,
-  ) {}
+  ) { }
 
   async signUp(createUserDto: CreateUserDto): Promise<any> {
     // Check if user exists
@@ -36,7 +36,7 @@ export class AuthService {
     // Password Validation
     const passwordPattern =
       /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
-
+ 
     if (!passwordPattern.test(createUserDto.password)) {
       throw new BadRequestException(
         'Invalid password. It should meet the criteria.',
@@ -84,7 +84,19 @@ export class AuthService {
 
     const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phoneNumber);
     await this.jwtTokenService.updateRefreshToken(newUser._id, tokens.refreshToken);
-    return tokens;
+
+    const response = {
+      message: "User successfully signed in",
+      data: {
+        id: newUser._id,
+        name: `${newUser.firstName} ${newUser.lastName}`,
+        role: newUser.role,
+        phone: newUser.phoneNumber,
+        tokens
+      }
+
+    }
+    return response;
   }
 
   async signIn(data: AuthDto) {
@@ -105,11 +117,24 @@ export class AuthService {
       user.password,
     );
 
-    if (!passwordMatches)
+    if (!passwordMatches) {
       throw new BadRequestException('Password is incorrect');
+    }
     const tokens = await this.jwtTokenService.getTokens(user._id, user.phoneNumber);
     await this.jwtTokenService.updateRefreshToken(user._id, tokens.refreshToken);
-    return tokens;
+
+    const response = {
+      message: "User successfully signed in",
+      data: {
+        id: user._id,
+        name: `${user.firstName} ${user.lastName}`,
+        role: user.role,
+        phone: user.phoneNumber,
+        tokens
+      }
+    }
+    
+    return response;
   }
 
   // async getuserbynumber(phoneNumber: string) {
@@ -146,8 +171,11 @@ export class AuthService {
     };
   }
 
-  async signout(userId: string) {
-    return this.userService.update(userId, { refreshToken: null });
+  async signOut(userId: string) {
+    this.userService.update(userId, { refreshToken: null });
+    return {
+      message: "User successfully signed out"
+    }
   }
 
   async ResetPassword(phoneNumber: string) {
@@ -195,7 +223,7 @@ export class AuthService {
 
     return {
       success: true,
-      message: 'password successful changet',
+      message: 'password successful changed',
     };
   }
 

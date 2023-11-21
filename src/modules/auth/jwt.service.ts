@@ -6,7 +6,7 @@ import {
   import * as bcryptjs from 'bcryptjs';
   import { JwtService } from '@nestjs/jwt';
   import { ConfigService } from '@nestjs/config';
-  import { hashData } from 'src/common/heleprs';
+  import { hashData } from 'src/shared/helpers';
   
   @Injectable()
   export class JwtTokenService {

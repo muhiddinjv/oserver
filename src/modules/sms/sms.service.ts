@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { validatePhoneNumber } from 'src/common/validators';
+import { validatePhoneNumber } from 'src/shared/validators';
 
 @Injectable()
 export class SmsService {

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
@@ -9,6 +9,7 @@ import { UsersModule } from '../users/users.module';
 import { BusinessModule } from '../business/business.module';
 import { SmsModule } from '../sms/sms.module';
 import { JwtTokenService } from './jwt.service';
+import { AuthMiddleware } from './auth.middleware';
 
 @Module({
   imports: [
@@ -26,4 +27,8 @@ import { JwtTokenService } from './jwt.service';
     JwtTokenService
   ],
 })
-export class AuthModule {}
+export class AuthModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('/auth/signout');
+  }
+}

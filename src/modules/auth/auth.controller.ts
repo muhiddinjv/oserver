@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -63,7 +63,7 @@ export class AuthController {
     description: 'When user will write a phone number this method will send sms to his phone to verify',
   })
   @ApiForbiddenResponse({ description: 'Number not found' })
-  @Post('send-sms')
+  @Post('sendsms')
   async sendSMS(@Body() sendSmsDto: SendSmsDto) {
     return await this.authService.sendSmsNumber(sendSmsDto)
   }
@@ -91,15 +91,15 @@ export class AuthController {
     return  await this.authService.NewPassword(token,passwordDot)
   }
 
-  @ApiOperation({ summary: 'Method: signout' })
+  @ApiOperation({ summary: 'Method: signOut' })
   @ApiOkResponse({
     description: 'The user was signed out successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @UseGuards(AccessTokenGuard)
   @Get('signout')
-  signout(@Req() req: Request) {
-    this.authService.signout(req.user['sub']);
+  signOut(@Req() req: Request) {
+    this.authService.signOut(req.user['sub']);
   }
 
 
