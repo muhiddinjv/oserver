@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Product, ProductDocument } from '../products/product.schema';
+import { Item, ItemDocument } from '../items/item.schema';
 import { Variant, VariantDocument } from '../variants/variant.schema';
 import { Component, ComponentDocument } from './component.schema';
 import { CreateComponentDto } from './dto/create-component.dto';
@@ -12,7 +12,7 @@ export class ComponentsService {
   constructor(
     @InjectModel(Component?.name)
     private ComponentsModel: Model<ComponentDocument>,
-    @InjectModel(Product?.name) private ProductsModel: Model<ProductDocument>,
+    @InjectModel(Item?.name) private ItemsModel: Model<ItemDocument>,
     @InjectModel(Variant?.name) private VariantsModel: Model<VariantDocument>,
   ) {}
 
@@ -23,17 +23,17 @@ export class ComponentsService {
     if (!Variant) {
       throw new BadRequestException('Variant not found.');
     }
-    const Products = await this.ProductsModel.findById(Variant?.productId).exec();
-    if (!Products) {
-      throw new BadRequestException('Products not found.');
+    const Items = await this.ItemsModel.findById(Variant?.itemId).exec();
+    if (!Items) {
+      throw new BadRequestException('Items not found.');
     }
-    console.log(Products?.components);
+    console.log(Items?.components);
 
     const createdComponents = new this.ComponentsModel(createComponentDto);
 
-    Products?.components.push(createdComponents);
+    Items?.components.push(createdComponents);
     createdComponents.save();
-    Products.save();
+    Items.save();
 
     return createdComponents;
   }

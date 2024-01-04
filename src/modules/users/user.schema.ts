@@ -19,12 +19,6 @@ export class User {
   @Prop({minlength:3, maxlength: 192, required: true })
   address: string;
 
-  @Prop({minlength:3, maxlength: 64 })
-  city: string; 
-
-  @Prop({minlength:3, maxlength: 64 })
-  region: string;
-
   @Prop({  maxlength: 100 })
   email: string;
 
@@ -40,7 +34,6 @@ export class User {
   @Prop({ type: String, enum: Role, default:Role.MERCHANT }) 
   role: Role;
 
-  
   @Prop({ type: [{ type: Types.ObjectId }] })
   shop: Shop[];
 

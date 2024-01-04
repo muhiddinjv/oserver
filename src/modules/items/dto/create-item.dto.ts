@@ -1,51 +1,50 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class CreateProductDto {
+export class CreateItemDto {
   
   @ApiProperty({
-    description: `productName`,
+    description: 'name',
     example: 'Book',
   })
-  productName: string;
+  name: string;
   
   @ApiProperty({
-    description: `description`,
-    example: 'description about product',
+    description: 'description',
+    example: 'description about item',
   })
   description: string;
   
   @ApiProperty({
-    description: `categoryId`,
+    description: 'categoryId',
     example: '652e53dc816d176acdad441f',
   })
   categoryId: string;
 
-  
   @ApiProperty({
-    description: `form`,
+    description: 'form',
     example: 'form',
   })
-  form: string;
+  shape: string;
   
   @ApiProperty({
-    description: `color`,
+    description: 'color',
     example: 'blue',
   })
   color: string;
   
   @ApiProperty({
-    description: `option1Name`,
+    description: 'option1Name',
     example: 'option1Name',
   })
   option1Name: string;
   
   @ApiProperty({
-    description: `option2Name`,
+    description: 'option2Name',
     example: 'option2Name',
   })
   option2Name: string;
   
   @ApiProperty({
-    description: `option3Name`,
+    description: 'option3Name',
     example: 'option3Name',
   })
   option3Name: string;

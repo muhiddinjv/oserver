@@ -7,7 +7,7 @@ export type VariantDocument = Variant & Document;
 @Schema({ collection: 'variants' })
 export class Variant {
   @Prop({ type: Types.ObjectId })
-  productId: string;
+  itemId: string;
 
   @Prop({ default: () => uuidv4() })
   referenceVariantId: string;

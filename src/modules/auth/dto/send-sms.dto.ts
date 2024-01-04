@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class SendSmsDto {
   @ApiProperty({
     description: `phoneNumber`,
-    example: '+998997811356',
+    example: '998123456789',
   })
   phoneNumber: string;
 

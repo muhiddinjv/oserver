@@ -3,13 +3,13 @@ export class PassworgDto {
 
   @ApiProperty({
     description: `Password`,
-    example: 'dsk_45lldD&',
+    example: 'Pa55w0rd',
   })
     password: string;
     
     @ApiProperty({
         description: `passwordConfig`,
-        example: 'dsk_45lldD',
+        example: 'Pa55w0rd',
       })
       passwordConfig: string;
 }

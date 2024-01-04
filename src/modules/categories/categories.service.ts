@@ -23,17 +23,17 @@ export class CategoriesService {
     return this.categoriesModel.aggregate([
       {
         $lookup: {
-          from: 'products',
-          localField: 'products',
+          from: 'items',
+          localField: 'items',
           foreignField: '_id',
-          as: 'productsArr',
+          as: 'itemsArr',
         },
       },
     ]);
   }
 
   async findById(id: string): Promise<CategoryDocument> {
-    return this.categoriesModel.findById(id).populate('products');
+    return this.categoriesModel.findById(id).populate('items');
   }
 
   async update(

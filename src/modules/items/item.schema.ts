@@ -3,15 +3,38 @@ import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Variant } from '../variants/variant.schema';
 import { Component } from '../components/component.schema';
-export type ProductDocument = Product & Document;
+import { PricingType } from 'src/enums/pricing_type.enum';
 
-@Schema({ collection: 'products' })
-export class Product {
+export type ItemDocument = Item & Document;
+
+@Schema({ collection: 'items' })
+export class Item {
   @Prop({ maxlength: 64, required: true })
-  productName: string;
+  name: string;
+
+  @Prop()
+  price: number;
+
+  @Prop()
+  cost: number;
+
+  @Prop()
+  count: number;
+
+  @Prop({ required: true })
+  shape: string;
+
+  @Prop({ required: true })
+  color: string;
+
+  @Prop()
+  image: string;
 
   @Prop({ required: true })
   description: string;
+
+  @Prop({ default: PricingType.VARIABLE, enum: PricingType })
+  pricingType: PricingType;
 
   @Prop({ type: [{ type: Types.ObjectId }] })
   variants: Variant[];
@@ -25,6 +48,15 @@ export class Product {
   @Prop({ default: false })
   trackStock: boolean;
 
+  @Prop({ default: true })
+  availableForSale: boolean;
+
+  @Prop({ default: null })
+  optimalStock: number;
+
+  @Prop({ default: null })
+  lowStock: number;
+
   @Prop({ default: false })
   soldByWeight: boolean;
 
@@ -32,7 +64,7 @@ export class Product {
   isComposite: boolean;
 
   @Prop({ default: false })
-  useProduction: boolean;
+  useItemion: boolean;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Components' }] })
   components: Component[];
@@ -42,15 +74,6 @@ export class Product {
 
   @Prop({ type: Types.ObjectId })
   modifiersIds: Types.ObjectId;
-
-  @Prop({ required: true })
-  form: string;
-
-  @Prop({ required: true })
-  color: string;
-
-  @Prop()
-  imageUrl: string;
 
   @Prop({ required: true })
   option1Name: string;
@@ -68,7 +91,7 @@ export class Product {
   updatedAt: Date;
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product).set(
+export const Itemschema = SchemaFactory.createForClass(Item).set(
   'versionKey',
   false,
 );

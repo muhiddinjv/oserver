@@ -1,7 +1,5 @@
 import { Document, Types } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { PricingType } from 'src/enums/pricing_type.enum';
 import { Shop } from '../shops/shop.schema';
 import { User } from '../users/user.schema';
 import { Role } from '../roles/role.schema';
@@ -17,7 +15,7 @@ export class Business {
   owner: string;
 
   @Prop({ type: [{ type: Types.ObjectId }]  })
-  employees: User[];
+  staff: User[];
 
   @Prop({ type: [{ type: Types.ObjectId }]  })
   role: Role[];

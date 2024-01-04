@@ -6,36 +6,36 @@ import {
   CategoryDocument,
 } from '../categories/category.schema';
 import { Variant, VariantDocument } from '../variants/variant.schema';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { Product, ProductDocument } from './product.schema';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
+import { Item, ItemDocument } from './item.schema';
 
 @Injectable()
-export class ProductsService {
+export class ItemsService {
   constructor(
-    @InjectModel(Product?.name)
-    private productsModel: Model<ProductDocument>,
+    @InjectModel(Item?.name)
+    private itemsModel: Model<ItemDocument>,
     @InjectModel(Category?.name)
       
     private categoriesModel: Model<CategoryDocument>,
   ) {}
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createItemDto: CreateItemDto) {
     const category = await this.categoriesModel
-      .findById(createProductDto?.categoryId)
+      .findById(createItemDto?.categoryId)
       .exec();
     if (!category) {
       throw new BadRequestException('category not found.');
     }
 
-    const createdProduct = new this.productsModel(createProductDto);
-    category?.products.push(createdProduct);
+    const createdItem = new this.itemsModel(createItemDto);
+    category?.items.push(createdItem);
     await category.save();
-    return createdProduct.save();
+    return createdItem.save();
   }
 
-  async findAll(): Promise<ProductDocument[]> {
-    return await this.productsModel.aggregate([
+  async findAll(): Promise<ItemDocument[]> {
+    return await this.itemsModel.aggregate([
       {
         $lookup: {
           from: 'variants',
@@ -63,31 +63,31 @@ export class ProductsService {
     ]);
   }
 
-  async findById(id: string): Promise<ProductDocument> {
+  async findById(id: string): Promise<ItemDocument> {
     try {
-      return this.productsModel
+      return this.itemsModel
         .findById(id)
         .populate('variants')
         .populate('components');
     } catch (error) {
-      new BadRequestException('Product not found.');
+      new BadRequestException('Item not found.');
     }
   }
 
-  async findByreferenceId(id: string): Promise<ProductDocument> {
-    return this.productsModel.findOne({ reference_id: id });
+  async findByreferenceId(id: string): Promise<ItemDocument> {
+    return this.itemsModel.findOne({ reference_id: id });
   }
 
   async update(
     id: string,
-    updateProductDto: UpdateProductDto,
-  ): Promise<ProductDocument> {
-    return this.productsModel
-      .findByIdAndUpdate(id, updateProductDto, { new: true })
+    updateItemDto: UpdateItemDto,
+  ): Promise<ItemDocument> {
+    return this.itemsModel
+      .findByIdAndUpdate(id, updateItemDto, { new: true })
       .exec();
   }
 
-  async remove(id: string): Promise<ProductDocument> {
-    return this.productsModel.findByIdAndDelete(id).exec();
+  async remove(id: string): Promise<ItemDocument> {
+    return this.itemsModel.findByIdAndDelete(id).exec();
   }
 }

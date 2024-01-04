@@ -2,10 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateVariantDto {
 
   @ApiProperty({
-    description: `productId`,
+    description: `itemId`,
     example: '653a62bfa2d9c7f3e08434d7',
   })
-  productId: string;
+  itemId: string;
 
   @ApiProperty({
     description: `sku`,

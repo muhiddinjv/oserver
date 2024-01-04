@@ -9,7 +9,7 @@ export class AuthDto {
 
   @ApiProperty({
     description: `Password`,
-    example: 'dsk_45lldD&',
+    example: 'Pa55w0rd',
   })
   password: string;
 }

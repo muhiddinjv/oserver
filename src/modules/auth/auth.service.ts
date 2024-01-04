@@ -11,7 +11,7 @@ import { PassworgDto } from './dto/password.dto';
 import { SendSmsDto } from './dto/send-sms.dto';
 import { BusinessService } from '../business/business.service';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
-import { validatePhoneNumber, validateEmail } from '../../validators';
+import { validatePhoneNumber, validateEmail, validatePassword } from '../../validators';
 import { SmsService } from '../sms/sms.service';
 import { generateRandomCode, hashData } from 'src/helpers';
 import { JwtTokenService } from './jwt.service';
@@ -34,14 +34,7 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
     // Password Validation
-    const passwordPattern =
-      /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
- 
-    if (!passwordPattern.test(createUserDto.password)) {
-      throw new BadRequestException(
-        'Invalid password. It should meet the criteria.',
-      );
-    }
+    validatePassword(createUserDto.password)
 
     // phoneNumber Validation
     const isValid = validatePhoneNumber(createUserDto.phoneNumber);
@@ -207,13 +200,7 @@ export class AuthService {
     }
     const userId = newToken['sub'];
 
-    const passwordPattern =
-      /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[-\#\$\.\%\&\*]).{8,16}$/;
-    if (!passwordPattern.test(PassworgDto.password)) {
-      throw new BadRequestException(
-        'Invalid password. It should meet the criteria.',
-      );
-    }
+    validatePassword(PassworgDto.password)
 
     if (PassworgDto.password != PassworgDto.passwordConfig) {
       throw new BadRequestException('password config is incorrect');
@@ -247,7 +234,7 @@ export class AuthService {
       business: Business?.id,
     });
 
-    Business.employees.push(newUser._id);
+    Business.staff.push(newUser._id);
     Business.save();
 
     const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phoneNumber);

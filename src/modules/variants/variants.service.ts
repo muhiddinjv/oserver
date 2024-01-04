@@ -4,29 +4,29 @@ import { Model } from 'mongoose';
 import { Variant, VariantDocument } from './variant.schema';
 import { CreateVariantDto } from './dto/create-variant.dto';
 import { UpdateVariantDto } from './dto/update-variant.dto';
-import { Product, ProductDocument } from '../products/product.schema';
+import { Item, ItemDocument } from '../items/item.schema';
 
 @Injectable()
 export class VariantsService {
   constructor(
     @InjectModel(Variant?.name) private VariantsModel: Model<VariantDocument>,
-    @InjectModel(Product?.name) private ProductsModel: Model<ProductDocument>,
+    @InjectModel(Item?.name) private ItemsModel: Model<ItemDocument>,
   ) {}
 
   async create(
     createVariantDto: CreateVariantDto,
   ): Promise<VariantDocument> {
-    const Product = await this.ProductsModel.findById(
-      createVariantDto?.productId,
+    const Item = await this.ItemsModel.findById(
+      createVariantDto?.itemId,
     ).exec();
-    if (!Product) {
-      throw new BadRequestException('Product not found.');
+    if (!Item) {
+      throw new BadRequestException('Item not found.');
     }
     const createdVariant = new this.VariantsModel(createVariantDto);
-    Product?.variants.push(createdVariant);
+    Item?.variants.push(createdVariant);
 
     await createdVariant.save();
-    await Product.save();
+    await Item.save();
     return createdVariant;
   }
 
