@@ -7,8 +7,8 @@ export class CreateComponentDto {
   quantity: number;
 
   @ApiProperty({
-    description: `variantId`,
+    description: `variant_id`,
     example: '652e55f205aaf5a5bd028999',
   })
-  variantId: string;
+  variant_id: string;
 }

@@ -17,7 +17,7 @@ export class VariantsService {
     createVariantDto: CreateVariantDto,
   ): Promise<VariantDocument> {
     const Item = await this.ItemsModel.findById(
-      createVariantDto?.itemId,
+      createVariantDto?.item_id,
     ).exec();
     if (!Item) {
       throw new BadRequestException('Item not found.');

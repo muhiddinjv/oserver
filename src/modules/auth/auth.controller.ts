@@ -76,7 +76,7 @@ export class AuthController {
   @ApiForbiddenResponse({ description: 'not found' })
   @Post('pwdforgot')
   async resetPassword(@Body() sendSmsDto: SendSmsDto) {
-    return this.authService.ResetPassword(sendSmsDto.phoneNumber);
+    return this.authService.ResetPassword(sendSmsDto.phone_number);
   }
 
   
@@ -105,10 +105,10 @@ export class AuthController {
 
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
-  refreshTokens(@Req() req: Request) {
+  refresh_tokens(@Req() req: Request) {
     const userId = req.user['sub'];
-    const refreshToken = req.user['refreshToken'];
-    return this.jwtTokenService.refreshTokens(userId, refreshToken);
+    const refresh_token = req.user['refresh_token'];
+    return this.jwtTokenService.refresh_tokens(userId, refresh_token);
   }
 
   @ApiOperation({ summary: 'Method:Geterate PinCode' })

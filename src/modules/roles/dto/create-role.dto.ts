@@ -12,6 +12,6 @@ export class CreateRoleDto {
     description: `business`,
     example: "id",
   })
-  businessId: string;
+  business_id: string;
  
 }

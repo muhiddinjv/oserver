@@ -17,19 +17,19 @@ import {
     ) {}
   
   
-    async updateRefreshToken(userId: string, refreshToken: string) {
-      const hashedRefreshToken = await hashData(refreshToken);
+    async updateRefreshToken(userId: string, refresh_token: string) {
+      const hashedRefreshToken = await hashData(refresh_token);
       await this.userService.update(userId, {
-        refreshToken: hashedRefreshToken,
+        refresh_token: hashedRefreshToken,
       });
     }
   
-    async getTokens(userId: string, phoneNumber: string) {
-      const [accessToken, refreshToken] = await Promise.all([
+    async getTokens(userId: string, phone_number: string) {
+      const [accessToken, refresh_token] = await Promise.all([
         this.jwtService.signAsync(
           {
             sub: userId,
-            phoneNumber,
+            phone_number,
           },
           {
             secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
@@ -39,7 +39,7 @@ import {
         this.jwtService.signAsync(
           {
             sub: userId,
-            phoneNumber,
+            phone_number,
           },
           {
             secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
@@ -49,7 +49,7 @@ import {
       ]);
       return {
         accessToken,
-        refreshToken,
+        refresh_token,
       };
     }
   
@@ -61,17 +61,17 @@ import {
       return tokens;
     }
   
-    async refreshTokens(userId: string, refreshToken: string) {
+    async refresh_tokens(userId: string, refresh_token: string) {
       const user = await this.userService.findById(userId);
-      if (!user || !user.refreshToken)
+      if (!user || !user.refresh_token)
         throw new ForbiddenException('Access Denied');
-      const refreshTokenMatches = await bcryptjs.compare(
-        user.refreshToken,
-        refreshToken,
+      const refresh_tokenMatches = await bcryptjs.compare(
+        user.refresh_token,
+        refresh_token,
       );
-      if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
-      const tokens = await this.getTokens(user.id, user.phoneNumber);
-      await this.updateRefreshToken(user.id, tokens.refreshToken);
+      if (!refresh_tokenMatches) throw new ForbiddenException('Access Denied');
+      const tokens = await this.getTokens(user.id, user.phone_number);
+      await this.updateRefreshToken(user.id, tokens.refresh_token);
       return tokens;
     }
 

@@ -5,7 +5,7 @@ import { AuthService } from '../../auth.service';
 
 type JwtPayload = {
     sub: string;
-    phoneNumber: string;
+    phone_number: string;
 };
 
 @Injectable()

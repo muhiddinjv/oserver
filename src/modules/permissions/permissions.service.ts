@@ -21,7 +21,7 @@ export class PermissionService {
     async create(createPermissionDto: CreatePermissionDto) {
  
     const createdPermission = new this.PermissionModel(createPermissionDto);
-    const role = await this.RoleModel.findById(createPermissionDto.roleId)
+    const role = await this.RoleModel.findById(createPermissionDto.role_id)
     role.permission.push(createdPermission)
 
     role.save()

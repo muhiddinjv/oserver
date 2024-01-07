@@ -28,7 +28,7 @@ export class AuthService {
   async signUp(createUserDto: CreateUserDto): Promise<any> {
     // Check if user exists
     const userExists = await this.userService.findByPhoneNumber(
-      createUserDto.phoneNumber,
+      createUserDto.phone_number,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
@@ -36,8 +36,8 @@ export class AuthService {
     // Password Validation
     validatePassword(createUserDto.password)
 
-    // phoneNumber Validation
-    const isValid = validatePhoneNumber(createUserDto.phoneNumber);
+    // phone_number Validation
+    const isValid = validatePhoneNumber(createUserDto.phone_number);
 
     if (!isValid) {
       throw new BadRequestException('Invalid phone number');
@@ -60,12 +60,12 @@ export class AuthService {
     // Hash password
     const hash = await hashData(createUserDto.password);
 
-    if (!createUserDto.businessName) {
+    if (!createUserDto.business_name) {
       throw new BadRequestException('Business name is required.');
     }
 
     const business = await this.businessService.create({
-      name: createUserDto.businessName,
+      name: createUserDto.business_name,
     });
 
     const newUser = await this.userService.create({
@@ -75,16 +75,16 @@ export class AuthService {
     });
     await this.businessService.update(business.id, { owner: newUser.id });
 
-    const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phoneNumber);
-    await this.jwtTokenService.updateRefreshToken(newUser._id, tokens.refreshToken);
+    const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phone_number);
+    await this.jwtTokenService.updateRefreshToken(newUser._id, tokens.refresh_token);
 
     const response = {
       message: "User successfully signed in",
       data: {
         id: newUser._id,
-        name: `${newUser.firstName} ${newUser.lastName}`,
+        name: `${newUser.first_name} ${newUser.last_name}`,
         role: newUser.role,
-        phone: newUser.phoneNumber,
+        phone: newUser.phone_number,
         tokens
       }
 
@@ -94,12 +94,12 @@ export class AuthService {
 
   async signIn(data: AuthDto) {
     // Check if user exists
-    const user = await this.userService.findByPhoneNumber(data.phoneNumber);
+    const user = await this.userService.findByPhoneNumber(data.phone_number);
     console.log(user)
     if (!user) throw new BadRequestException('User does not exist');
 
-    // phoneNumber Validation
-    const isValid = validatePhoneNumber(data.phoneNumber);
+    // phone_number Validation
+    const isValid = validatePhoneNumber(data.phone_number);
 
     if (!isValid) {
       throw new BadRequestException('Invalid phone number');
@@ -113,16 +113,16 @@ export class AuthService {
     if (!passwordMatches) {
       throw new BadRequestException('Password is incorrect');
     }
-    const tokens = await this.jwtTokenService.getTokens(user._id, user.phoneNumber);
-    await this.jwtTokenService.updateRefreshToken(user._id, tokens.refreshToken);
+    const tokens = await this.jwtTokenService.getTokens(user._id, user.phone_number);
+    await this.jwtTokenService.updateRefreshToken(user._id, tokens.refresh_token);
 
     const response = {
       message: "User successfully signed in",
       data: {
         id: user._id,
-        name: `${user.firstName} ${user.lastName}`,
+        name: `${user.first_name} ${user.last_name}`,
         role: user.role,
-        phone: user.phoneNumber,
+        phone: user.phone_number,
         tokens
       }
     }
@@ -130,15 +130,15 @@ export class AuthService {
     return response;
   }
 
-  // async getuserbynumber(phoneNumber: string) {
-  //   // phoneNumber Validation
-  //   const isValid = validatePhoneNumber(phoneNumber);
+  // async getuserbynumber(phone_number: string) {
+  //   // phone_number Validation
+  //   const isValid = validatePhoneNumber(phone_number);
 
   //   if (!isValid) {
   //     throw new BadRequestException('Invalid phone number');
   //   }
 
-  //   const userExists = await this.userService.findByPhoneNumber(phoneNumber);
+  //   const userExists = await this.userService.findByPhoneNumber(phone_number);
   //   if (userExists) {
   //     throw new BadRequestException('User already exists');
   //   }
@@ -148,13 +148,13 @@ export class AuthService {
     const code = generateRandomCode(6);
 
     const userExists = await this.userService.findByPhoneNumber(
-      sendSmsDto.phoneNumber,
+      sendSmsDto.phone_number,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
     await this.infobipService.sendSMS(
-      sendSmsDto.phoneNumber,
+      sendSmsDto.phone_number,
       `Authorization code :${code}`,
     );
 
@@ -165,27 +165,27 @@ export class AuthService {
   }
 
   async signOut(userId: string) {
-    this.userService.update(userId, { refreshToken: null });
+    this.userService.update(userId, { refresh_token: null });
     return {
       message: "User successfully signed out"
     }
   }
 
-  async ResetPassword(phoneNumber: string) {
-    const userExists = await this.userService.findByPhoneNumber(phoneNumber);
+  async ResetPassword(phone_number: string) {
+    const userExists = await this.userService.findByPhoneNumber(phone_number);
     if (!userExists) {
       throw new BadRequestException(
         "user with given phone number doesn't exist",
       );
     }
 
-    const tokens = await this.jwtTokenService.getTokens(userExists._id, userExists.phoneNumber);
+    const tokens = await this.jwtTokenService.getTokens(userExists._id, userExists.phone_number);
 
     const link = `http://localhost:3000/password-reset?token=${tokens.accessToken}`;
 
-    await this.infobipService.sendSMS(phoneNumber, `Reset password : ${link}`);
+    await this.infobipService.sendSMS(phone_number, `Reset password : ${link}`);
 
-    await this.jwtTokenService.updateRefreshToken(userExists._id, tokens.refreshToken);
+    await this.jwtTokenService.updateRefreshToken(userExists._id, tokens.refresh_token);
 
     return {
       success: true,
@@ -215,14 +215,14 @@ export class AuthService {
   }
 
   async createUser(createUserDto: SingUpUserDto, userId: string) {
-    // phoneNumber Validation
-    const isValid = validatePhoneNumber(createUserDto.phoneNumber);
+    // phone_number Validation
+    const isValid = validatePhoneNumber(createUserDto.phone_number);
     if (!isValid) {
       throw new BadRequestException('Invalid phone number');
     }
 
     const userExists = await this.userService.findByPhoneNumber(
-      createUserDto?.phoneNumber,
+      createUserDto?.phone_number,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
@@ -237,15 +237,15 @@ export class AuthService {
     Business.staff.push(newUser._id);
     Business.save();
 
-    const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phoneNumber);
-    await this.jwtTokenService.updateRefreshToken(newUser._id, tokens.refreshToken);
+    const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phone_number);
+    await this.jwtTokenService.updateRefreshToken(newUser._id, tokens.refresh_token);
     const link = `http://localhost:3000/password-reset?token=${tokens.accessToken}`;
 
     await this.infobipService.sendSMS(
-      createUserDto?.phoneNumber,
+      createUserDto?.phone_number,
       `
-    ${owner?.firstName} invites you to join your organization and obtain access to the Loyverse back office. : ${link}
-    your pincode:${createUserDto?.userQrCode}
+    ${owner?.first_name} invites you to join your organization and obtain access to the Loyverse back office. : ${link}
+    your pincode:${createUserDto?.user_qr_code}
     `,
     );
 

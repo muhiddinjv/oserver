@@ -19,7 +19,7 @@ export class RolesService {
 
     const createdRole = new this.RolesModel(createRoleDto);
     
-    const business = await this.BusinessModel.findById(createRoleDto.businessId)
+    const business = await this.BusinessModel.findById(createRoleDto.business_id)
     business.role.push(createdRole)
 
     business.save()

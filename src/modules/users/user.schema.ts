@@ -8,10 +8,10 @@ export type UserDocument = User & Document;
 @Schema({ collection: 'users' })
 export class User {
   @Prop({ minlength:3, maxlength: 64, required: true })
-  firstName: string;
+  first_name: string;
 
   @Prop({ minlength:3,maxlength: 64, required: true })
-  lastName: string;
+  last_name: string;
 
   @Prop({ type: Types.ObjectId })
   business: Types.ObjectId;
@@ -26,10 +26,10 @@ export class User {
   password: string;
 
   @Prop()
-  refreshToken: string;
+  refresh_token: string;
 
   @Prop({ unique: true, maxlength: 15, required: true })
-  phoneNumber: string;
+  phone_number: string;
 
   @Prop({ type: String, enum: Role, default:Role.MERCHANT }) 
   role: Role;
@@ -44,7 +44,7 @@ export class User {
   photo: string;
 
   @Prop({minlength:4, maxlength: 40, required: true })
-  userQrCode: string;
+  user_qr_code: string;
 
   @Prop({minlength:3, maxlength: 255 })
   note: string;

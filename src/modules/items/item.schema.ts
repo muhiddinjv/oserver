@@ -34,61 +34,58 @@ export class Item {
   description: string;
 
   @Prop({ default: PricingType.VARIABLE, enum: PricingType })
-  pricingType: PricingType;
+  pricing_type: PricingType;
 
   @Prop({ type: [{ type: Types.ObjectId }] })
   variants: Variant[];
 
   @Prop({ default: () => uuidv4() })
-  referenceId: string;
+  reference_id: string;
 
   @Prop({ type: Types.ObjectId })
-  categoryId: { type: Types.ObjectId };
+  category_id: { type: Types.ObjectId };
 
   @Prop({ default: false })
-  trackStock: boolean;
+  track_stock: boolean;
 
   @Prop({ default: true })
-  availableForSale: boolean;
+  available_for_sale: boolean;
 
   @Prop({ default: null })
-  optimalStock: number;
+  optimal_stock: number;
 
   @Prop({ default: null })
-  lowStock: number;
+  low_stock: number;
 
   @Prop({ default: false })
-  soldByWeight: boolean;
+  sold_by_weight: boolean;
 
   @Prop({ default: false })
-  isComposite: boolean;
-
-  @Prop({ default: false })
-  useItemion: boolean;
+  is_group_item: boolean;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Components' }] })
   components: Component[];
 
   @Prop({ type: Types.ObjectId })
-  primarySupplierId: Types.ObjectId;
+  supplier_id: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId })
-  modifiersIds: Types.ObjectId;
+  modifier_id: Types.ObjectId;
 
   @Prop({ required: true })
-  option1Name: string;
+  option1_name: string;
 
   @Prop({ required: true })
-  option2Name: string;
+  option2_name: string;
 
   @Prop({ required: true })
-  option3Name: string;
+  option3_name: string;
 
   @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
+  created_at: Date;
 
   @Prop({ type: Date, default: Date.now })
-  updatedAt: Date;
+  updated_at: Date;
 }
 
 export const Itemschema = SchemaFactory.createForClass(Item).set(

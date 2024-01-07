@@ -24,10 +24,10 @@ export class Business {
   shops: Shop[];
 
   @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
+  created_at: Date;
 
   @Prop({ type: Date, default: Date.now })
-  updatedAt: Date;
+  updated_at: Date;
 }
 
 export const BusinessSchema = SchemaFactory.createForClass(Business).set(

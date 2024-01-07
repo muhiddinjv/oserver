@@ -12,15 +12,15 @@ export class SmsService {
     this.baseUrl = process.env.INFOBIP_BASE_URL;
   }
 
-  async sendSMS(phoneNumber: string, messages: string): Promise<any> {
-    await this.checkPhoneNumber(phoneNumber)
+  async sendSMS(phone_number: string, messages: string): Promise<any> {
+    await this.checkPhoneNumber(phone_number)
     
     const data = {
       messages: [
         {
           destinations: [
             {
-              to: phoneNumber,
+              to: phone_number,
             },
           ],
           from: 'Ollio app',
@@ -43,8 +43,8 @@ export class SmsService {
     }
   }
 
-  async checkPhoneNumber(phoneNumber) {
-    const isValid = validatePhoneNumber(phoneNumber);
+  async checkPhoneNumber(phone_number) {
+    const isValid = validatePhoneNumber(phone_number);
 
     if (!isValid) {
       throw new BadRequestException('Invalid phone number');

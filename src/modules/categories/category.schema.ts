@@ -15,19 +15,19 @@ export class Category {
   status: boolean;
 
   @Prop({ maxlength: 64, required: true })
-  sortOrder: string;
+  sort_order: string;
 
   @Prop({ type: Types.ObjectId })
-  shopId: Types.ObjectId;
+  shop_id: Types.ObjectId;
 
   @Prop({ type: [{ type: Types.ObjectId }] })
   items: Item[];
 
   @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
+  created_at: Date;
 
   @Prop({ type: Date, default: Date.now })
-  updatedAt: Date;
+  updated_at: Date;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category).set(

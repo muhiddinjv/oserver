@@ -1,0 +1,76 @@
+[{
+  "id": "string",
+  "business_name": "string",
+  "email": "string",
+  "country": "US",
+  "currency": {
+    "code": "USD",
+    "decimal_places": 2
+  },
+  "created_at": "2024-01-05T04:54:34Z"
+},{
+  "id": "string",
+  "handle": "string",
+  "item_name": "T-shirt",
+  "description": "string",
+  "reference_id": "string",
+  "category_id": [{
+    "id": "string",
+    "name": "string",
+    "color": "GREY",
+    "created_at": "2020-03-25T19:55:23.077Z",
+    "deleted_at": "2020-04-02T23:45:20.050Z"
+  }],
+  "track_stock": false,
+  "sold_by_weight": false,
+  "is_composite": true,
+  "use_production": false,
+  "components": [
+    {
+      "variant_id": "string",
+      "quantity": 0
+    }
+  ],
+  "primary_supplier_id": "string",
+  "modifiers_ids": [
+    "string"
+  ],
+  "form": "SQUARE",
+  "color": "GREY",
+  "image_url": "string",
+  "option1_name": "Size",
+  "option2_name": "Color",
+  "option3_name": null,
+  "created_at": "2020-03-25T19:55:23.077Z",
+  "updated_at": "2020-03-30T08:05:10.020Z",
+  "deleted_at": "2020-04-02T23:45:20.050Z",
+  "variants": [
+    {
+      "variant_id": "string",
+      "item_id": "string",
+      "sku": "string",
+      "reference_variant_id": "string",
+      "option1_value": "Large",
+      "option2_value": "Green",
+      "option3_value": null,
+      "barcode": "string",
+      "cost": 0,
+      "purchase_cost": 0,
+      "default_pricing_type": "VARIABLE",
+      "default_price": null,
+      "shops": [
+        {
+          "shop_id": "string",
+          "pricing_type": "FIXED",
+          "price": 0,
+          "available_for_sale": true,
+          "optimal_stock": null,
+          "low_stock": null
+        }
+      ],
+      "created_at": "2020-11-04T00:00:00.000Z",
+      "updated_at": "2020-11-04T00:00:00.000Z",
+      "deleted_at": "2020-11-04T00:00:00.000Z"
+    }
+  ]
+}]

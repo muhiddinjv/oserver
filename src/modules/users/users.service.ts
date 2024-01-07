@@ -16,7 +16,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
     const userExists = await this.findByPhoneNumber(
-      createUserDto.phoneNumber,
+      createUserDto.phone_number,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
@@ -27,7 +27,7 @@ export class UsersService {
 
   async createUser(createUserDto: CreateUserDto, userId:string) {
     const userExists = await this.findByPhoneNumber(
-      createUserDto.phoneNumber,
+      createUserDto.phone_number,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
@@ -49,8 +49,8 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
-  async findByPhoneNumber(phoneNumber: string): Promise<UserDocument> {
-    return this.userModel.findOne({ phoneNumber }).exec();
+  async findByPhoneNumber(phone_number: string): Promise<UserDocument> {
+    return this.userModel.findOne({ phone_number }).exec();
   }
   async findByEmail(email: string): Promise<UserDocument> {
     return this.userModel.findOne({ email }).exec();
@@ -59,7 +59,7 @@ export class UsersService {
   
 
   async findByPinCode(PinCode: string): Promise<UserDocument> {
-    return this.userModel.findOne({ userQrCode:PinCode }).exec();
+    return this.userModel.findOne({ user_qr_code:PinCode }).exec();
   }
 
   async update(

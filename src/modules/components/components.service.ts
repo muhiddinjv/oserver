@@ -18,12 +18,12 @@ export class ComponentsService {
 
   async create(createComponentDto: CreateComponentDto) {
     const Variant = await this.VariantsModel.findById(
-      createComponentDto?.variantId,
+      createComponentDto?.variant_id,
     ).exec();
     if (!Variant) {
       throw new BadRequestException('Variant not found.');
     }
-    const Items = await this.ItemsModel.findById(Variant?.itemId).exec();
+    const Items = await this.ItemsModel.findById(Variant?.item_id).exec();
     if (!Items) {
       throw new BadRequestException('Items not found.');
     }

@@ -8,10 +8,10 @@ export class CreatePermissionDto {
     name: string;
   
     @ApiProperty({
-        description: `roleId`,
+        description: `role_id`,
         example: "Id",
     })
-    roleId: string;
+    role_id: string;
     
     @ApiProperty({
         description: `PermissiocatgoryId`,

@@ -14,10 +14,10 @@ export class CreateItemDto {
   description: string;
   
   @ApiProperty({
-    description: 'categoryId',
+    description: 'category_id',
     example: '652e53dc816d176acdad441f',
   })
-  categoryId: string;
+  category_id: string;
 
   @ApiProperty({
     description: 'form',
@@ -32,20 +32,20 @@ export class CreateItemDto {
   color: string;
   
   @ApiProperty({
-    description: 'option1Name',
-    example: 'option1Name',
+    description: 'option1_name',
+    example: 'option1_name',
   })
-  option1Name: string;
+  option1_name: string;
   
   @ApiProperty({
-    description: 'option2Name',
-    example: 'option2Name',
+    description: 'option2_name',
+    example: 'option2_name',
   })
-  option2Name: string;
+  option2_name: string;
   
   @ApiProperty({
-    description: 'option3Name',
-    example: 'option3Name',
+    description: 'option3_name',
+    example: 'option3_name',
   })
-  option3Name: string;
+  option3_name: string;
 }

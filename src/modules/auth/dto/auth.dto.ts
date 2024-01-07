@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class AuthDto {
   @ApiProperty({
-    description: `phoneNumber`,
+    description: `phone_number`,
     example: '+998997811356',
   })
-  phoneNumber: string;
+  phone_number: string;
 
 
   @ApiProperty({

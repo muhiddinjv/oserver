@@ -22,8 +22,8 @@ export class CreateCategoryDto {
 
 
   @ApiProperty({
-    description: `sortOrder`,
-    example: 'sortOrder',
+    description: `sort_order`,
+    example: 'sort_order',
   })
-  sortOrder:string;
+  sort_order:string;
 }

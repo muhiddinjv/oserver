@@ -7,22 +7,22 @@ export type VariantDocument = Variant & Document;
 @Schema({ collection: 'variants' })
 export class Variant {
   @Prop({ type: Types.ObjectId })
-  itemId: string;
+  item_id: string;
 
   @Prop({ default: () => uuidv4() })
-  referenceVariantId: string;
+  reference_variant_id: string;
 
   @Prop({ maxlength: 40, required: true })
   sku: string;
 
   @Prop({ maxlength: 20, required: true })
-  option1Value: string;
+  option1_value: string;
 
   @Prop({ maxlength: 20, required: true })
-  option2Value: string;
+  option2_value: string;
 
   @Prop({ maxlength: 20, required: true })
-  option3Value: string;
+  option3_value: string;
 
   @Prop({ maxlength: 128, required: true })
   barcode: string;
@@ -31,22 +31,22 @@ export class Variant {
   cost: number;
 
   @Prop({ default: 0 })
-  purchaseCost: number;
+  purchase_cost: number;
 
   @Prop({ default: PricingType.VARIABLE, enum: PricingType })
-  defaultPricingType: PricingType;
+  default_pricing_type: PricingType;
 
   @Prop()
-  defaultPrice: number;
+  default_price: number;
 
   @Prop({ type: [] })
   shops: [];
 
   @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
+  created_at: Date;
 
   @Prop({ type: Date, default: Date.now })
-  updatedAt: Date;
+  updated_at: Date;
 }
 
 export const VariantSchema = SchemaFactory.createForClass(Variant).set(

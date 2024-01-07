@@ -8,10 +8,10 @@ export class Shop {
   name: string;
 
   @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
+  created_at: Date;
 
   @Prop({ type: Date, default: Date.now })
-  updatedAt: Date;
+  updated_at: Date;
 }
 
 export const ShopSchema = SchemaFactory.createForClass(Shop).set(

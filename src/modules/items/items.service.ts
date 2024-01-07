@@ -22,7 +22,7 @@ export class ItemsService {
 
   async create(createItemDto: CreateItemDto) {
     const category = await this.categoriesModel
-      .findById(createItemDto?.categoryId)
+      .findById(createItemDto?.category_id)
       .exec();
     if (!category) {
       throw new BadRequestException('category not found.');
@@ -56,7 +56,7 @@ export class ItemsService {
         $lookup: {
           from: 'categories',
           localField: 'categories',
-          foreignField: 'categoryId',
+          foreignField: 'category_id',
           as: 'category',
         },
       },
