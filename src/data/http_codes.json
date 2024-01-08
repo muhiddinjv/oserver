@@ -152,7 +152,7 @@
   "403": {
     "code": 403,
     "message": "Forbidden",
-    "description": "The request was a legal request, but the server is refusing to respond to it. (User is authenticated but doesnt have permission to access the resource)"
+    "description": "The request was a legal request, but the server is refusing to respond to it. (User is authenticated but doesnt have permit to access the resource)"
   },
   "404": {
     "code": 404,

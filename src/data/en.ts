@@ -9,7 +9,7 @@ exports.errors = {
     "400 CONFLICTING_PARAMETERS": "1 or more of the request parameters conflict with each other.",
     "401": "An authentication error. Request had a missing, malformed, or invalid authorization data.",
     "402": "The subscription of the account has lapsed.",
-    "403 Forbidden": "The resource requested is not available with your permissions.",
+    "403 Forbidden": "The resource requested is not available with your permits.",
     "404": "The resource was not found.",
     "415": "The server doesn't accept the submitted content-type.",
     "429": "The request was not accepted because the application has exceeded the rate limit."
@@ -64,11 +64,11 @@ exports.web_permits = [
     "Manage loyalty program",
     "Manage taxes",
     "Manage POS devices",
-    "This permission also allows to sign into POS using email and password",
+    "This permit also allows to sign into POS using email and password",
     "Access to live chat support"
 ];
 
 /*
-MERCHANTS can: CRUD their own items, retailers, roles for retailers, check on/off permissions for retailers,
-RETAILERS can: CRUD their own items, customers, roles for customers, check on/off permissions for customers
+MERCHANTS can: CRUD their own items, retailers, roles for retailers, check on/off permits for retailers,
+RETAILERS can: CRUD their own items, customers, roles for customers, check on/off permits for customers
 */

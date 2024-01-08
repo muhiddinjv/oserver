@@ -7,22 +7,22 @@ export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
 export class User {
-  @Prop({ minlength:3, maxlength: 64, required: true })
+  @Prop({ minlength:3, maxlength: 64 })
   first_name: string;
 
-  @Prop({ minlength:3,maxlength: 64, required: true })
+  @Prop({ minlength:3,maxlength: 64 })
   last_name: string;
 
-  @Prop({ type: Types.ObjectId })
+  @Prop({ type: Types.ObjectId, required: true })
   business: Types.ObjectId;
   
-  @Prop({minlength:3, maxlength: 192, required: true })
+  @Prop({minlength:3, maxlength: 192 })
   address: string;
 
   @Prop({  maxlength: 100 })
   email: string;
 
-  @Prop({ nullable: true, maxlength: 100 })
+  @Prop({ nullable: true, maxlength: 100, required: true })
   password: string;
 
   @Prop()
@@ -38,31 +38,31 @@ export class User {
   shops: Shop[];
 
   @Prop({ default: true })
-  isActive: boolean;
+  is_active: boolean;
 
   @Prop({ default: 'defaultavatar.png' })
   photo: string;
 
-  @Prop({minlength:4, maxlength: 40, required: true })
+  @Prop({minlength:4, maxlength: 40 })
   user_qr_code: string;
 
   @Prop({minlength:3, maxlength: 255 })
   note: string;
 
   @Prop()
-  firstVisit: Date;
+  first_visit: Date;
 
   @Prop()
-  lastVisit: Date;
+  last_visit: Date;
 
   @Prop({ default: 0 })
-  totalVisits: number;
+  total_visits: number;
 
   @Prop({ default: 0 })
-  totalSpent: number;
+  total_spent: number;
 
   @Prop({ default: 0 })
-  totalPoints: number;
+  total_points: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User).set(

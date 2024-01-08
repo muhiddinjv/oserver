@@ -6,7 +6,6 @@ export class AuthDto {
   })
   phone_number: string;
 
-
   @ApiProperty({
     description: `Password`,
     example: 'Pa55w0rd',

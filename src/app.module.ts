@@ -9,7 +9,7 @@ import { VariantsModule } from './modules/variants/variants.module';
 import { ComponentsModule } from './modules/components/components.module';
 import { ShopsModule } from './modules/shops/shops.module';
 import { RolesModule } from './modules/roles/roles.module';
-import { PermissionsModule } from './modules/permissions/permissions.module';
+import { PermitsModule } from './modules/permits/permits.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AbilitiesGuard } from './modules/auth/ability/ability.guard';
 import { AbilityModule } from './modules/auth/ability/ability.module';
@@ -27,7 +27,7 @@ import { SmsModule } from './modules/sms/sms.module';
     ComponentsModule,
     ShopsModule,
     RolesModule,
-    PermissionsModule,
+    PermitsModule,
     AbilityModule,
     SmsModule
   ],

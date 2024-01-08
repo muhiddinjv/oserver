@@ -1,9 +1,9 @@
 import { Document ,Types} from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-export type PermissionDocument = Permission & Document;
+export type PermitDocument = Permit & Document;
 
-@Schema({ collection: 'permissions' })
-export class Permission {
+@Schema({ collection: 'permits' })
+export class Permit {
     @Prop({ maxlength: 64, required: true })
     name: string;
 
@@ -11,10 +11,10 @@ export class Permission {
     role_id: string;
     
     @Prop({ type: Types.ObjectId })
-    permission_category_id: string;
+    permit_category_id: string;
 }
 
-export const PermissionsSchema = SchemaFactory.createForClass(Permission).set(
+export const PermitsSchema = SchemaFactory.createForClass(Permit).set(
   'versionKey',
   false,
 );

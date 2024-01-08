@@ -42,7 +42,7 @@
     },
     "403": {
       "code": 403,
-      "message": "The resource requested is not available with your permissions"
+      "message": "The resource requested is not available with your permits"
     },
     "404": {
       "code": 404,

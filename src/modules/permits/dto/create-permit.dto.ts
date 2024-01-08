@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class CreatePermissionDto {
+export class CreatePermitDto {
 
     @ApiProperty({
         description: `name`,

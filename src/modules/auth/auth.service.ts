@@ -8,7 +8,7 @@ import { SendSmsDto } from './dto/send-sms.dto';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
 import { validatePhoneNumber, validateEmail, validatePassword } from '../../validators';
 import { SmsService } from '../sms/sms.service';
-import { generateRandomCode, hashData } from 'src/helpers';
+import { generateRandomCode, hashData } from 'src/utils';
 import { JwtTokenService } from './jwt.service';
 import { ShopsService } from '../shops/shops.service';
 
