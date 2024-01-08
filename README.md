@@ -82,3 +82,5 @@ These user stories, acceptance criteria, and tasks cover the main features of th
 | ci       | Changes to our CI configuration files and scripts     |
 | chore    | Other changes that don't modify src or test files      |
 | revert   | Reverts a previous commit                             |
+
+access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTliZGNhNmM1OTI0NDc0MTgwN2EyYTciLCJwaG9uZV9udW1iZXIiOiIrOTk4OTkzNDU2Nzg5IiwiaWF0IjoxNzA0NzE0ODc2LCJleHAiOjE3MDQ3MTU3NzZ9.yLgTOGfgR6C46nTiT3NVfClcm7kD4iwmlQVvmaxtXd0

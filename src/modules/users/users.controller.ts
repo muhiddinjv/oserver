@@ -54,7 +54,7 @@ export class UsersController {
   @Get()
   @UseGuards(AbilitiesGuard)
   @UseGuards(AccessTokenGuard)
-  @CheckAbilites(new ReadUserAbility())
+  // @CheckAbilites(new ReadUserAbility())
   findAll( @Req() req: Request) {
     return this.usersService.findAll();
   }
