@@ -4,7 +4,7 @@ export type ShopDocument = Shop & Document;
 
 @Schema({ collection: 'shops' })
 export class Shop {
-  @Prop()
+  @Prop(({required: true}))
   name: string;
 
   @Prop()
