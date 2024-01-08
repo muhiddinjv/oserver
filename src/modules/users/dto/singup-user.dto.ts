@@ -1,40 +1,41 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class SingUpUserDto {
   @ApiProperty({
-    description: `first_name`,
+    description: 'first_name',
     example: 'Jones',
   })
   first_name: string;
 
 
   @ApiProperty({
-    description: `last_name`,
+    description: 'last_name',
     example: 'Show',
   })
   last_name: string;
 
-  
-  business_name: string;
-
+  @ApiProperty({
+    description: 'business',
+    example: 'Mega Planet',
+  })
   business: string;
 
  
   @ApiProperty({
-    description: `phone_number`,
+    description: 'phone_number',
     example: '+998997811356',
   })
   phone_number: string;
 
 
   @ApiProperty({
-    description: `Password`,
+    description: 'Password',
     example: 'dsk_45lldD&',
   })
   password: string;
   email: string
 
   @ApiProperty({
-    description: `shop`,
+    description: 'shop',
     example: ['shop_id','shop_id'],
   })
   shop: string;
@@ -42,7 +43,7 @@ export class SingUpUserDto {
 
 
   @ApiProperty({
-    description: `role`,
+    description: 'role',
     example: 'merchant',
   })
   role: string;
@@ -52,14 +53,14 @@ export class SingUpUserDto {
 
 
   @ApiProperty({
-    description: `address`,
+    description: 'address',
     example: 'Toshkent Chorsu 1 street',
   })
   address: string;
 
 
   @ApiProperty({
-    description: `user_qr_code`,
+    description: 'user_qr_code',
     example: 4444,
   })
   user_qr_code: number;

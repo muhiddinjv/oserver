@@ -7,6 +7,18 @@ export class Shop {
   @Prop()
   name: string;
 
+  @Prop()
+  owner: string;
+
+  @Prop({ type: [] })
+  staff: [];
+
+  @Prop()
+  type: string;
+
+  @Prop()
+  location: string;
+
   @Prop({ type: Date, default: Date.now })
   created_at: Date;
 

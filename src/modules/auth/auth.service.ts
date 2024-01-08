@@ -1,20 +1,16 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import * as bcryptjs from 'bcryptjs';
 import { AuthDto } from './dto/auth.dto';
 import { PassworgDto } from './dto/password.dto';
 import { SendSmsDto } from './dto/send-sms.dto';
-import { BusinessService } from '../business/business.service';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
 import { validatePhoneNumber, validateEmail, validatePassword } from '../../validators';
 import { SmsService } from '../sms/sms.service';
 import { generateRandomCode, hashData } from 'src/helpers';
 import { JwtTokenService } from './jwt.service';
+import { ShopsService } from '../shops/shops.service';
 
 @Injectable()
 export class AuthService {
@@ -22,27 +18,24 @@ export class AuthService {
     private userService: UsersService,
     private jwtTokenService: JwtTokenService,
     private infobipService: SmsService,
-    private businessService: BusinessService,
   ) { }
 
   async signUp(createUserDto: CreateUserDto): Promise<any> {
-    // Check if user exists
     const userExists = await this.userService.findByPhoneNumber(
       createUserDto.phone_number,
     );
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
-    // Password Validation
+
     validatePassword(createUserDto.password)
 
-    // phone_number Validation
     const isValid = validatePhoneNumber(createUserDto.phone_number);
 
     if (!isValid) {
       throw new BadRequestException('Invalid phone number');
     }
-    // email Validation
+
     if (createUserDto.email) {
       const userExists = await this.userService.findByEmail(
         createUserDto.email,
@@ -57,23 +50,12 @@ export class AuthService {
       }
     }
 
-    // Hash password
     const hash = await hashData(createUserDto.password);
-
-    if (!createUserDto.business_name) {
-      throw new BadRequestException('Business name is required.');
-    }
-
-    const business = await this.businessService.create({
-      name: createUserDto.business_name,
-    });
 
     const newUser = await this.userService.create({
       ...createUserDto,
-      business: business?.id,
       password: hash,
     });
-    await this.businessService.update(business.id, { owner: newUser.id });
 
     const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phone_number);
     await this.jwtTokenService.updateRefreshToken(newUser._id, tokens.refresh_token);
@@ -215,7 +197,6 @@ export class AuthService {
   }
 
   async createUser(createUserDto: SingUpUserDto, userId: string) {
-    // phone_number Validation
     const isValid = validatePhoneNumber(createUserDto.phone_number);
     if (!isValid) {
       throw new BadRequestException('Invalid phone number');
@@ -228,14 +209,7 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
     const owner = await this.userService.findById(userId);
-    const Business = await this.businessService.findbusinessbyOwnerId(userId);
-    const newUser = await this.userService.create({
-      ...createUserDto,
-      business: Business?.id,
-    });
-
-    Business.staff.push(newUser._id);
-    Business.save();
+    const newUser = await this.userService.create(createUserDto);
 
     const tokens = await this.jwtTokenService.getTokens(newUser._id, newUser.phone_number);
     await this.jwtTokenService.updateRefreshToken(newUser._id, tokens.refresh_token);

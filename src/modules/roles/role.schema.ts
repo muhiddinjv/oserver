@@ -9,7 +9,7 @@ export class Role {
   name: string;
 
   @Prop({ type: Types.ObjectId })
-  business_id: string;
+  user_id: string;
 
   @Prop({ type: [{ type: Types.ObjectId }] })
   permission: Permission[];

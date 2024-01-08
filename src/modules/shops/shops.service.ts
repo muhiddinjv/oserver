@@ -1,31 +1,22 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Shop, ShopDocument } from './shop.schema';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
-import { Business, BusinessDocument } from '../business/business.schema';
 import { User, UserDocument } from '../users/user.schema';
 
 @Injectable()
 export class ShopsService {
   constructor(
     @InjectModel(Shop?.name) private ShopsModel: Model<ShopDocument>,
-    @InjectModel(Business?.name) private BusinessModel: Model<BusinessDocument>,
-) {}
-
-  async create(createShopDto: CreateShopDto) {
+    @InjectModel(User?.name) private UserModel: Model<UserDocument>,
+) {}  
+  async create(createShopDto: CreateShopDto, userId: string) {
+    // const User = await this.UserModel.findOne({ _id: userId })
     const createdShops = new this.ShopsModel(createShopDto);
-    return createdShops.save();
-  }
-
-  
-  async createByBussines(createShopDto: CreateShopDto, userId: string) {
-    const Business = await this.BusinessModel.findOne({ owner: userId })
-    
-    const createdShops = new this.ShopsModel(createShopDto);
-    Business.shops.push(createdShops.id)
-    Business.save()
+    // User.shops.push(createdShops.id)
+    // User.save()
     return createdShops.save();
   }
 
@@ -37,13 +28,8 @@ export class ShopsService {
     return this.ShopsModel.findById(id);
   }
 
-  async update(
-    id: string,
-    updateShopDto: UpdateShopDto,
-  ): Promise<ShopDocument> {
-    return this.ShopsModel.findByIdAndUpdate(id, updateShopDto, {
-      new: true,
-    }).exec();
+  async update(id: string, updateShopDto: UpdateShopDto): Promise<ShopDocument> {
+    return this.ShopsModel.findByIdAndUpdate(id, updateShopDto, {new: true}).exec();
   }
 
   async remove(id: string): Promise<ShopDocument> {

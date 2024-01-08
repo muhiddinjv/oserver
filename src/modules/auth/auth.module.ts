@@ -6,7 +6,6 @@ import { AuthService } from './auth.service';
 import { AccessTokenStrategy } from './strategies/access-token/access-token.strategy';
 import { RefreshTokenStrategy } from './strategies/refresh-token/refresh-token.strategy';
 import { UsersModule } from '../users/users.module';
-import { BusinessModule } from '../business/business.module';
 import { SmsModule } from '../sms/sms.module';
 import { JwtTokenService } from './jwt.service';
 import { AuthMiddleware } from './auth.middleware';
@@ -15,9 +14,8 @@ import { AuthMiddleware } from './auth.middleware';
   imports: [
     JwtModule.register({}),
     UsersModule,
-    BusinessModule,
     PassportModule,
-    SmsModule
+    SmsModule,
   ],
   controllers: [AuthController],
   providers: [

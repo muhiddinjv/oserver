@@ -35,7 +35,7 @@ export class User {
   role: Role;
 
   @Prop({ type: [{ type: Types.ObjectId }] })
-  shop: Shop[];
+  shops: Shop[];
 
   @Prop({ default: true })
   isActive: boolean;

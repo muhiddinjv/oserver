@@ -37,7 +37,7 @@ export class ShopsController {
   @UseGuards(AccessTokenGuard)
   @Post()
   async create(@Body() createShopDto: CreateShopDto,@Req() req: Request) {
-    return await this.ShopsService.createByBussines(createShopDto,req['user']['sub']);
+    return await this.ShopsService.create(createShopDto,req['user']['sub']);
   }
 
   @ApiOperation({ summary: 'Method: Get All  Shops' })
