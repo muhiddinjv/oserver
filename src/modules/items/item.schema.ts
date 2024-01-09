@@ -39,12 +39,6 @@ export class Item {
   @Prop({ type: [{ type: Types.ObjectId }] })
   variants: Variant[];
 
-  @Prop({ default: () => uuidv4() })
-  reference_id: string;
-
-  @Prop({ type: Types.ObjectId })
-  category_id: { type: Types.ObjectId };
-
   @Prop({ default: false })
   track_stock: boolean;
 
@@ -65,6 +59,21 @@ export class Item {
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Components' }] })
   components: Component[];
+
+  @Prop({ type: Types.ObjectId })
+  user_id: { type: Types.ObjectId };
+
+  @Prop({ default: () => uuidv4() })
+  reference_id: string;
+
+  @Prop({ type: Types.ObjectId })
+  global_items_id: { type: Types.ObjectId };
+
+  @Prop({ type: Types.ObjectId })
+  shop_items_id: { type: Types.ObjectId };
+
+  @Prop({ type: Types.ObjectId })
+  category_id: { type: Types.ObjectId };
 
   @Prop({ type: Types.ObjectId })
   supplier_id: Types.ObjectId;

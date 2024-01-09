@@ -20,6 +20,9 @@ export class Category {
   @Prop({ type: Types.ObjectId })
   shop_id: Types.ObjectId;
 
+  @Prop({ maxlength: 64 })
+  slug: string;
+
   @Prop({ type: [{ type: Types.ObjectId }] })
   items: Item[];
 

@@ -14,7 +14,7 @@ export class Shop {
   staff: [];
 
   @Prop()
-  type: string;
+  role: string;
 
   @Prop()
   location: string;
