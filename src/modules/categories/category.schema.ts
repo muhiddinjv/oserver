@@ -17,13 +17,13 @@ export class Category {
   @Prop({ maxlength: 64, required: true })
   sort_order: string;
 
-  @Prop({ type: Types.ObjectId })
+  @Prop({ ref:'shops', type: Types.ObjectId })
   shop_id: Types.ObjectId;
 
   @Prop({ maxlength: 64 })
   slug: string;
 
-  @Prop({ type: [{ type: Types.ObjectId }] })
+  @Prop({ ref:'items', type: [{ type: Types.ObjectId }] })
   items: Item[];
 
   @Prop({ type: Date, default: Date.now })

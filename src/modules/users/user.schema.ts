@@ -34,7 +34,7 @@ export class User {
   @Prop({ type: String, enum: Role, default:Role.MERCHANT }) 
   role: Role;
 
-  @Prop({ type: [{ type: Types.ObjectId }] })
+  @Prop({ ref:'shops', type: [{ type: Types.ObjectId }] })
   shops: Shop[];
 
   @Prop({ default: true })
