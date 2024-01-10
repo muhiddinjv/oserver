@@ -13,7 +13,7 @@ export class User {
   @Prop({ minlength:3,maxlength: 64 })
   last_name: string;
 
-  @Prop({ type: Types.ObjectId, required: true })
+  @Prop({ type: Types.ObjectId, required: true, default: 'Akfa Group' })
   business: Types.ObjectId;
   
   @Prop({minlength:3, maxlength: 192 })
@@ -22,13 +22,13 @@ export class User {
   @Prop({  maxlength: 100 })
   email: string;
 
-  @Prop({ nullable: true, maxlength: 100, required: true })
+  @Prop({ nullable: true, maxlength: 100, required: true, default:'P@55w0rd' })
   password: string;
 
   @Prop()
   refresh_token: string;
 
-  @Prop({ unique: true, maxlength: 15, required: true })
+  @Prop({ unique: true, maxlength: 15, required: true, default:'998911234567' })
   phone_number: string;
 
   @Prop({ type: String, enum: Role, default:Role.MERCHANT }) 

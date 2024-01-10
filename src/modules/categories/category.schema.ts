@@ -1,4 +1,4 @@
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Item } from '../items/item.schema';
 export type CategoryDocument = Category & Document;
@@ -17,7 +17,7 @@ export class Category {
   @Prop({ maxlength: 64, required: true })
   sort_order: string;
 
-  @Prop({ ref:'shops', type: Types.ObjectId })
+  @Prop({ type: Types.ObjectId, ref:'Shop' })
   shop_id: Types.ObjectId;
 
   @Prop({ maxlength: 64 })
