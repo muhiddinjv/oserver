@@ -9,19 +9,22 @@ import { User, UserDocument } from '../users/user.schema';
 @Injectable()
 export class ShopsService {
   constructor(
-    @InjectModel(Shop?.name) private ShopsModel: Model<ShopDocument>,
     @InjectModel(User?.name) private UserModel: Model<UserDocument>,
+    @InjectModel(Shop?.name) private ShopsModel: Model<ShopDocument>,
 ) {}  
   async create(createShopDto: CreateShopDto, userId: string) {
+    // console.log(CreateShopDto.prototype, 'prototype')
+    // console.log(CreateShopDto.arguments, 'arguments')
     // const User = await this.UserModel.findOne({ _id: userId })
-    const createdShops = new this.ShopsModel(createShopDto);
+    console.log(userId, 'userID')
+    const createdShops = new this.ShopsModel({...createShopDto, owner: userId});
     // User.shops.push(createdShops.id)
     // User.save()
     return createdShops.save();
   }
 
   async findAll(): Promise<ShopDocument[]> {
-    return this.ShopsModel.find().exec();
+    return this.ShopsModel.find().populate('owner')
   }
 
   async findById(id: string): Promise<ShopDocument> {

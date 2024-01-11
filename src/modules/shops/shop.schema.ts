@@ -8,14 +8,14 @@ export class Shop {
   @Prop(({required: true}))
   name: string;
 
-  @Prop({ref:'users', type: Types.ObjectId})
+  @Prop({ref:'User', type: Types.ObjectId, default: null, required: true})
   owner: Types.ObjectId;
 
-  @Prop({ ref:'users', type: [{ type: Types.ObjectId }] })
-  staff: User[];
+  // @Prop({ ref:'users', type: [{ type: Types.ObjectId }], default: [] })
+  // staff: User[];
 
-  @Prop()
-  role: string;
+  // @Prop()
+  // role: string;
 
   @Prop()
   location: string;

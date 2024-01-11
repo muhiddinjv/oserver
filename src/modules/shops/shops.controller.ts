@@ -25,9 +25,8 @@ export class ShopsController {
   @UseGuards(AccessTokenGuard)
   @Post()
   async create(@Body() createShopDto: CreateShopDto, @Req() req: Request) {
-    return await this.ShopsService.create(createShopDto, req['user']['sub']);
+    return await this.ShopsService.create(createShopDto, String(req['user']['_id']));
   }
-
   @Get()
   findAll() {
     return this.ShopsService.findAll();
