@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Item, ItemDocument } from '../global_items/item.schema';
+import { GlobalItem, ItemDocument } from '../global_items/global_item.schema';
 import { Variant, VariantDocument } from '../variants/variant.schema';
 import { Component, ComponentDocument } from './component.schema';
 import { CreateComponentDto } from './dto/create-component.dto';
@@ -12,7 +12,7 @@ export class ComponentsService {
   constructor(
     @InjectModel(Component?.name)
     private ComponentsModel: Model<ComponentDocument>,
-    @InjectModel(Item?.name) private ItemsModel: Model<ItemDocument>,
+    @InjectModel(GlobalItem?.name) private ItemsModel: Model<ItemDocument>,
     @InjectModel(Variant?.name) private VariantsModel: Model<VariantDocument>,
   ) {}
 

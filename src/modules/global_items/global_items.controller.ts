@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { ItemsService } from './items.service';
+import { ItemsService } from './global_items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import {ApiTags} from '@nestjs/swagger';

@@ -5,10 +5,10 @@ import { Variant } from '../variants/variant.schema';
 import { Component } from '../components/component.schema';
 import { PricingType } from 'src/enums/pricing_type.enum';
 
-export type ItemDocument = Item & Document;
+export type ItemDocument = GlobalItem & Document;
 
 @Schema({ collection: 'global_items' })
-export class Item {
+export class GlobalItem {
   @Prop({ maxlength: 64, required: true })
   name: string;
 
@@ -46,7 +46,7 @@ export class Item {
   updated_at: Date;
 }
 
-export const Itemschema = SchemaFactory.createForClass(Item).set(
+export const GlobalItemSchema = SchemaFactory.createForClass(GlobalItem).set(
   'versionKey',
   false,
 );

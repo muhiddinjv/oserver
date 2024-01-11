@@ -8,12 +8,12 @@ import {
 import { Variant, VariantDocument } from '../variants/variant.schema';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { Item, ItemDocument } from './item.schema';
+import { GlobalItem, ItemDocument } from './global_item.schema';
 
 @Injectable()
 export class ItemsService {
   constructor(
-    @InjectModel(Item?.name)
+    @InjectModel(GlobalItem?.name)
     private itemsModel: Model<ItemDocument>,
     @InjectModel(Category?.name)
       
