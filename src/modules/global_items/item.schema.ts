@@ -7,30 +7,21 @@ import { PricingType } from 'src/enums/pricing_type.enum';
 
 export type ItemDocument = Item & Document;
 
-@Schema({ collection: 'items' })
+@Schema({ collection: 'global_items' })
 export class Item {
   @Prop({ maxlength: 64, required: true })
   name: string;
 
   @Prop()
-  price: number;
-
-  @Prop()
-  cost: number;
-
-  @Prop()
-  count: number;
-
-  @Prop({ required: true })
   shape: string;
 
-  @Prop({ required: true })
+  @Prop()
   color: string;
 
   @Prop()
   image: string;
 
-  @Prop({ required: true })
+  @Prop()
   description: string;
 
   @Prop({ default: PricingType.VARIABLE, enum: PricingType })
@@ -40,55 +31,13 @@ export class Item {
   variants: Variant[];
 
   @Prop({ default: false })
-  track_stock: boolean;
-
-  @Prop({ default: true })
-  available_for_sale: boolean;
-
-  @Prop({ default: null })
-  optimal_stock: number;
-
-  @Prop({ default: null })
-  low_stock: number;
-
-  @Prop({ default: false })
   sold_by_weight: boolean;
 
   @Prop({ default: false })
   is_group_item: boolean;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Components' }] })
-  components: Component[];
-
-  @Prop({ ref:'users', type: Types.ObjectId })
-  user_id: { type: Types.ObjectId };
-
-  @Prop({ default: () => uuidv4() })
-  reference_id: string;
-
-  @Prop({ ref:'global-items', type: Types.ObjectId })
-  global_items_id: { type: Types.ObjectId };
-
-  @Prop({ ref:'shop-items', type: Types.ObjectId })
-  shop_items_id: { type: Types.ObjectId };
-
   @Prop({ ref:'categories', type: Types.ObjectId })
   category_id: { type: Types.ObjectId };
-
-  @Prop({ type: Types.ObjectId })
-  supplier_id: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId })
-  modifier_id: Types.ObjectId;
-
-  @Prop({ required: true })
-  option1_name: string;
-
-  @Prop({ required: true })
-  option2_name: string;
-
-  @Prop({ required: true })
-  option3_name: string;
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;

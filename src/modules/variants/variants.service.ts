@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { Variant, VariantDocument } from './variant.schema';
 import { CreateVariantDto } from './dto/create-variant.dto';
 import { UpdateVariantDto } from './dto/update-variant.dto';
-import { Item, ItemDocument } from '../items/item.schema';
+import { Item, ItemDocument } from '../global_items/item.schema';
 
 @Injectable()
 export class VariantsService {

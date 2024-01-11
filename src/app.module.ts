@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { CategoriesModule } from './modules/categories/categories.module';
-import { ItemsModule } from './modules/items/items.module';
+import { ItemsModule } from './modules/global_items/items.module';
 import { VariantsModule } from './modules/variants/variants.module';
 import { ComponentsModule } from './modules/components/components.module';
 import { ShopsModule } from './modules/shops/shops.module';

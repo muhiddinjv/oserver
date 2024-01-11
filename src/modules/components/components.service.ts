@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Item, ItemDocument } from '../items/item.schema';
+import { Item, ItemDocument } from '../global_items/item.schema';
 import { Variant, VariantDocument } from '../variants/variant.schema';
 import { Component, ComponentDocument } from './component.schema';
 import { CreateComponentDto } from './dto/create-component.dto';
@@ -27,11 +27,11 @@ export class ComponentsService {
     if (!Items) {
       throw new BadRequestException('Items not found.');
     }
-    console.log(Items?.components);
+    // console.log(Items?.components);
 
     const createdComponents = new this.ComponentsModel(createComponentDto);
 
-    Items?.components.push(createdComponents);
+    // Items?.components.push(createdComponents);
     createdComponents.save();
     Items.save();
 

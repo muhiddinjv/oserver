@@ -1,6 +1,6 @@
 import mongoose, { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Item } from '../items/item.schema';
+import { Item } from '../global_items/item.schema';
 export type CategoryDocument = Category & Document;
 
 @Schema({ collection: 'categories' })

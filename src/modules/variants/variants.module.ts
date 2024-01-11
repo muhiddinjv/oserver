@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ItemsModule } from '../items/items.module';
-import { Item, Itemschema } from '../items/item.schema';
+import { ItemsModule } from '../global_items/items.module';
+import { Item, Itemschema } from '../global_items/item.schema';
 import { VariantsController } from './variants.controller';
 import { Variant, VariantSchema } from './variant.schema';
 import { VariantsService } from './variants.service';

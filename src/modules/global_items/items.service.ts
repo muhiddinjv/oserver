@@ -27,10 +27,9 @@ export class ItemsService {
     if (!category) {
       throw new BadRequestException('category not found.');
     }
-
     const createdItem = new this.itemsModel(createItemDto);
-    category?.items.push(createdItem);
-    await category.save();
+    // category?.items.push(createdItem);
+    // await category.save();
     return createdItem.save();
   }
 
@@ -44,20 +43,20 @@ export class ItemsService {
           as: 'variantsArr',
         },
       },
-      {
-        $lookup: {
-          from: 'components',
-          localField: 'components',
-          foreignField: '_id',
-          as: 'componentsArr',
-        },
-      },
+      // {
+      //   $lookup: {
+      //     from: 'components',
+      //     localField: 'components',
+      //     foreignField: '_id',
+      //     as: 'componentsArr',
+      //   },
+      // },
       {
         $lookup: {
           from: 'categories',
           localField: 'categories',
           foreignField: 'category_id',
-          as: 'category',
+          as: 'category_id',
         },
       },
     ]);
