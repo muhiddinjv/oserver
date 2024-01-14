@@ -9,29 +9,55 @@ export type TransferDocument = Transfer& Document;
 
 @Schema({ collection: 'transfers' })
 export class Transfer{
-  @Prop({ maxlength: 64, default: 0, required: true})
-  price: number;
+  @Prop({ maxlength: 64, default: 0, required: true, enum: ['proccess', 'pending', 'confirmed']})
+  status: string;
 
   @Prop({default: 0, required: true})
-  cost: number;
+  pay_type: string;
 
-  @Prop({default: 0, required: true})
-  count: number;
-
+  @Prop({type:[
+    {
+      global_items_id: {
+        type: Types.ObjectId,
+        ref: 'GlobalItem',
+        required: true
+      } 
+    },
+    {
+      shop_items_id: {
+        type: Types.ObjectId,
+        ref: 'ShopItem',
+        required: true
+      }
+    },
+    {
+      price: {
+        type: Number,
+        required: true
+      } 
+    },
+    {
+      count: {
+        type: Number,
+        required: true
+      } 
+    },
+    {
+      cost: {
+        type: Number,
+        required: true
+      } 
+    },
+  ]})
+  items:{global_items_id: Types.ObjectId, count: number, price: number,cost: number, shop_items_id: Types.ObjectId}[]
   @Prop({ ref:'GlobalItem', type: Types.ObjectId, required: true })
   global_item_id: { type: Types.ObjectId };
 
   @Prop({ ref:'Shop', type: Types.ObjectId, required: true })
-  shop_id: { type: Types.ObjectId };
+  sender_id: { type: Types.ObjectId };
 
-  @Prop({ default: false })
-  track_stock: boolean;
-
-  @Prop({ default: false })
-  is_group_item: boolean;
-
-  @Prop({type: Date, required: false})
-  expire_date: Date
+  @Prop({ ref:'Shop', type: Types.ObjectId, required: true, default: null })
+  receiver_id: { type: Types.ObjectId };
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;
