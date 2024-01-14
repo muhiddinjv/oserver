@@ -21,28 +21,20 @@ export class Transfer{
         type: Types.ObjectId,
         ref: 'GlobalItem',
         required: true
-      } 
-    },
-    {
+      } ,
       shop_items_id: {
         type: Types.ObjectId,
         ref: 'ShopItem',
         required: true
-      }
-    },
-    {
+      },
       price: {
         type: Number,
         required: true
-      } 
-    },
-    {
+      }, 
       count: {
         type: Number,
         required: true
-      } 
-    },
-    {
+      }, 
       cost: {
         type: Number,
         required: true
@@ -50,8 +42,9 @@ export class Transfer{
     },
   ]})
   items:{global_items_id: Types.ObjectId, count: number, price: number,cost: number, shop_items_id: Types.ObjectId}[]
-  @Prop({ ref:'GlobalItem', type: Types.ObjectId, required: true })
-  global_item_id: { type: Types.ObjectId };
+
+  // @Prop({ ref:'GlobalItem', type: Types.ObjectId, required: true })
+  // global_item_id: { type: Types.ObjectId };
 
   @Prop({ ref:'Shop', type: Types.ObjectId, required: true })
   sender_id: { type: Types.ObjectId };

@@ -14,24 +14,25 @@ import { Transfer, TransferDocument } from './transfers.schema';
 export class TransfersService {
   constructor(
     @InjectModel(Transfer?.name)
-    private itemsModel: Model<TransferDocument>,
+    private transfersModel: Model<TransferDocument>,
     @InjectModel(Category?.name)
     private categoriesModel: Model<CategoryDocument>,
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    // console.log(Item?.name, 'name')
-    const createdItem = new this.itemsModel(createItemDto);
+    console.log(createItemDto, 'name')
+    const createdItem = new this.transfersModel(createItemDto);
+    console.log(createdItem, 'create')
     return createdItem.save();
   }
 
   async findAll(): Promise<TransferDocument[]> {
-    return await this.itemsModel.find().populate('shop_id').populate('global_item_id')
+    return await this.transfersModel.find().populate('sender_id').populate('receiver_id').populate('items.global_items_id').populate('items.shop_items_id')
   }
 
   async findById(id: string): Promise<TransferDocument> {
     try {
-      return this.itemsModel
+      return this.transfersModel
         .findById(id)
         .populate('variants')
         .populate('components');
@@ -41,19 +42,19 @@ export class TransfersService {
   }
 
   async findByreferenceId(id: string): Promise<TransferDocument> {
-    return this.itemsModel.findOne({ reference_id: id });
+    return this.transfersModel.findOne({ reference_id: id });
   }
 
   async update(
     id: string,
     updateItemDto: UpdateItemDto,
   ): Promise<TransferDocument> {
-    return this.itemsModel
+    return this.transfersModel
       .findByIdAndUpdate(id, updateItemDto, { new: true })
       .exec();
   }
 
   async remove(id: string): Promise<TransferDocument> {
-    return this.itemsModel.findByIdAndDelete(id).exec();
+    return this.transfersModel.findByIdAndDelete(id).exec();
   }
 }
