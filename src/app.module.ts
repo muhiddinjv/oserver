@@ -33,7 +33,6 @@ import { SmsModule } from './modules/sms/sms.module';
     AbilityModule,
     SmsModule
   ],
-   
   providers: [
     {
     provide: APP_GUARD,
