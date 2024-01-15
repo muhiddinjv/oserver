@@ -14,9 +14,6 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags, ApiBearerAuth} from '@nestjs/swagger';
-import { AccessTokenGuard } from '../auth/strategies/access-token/acess-token.guard';
-import { AbilitiesGuard } from 'src/modules/auth/ability/ability.guard';
-import { CheckAbilites, ReadUserAbility } from 'src/modules/auth/ability/ability.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -25,7 +22,6 @@ export class UsersController {
     private readonly usersService: UsersService
   ) { }
 
-  @UseGuards(AccessTokenGuard)
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
     req.user['sub']
@@ -34,9 +30,6 @@ export class UsersController {
 
   @ApiBearerAuth()
   @Get()
-  @UseGuards(AbilitiesGuard)
-  @UseGuards(AccessTokenGuard)
-  // @CheckAbilites(new ReadUserAbility())
   findAll(@Req() req: Request) {
     return this.usersService.findAll();
   }
