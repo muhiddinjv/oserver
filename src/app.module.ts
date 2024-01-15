@@ -9,6 +9,7 @@ import { ShopItemsModule } from './modules/shop_items/shop_items.module';
 import { VariantsModule } from './modules/variants/variants.module';
 import { ComponentsModule } from './modules/components/components.module';
 import { ShopsModule } from './modules/shops/shops.module';
+import { TransfersModule } from './modules/transfers/transfers.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { PermitsModule } from './modules/permits/permits.module';
 import { APP_GUARD } from '@nestjs/core';
@@ -22,6 +23,7 @@ import { SmsModule } from './modules/sms/sms.module';
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
     UsersModule,
+    TransfersModule,
     CategoriesModule,
     ShopsModule,
     ItemsModule,
