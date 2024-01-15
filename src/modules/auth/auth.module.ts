@@ -1,32 +1,22 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
+import { Module } from '@nestjs/common';
+import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { AccessTokenStrategy } from './strategies/access-token/access-token.strategy';
-import { RefreshTokenStrategy } from './strategies/refresh-token/refresh-token.strategy';
+import { jwtConstants } from './constants';
 import { UsersModule } from '../users/users.module';
-import { SmsModule } from '../sms/sms.module';
-import { JwtTokenService } from './jwt.service';
-import { AuthMiddleware } from './auth.middleware';
 
 @Module({
   imports: [
-    JwtModule.register({}),
     UsersModule,
-    PassportModule,
-    SmsModule,
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '120s' },
+    }),
   ],
+  providers: [AuthService],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    AccessTokenStrategy,
-    RefreshTokenStrategy,
-    JwtTokenService
-  ],
+  exports: [AuthService],
 })
-export class AuthModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('/auth/signout');
-  }
-}
+
+export class AuthModule {}

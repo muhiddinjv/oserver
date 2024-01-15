@@ -1,19 +1,18 @@
 import { Types, Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Role } from '../../enums/role.enum';
-// import { Shop } from '../shops/shop.schema';
+import { Role } from '../roles/roles.enum';
 
 export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
 export class User {
-  @Prop({ minlength:3, maxlength: 64 })
+  @Prop({ minlength:3, maxlength: 64, required: true, default:"James" })
   first_name: string;
 
   @Prop({ minlength:3,maxlength: 64 })
   last_name: string;
 
-  @Prop({ type: Types.ObjectId, required: true, default: 'Akfa Group' })
+  @Prop({ type: Types.ObjectId, default: 'Akfa Group' })
   business: Types.ObjectId;
   
   @Prop({minlength:3, maxlength: 192 })
@@ -22,16 +21,16 @@ export class User {
   @Prop({  maxlength: 100 })
   email: string;
 
-  @Prop({ nullable: true, maxlength: 100, required: true, default:'P@55w0rd' })
+  @Prop({ nullable: true, maxlength: 100, required: true })
   password: string;
 
   @Prop()
   refresh_token: string;
 
-  @Prop({ unique: true, maxlength: 15, required: true, default:'998911234567' })
+  @Prop({ unique: true, maxlength: 15, required: true, default:'+998997811356' })
   phone_number: string;
 
-  @Prop({ type: String, enum: Role, default:Role.MERCHANT }) 
+  @Prop({ type: String, enum: Role, required: true, default:Role.Merchant }) 
   role: Role;
 
   // @Prop({ ref:'shops', type: [{ type: Types.ObjectId }] })

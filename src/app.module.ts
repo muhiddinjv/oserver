@@ -10,12 +10,10 @@ import { VariantsModule } from './modules/variants/variants.module';
 import { ComponentsModule } from './modules/components/components.module';
 import { ShopsModule } from './modules/shops/shops.module';
 import { TransfersModule } from './modules/transfers/transfers.module';
-import { RolesModule } from './modules/roles/roles.module';
-import { PermitsModule } from './modules/permits/permits.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AbilitiesGuard } from './modules/auth/ability/ability.guard';
-import { AbilityModule } from './modules/auth/ability/ability.module';
 import { SmsModule } from './modules/sms/sms.module';
+import { AuthGuard } from './modules/auth/auth.guard';
+import { APP_GUARD } from '@nestjs/core';
+
 
 @Module({
   imports: [
@@ -30,15 +28,12 @@ import { SmsModule } from './modules/sms/sms.module';
     ShopItemsModule,
     VariantsModule,
     ComponentsModule,
-    RolesModule,
-    PermitsModule,
-    AbilityModule,
     SmsModule
   ],
   providers: [
     {
     provide: APP_GUARD,
-    useClass:AbilitiesGuard
+    useClass: AuthGuard,
     }
   ],
 })
