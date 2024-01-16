@@ -13,7 +13,7 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import {ApiTags} from '@nestjs/swagger';
 
-@ApiTags('items_shop')
+@ApiTags('Items shop')
 @Controller('items_shop')
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}

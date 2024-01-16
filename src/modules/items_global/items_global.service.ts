@@ -5,7 +5,6 @@ import {
   Category,
   CategoryDocument,
 } from '../categories/category.schema';
-import { Variant, VariantDocument } from '../variants/variant.schema';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemGlobal, ItemDocument } from './item_global.schema';

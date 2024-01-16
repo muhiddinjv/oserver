@@ -14,7 +14,7 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import {ApiTags} from '@nestjs/swagger';
 
-@ApiTags('items_global')
+@ApiTags('Items global')
 @Controller('items_global')
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}

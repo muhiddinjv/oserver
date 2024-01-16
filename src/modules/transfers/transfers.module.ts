@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from '../categories/category.schema';
 import { ItemGlobal,ItemGlobalSchema } from '../items_global/item_global.schema';
 import { Shop, ShopSchema } from '../shops/shop.schema';
-import { TransfersController } from './transfers';
+import { TransfersController } from './transfers.controller';
 import { Transfer, TransferSchema } from './transfers.schema';
 import { TransfersService } from './transfers.service';
 
