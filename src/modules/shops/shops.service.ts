@@ -16,7 +16,6 @@ export class ShopsService {
     // console.log(CreateShopDto.prototype, 'prototype')
     // console.log(CreateShopDto.arguments, 'arguments')
     // const User = await this.UserModel.findOne({ _id: userId })
-    console.log(userId, 'userID')
     const createdShops = new this.ShopsModel({...createShopDto, owner: userId});
     // User.shops.push(createdShops.id)
     // User.save()

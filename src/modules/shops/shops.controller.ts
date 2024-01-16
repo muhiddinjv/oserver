@@ -22,7 +22,7 @@ export class ShopsController {
   @ApiBearerAuth()
   @Post()
   async create(@Body() createShopDto: CreateShopDto, @Req() req: Request) {
-    return await this.ShopsService.create(createShopDto, String(req['user']['_id']));
+    return await this.ShopsService.create(createShopDto, String(req['user']['sub']));
   }
   @Get()
   findAll() {
