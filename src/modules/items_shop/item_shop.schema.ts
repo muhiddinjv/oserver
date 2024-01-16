@@ -1,9 +1,5 @@
 import { Document, Types } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Variant } from '../variants/variant.schema';
-import { Component } from '../components/component.schema';
-import { PricingType } from 'src/enums/pricing_type.enum';
 
 export type ItemDocument = ItemShop & Document;
 

@@ -1,4 +1,4 @@
-import mongoose, { Document, Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ItemGlobal } from '../items_global/item_global.schema';
 export type CategoryDocument = Category & Document;

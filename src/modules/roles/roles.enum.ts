@@ -4,6 +4,6 @@ export enum Role {
   Merchant = 'merchant',
   Retailer = 'retailer',
   Customer = 'customer',
-  Cashier = 'casher',
+  Cashier = 'cashier',
   Loader = 'loader',
 }
