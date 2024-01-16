@@ -14,7 +14,7 @@ export class Category {
   @Prop({ default: true })
   status: boolean;
 
-  @Prop({ maxlength: 64, required: true })
+  @Prop({ maxlength: 64 })
   sort_order: string;
 
   @Prop({ type: Types.ObjectId, ref:'Shop' })

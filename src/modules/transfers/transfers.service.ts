@@ -19,9 +19,7 @@ export class TransfersService {
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    console.log(createItemDto, 'name')
     const createdItem = new this.transfersModel(createItemDto);
-    console.log(createdItem, 'create')
     return createdItem.save();
   }
 
