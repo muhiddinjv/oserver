@@ -8,25 +8,58 @@ import {
 import { Variant, VariantDocument } from '../variants/variant.schema';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { ShopItem, ItemDocument } from './shop_item.schema';
+import { ItemGlobal, ItemDocument } from './item_global.schema';
 
 @Injectable()
 export class ItemsService {
   constructor(
-    @InjectModel(ShopItem?.name)
+    @InjectModel(ItemGlobal?.name)
     private itemsModel: Model<ItemDocument>,
     @InjectModel(Category?.name)
+      
     private categoriesModel: Model<CategoryDocument>,
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    // console.log(Item?.name, 'name')
+    const category = await this.categoriesModel
+      .findById(createItemDto?.category_id)
+      .exec();
+    if (!category) {
+      throw new BadRequestException('category not found.');
+    }
     const createdItem = new this.itemsModel(createItemDto);
+    // category?.items.push(createdItem);
+    // await category.save();
     return createdItem.save();
   }
 
   async findAll(): Promise<ItemDocument[]> {
-    return await this.itemsModel.find().populate('shop_id').populate('global_item_id')
+    return await this.itemsModel.aggregate([
+      {
+        $lookup: {
+          from: 'variants',
+          localField: 'variants',
+          foreignField: '_id',
+          as: 'variantsArr',
+        },
+      },
+      // {
+      //   $lookup: {
+      //     from: 'components',
+      //     localField: 'components',
+      //     foreignField: '_id',
+      //     as: 'componentsArr',
+      //   },
+      // },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: 'category_id',
+          as: 'category_id',
+        },
+      },
+    ]);
   }
 
   async findById(id: string): Promise<ItemDocument> {

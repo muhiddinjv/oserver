@@ -5,10 +5,10 @@ import { Variant } from '../variants/variant.schema';
 import { Component } from '../components/component.schema';
 import { PricingType } from 'src/enums/pricing_type.enum';
 
-export type ItemDocument = ShopItem & Document;
+export type ItemDocument = ItemShop & Document;
 
-@Schema({ collection: 'shop_items' })
-export class ShopItem {
+@Schema({ collection: 'items_shop' })
+export class ItemShop {
   @Prop({ maxlength: 64, default: 0, required: true})
   price: number;
 
@@ -18,8 +18,8 @@ export class ShopItem {
   @Prop({default: 0, required: true})
   count: number;
 
-  @Prop({ ref:'GlobalItem', type: Types.ObjectId, required: true })
-  global_item_id: { type: Types.ObjectId };
+  @Prop({ ref:'ItemGlobal', type: Types.ObjectId, required: true })
+  item_global_id: { type: Types.ObjectId };
 
   @Prop({ ref:'Shop', type: Types.ObjectId, required: true })
   shop_id: { type: Types.ObjectId };
@@ -40,7 +40,7 @@ export class ShopItem {
   updated_at: Date;
 }
 
-export const Itemschema = SchemaFactory.createForClass(ShopItem).set(
+export const Itemschema = SchemaFactory.createForClass(ItemShop).set(
   'versionKey',
   false,
 );

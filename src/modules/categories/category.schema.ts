@@ -1,6 +1,6 @@
 import mongoose, { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { GlobalItem } from '../global_items/global_item.schema';
+import { ItemGlobal } from '../items_global/item_global.schema';
 export type CategoryDocument = Category & Document;
 
 @Schema({ collection: 'categories' })
@@ -24,7 +24,7 @@ export class Category {
   slug: string;
 
   @Prop({ ref:'items', type: [{ type: Types.ObjectId }] })
-  items: GlobalItem[];
+  items: ItemGlobal[];
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;

@@ -27,7 +27,7 @@ export class TransfersService {
   }
 
   async findAll(): Promise<TransferDocument[]> {
-    return await this.transfersModel.find().populate('sender_id').populate('receiver_id').populate('items.global_items_id').populate('items.shop_items_id')
+    return await this.transfersModel.find().populate('sender_id').populate('receiver_id').populate('items.items_global_id').populate('items.items_shop_id')
   }
 
   async findById(id: string): Promise<TransferDocument> {

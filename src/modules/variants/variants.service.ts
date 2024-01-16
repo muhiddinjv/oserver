@@ -4,13 +4,13 @@ import { Model } from 'mongoose';
 import { Variant, VariantDocument } from './variant.schema';
 import { CreateVariantDto } from './dto/create-variant.dto';
 import { UpdateVariantDto } from './dto/update-variant.dto';
-import { GlobalItem, ItemDocument } from '../global_items/global_item.schema';
+import { ItemGlobal, ItemDocument } from '../items_global/item_global.schema';
 
 @Injectable()
 export class VariantsService {
   constructor(
     @InjectModel(Variant?.name) private VariantsModel: Model<VariantDocument>,
-    @InjectModel(GlobalItem?.name) private ItemsModel: Model<ItemDocument>,
+    @InjectModel(ItemGlobal?.name) private ItemsModel: Model<ItemDocument>,
   ) {}
 
   async create(

@@ -4,8 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { CategoriesModule } from './modules/categories/categories.module';
-import { ItemsModule } from './modules/global_items/global_items.module';
-import { ShopItemsModule } from './modules/shop_items/shop_items.module';
+import { ItemsModule } from './modules/items_global/items_global.module';
+import { ItemsShopModule } from './modules/items_shop/items_shop.module';
 import { ShopsModule } from './modules/shops/shops.module';
 import { TransfersModule } from './modules/transfers/transfers.module';
 import { AuthGuard } from './modules/auth/auth.guard';
@@ -22,7 +22,7 @@ import { APP_GUARD } from '@nestjs/core';
     CategoriesModule,
     ShopsModule,
     ItemsModule,
-    ShopItemsModule,
+    ItemsShopModule,
   ],
   providers: [
     {

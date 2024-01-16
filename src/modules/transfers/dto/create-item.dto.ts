@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateItemDto {
   
   @ApiProperty({
-    description: 'global_item_id',
+    description: 'item_global_id',
     example: '659fe3e10eb1b06276851be5',
   })
   name: string;

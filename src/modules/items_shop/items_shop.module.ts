@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from '../categories/category.schema';
-import { GlobalItem,GlobalItemSchema } from '../global_items/global_item.schema';
+import { ItemGlobal,ItemGlobalSchema } from '../items_global/item_global.schema';
 import { Shop, ShopSchema } from '../shops/shop.schema';
-import { ItemsController } from './shop_items.controller';
-import { ShopItem, Itemschema } from './shop_item.schema';
-import { ItemsService } from './shop_items.service';
+import { ItemsController } from './items_shop.controller';
+import { ItemShop, Itemschema } from './item_shop.schema';
+import { ItemsService } from './items_shop.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: ShopItem.name, schema: Itemschema }]),
-    MongooseModule.forFeature([{ name: GlobalItem.name, schema: GlobalItemSchema }]),
+    MongooseModule.forFeature([{ name: ItemShop.name, schema: Itemschema }]),
+    MongooseModule.forFeature([{ name: ItemGlobal.name, schema: ItemGlobalSchema }]),
     MongooseModule.forFeature([{ name: Shop.name, schema: ShopSchema }]),
     MongooseModule.forFeature([
       { name: Category.name, schema: CategorySchema },
@@ -20,4 +20,4 @@ import { ItemsService } from './shop_items.service';
   providers: [ItemsService],
   exports: [ItemsService],
 })
-export class ShopItemsModule {}
+export class ItemsShopModule {}
