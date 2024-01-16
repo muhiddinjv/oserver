@@ -13,10 +13,10 @@ export class CategoriesService {
   ) {}
 
   async create(
-    createUserDto: CreateCategoryDto,
+    createCategoryDto: CreateCategoryDto,
   ): Promise<CategoryDocument> {
-    const createdUser = new this.categoriesModel(createUserDto);
-    return createdUser.save();
+    const createdCategory = new this.categoriesModel(createCategoryDto);
+    return createdCategory.save();
   }
 
   async findAll(): Promise<CategoryDocument[]> {
