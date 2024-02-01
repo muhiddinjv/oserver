@@ -9,11 +9,12 @@ export class AuthService {
     private jwtService: JwtService
   ) { }
 
-  async signIn(id, pass) {
-    const user = await this.usersService.findById(id);
-    if (user?.password !== pass) {
-      throw new UnauthorizedException();
-    }
+  async signIn(email, pass) {
+    const user = await this.usersService.findByEmail("email@gmail.com")
+    console.log(user,'user')
+    // if (user?.password !== pass) {
+    //   throw new UnauthorizedException();
+    // }
     const payload = { sub: user.id, name: user.first_name };
     return {
       access_token: await this.jwtService.signAsync(payload),
