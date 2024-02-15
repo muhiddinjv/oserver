@@ -11,7 +11,6 @@ import { TransfersModule } from './modules/transfers/transfers.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
