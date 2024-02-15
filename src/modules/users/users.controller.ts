@@ -27,13 +27,13 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
-    req.user['sub']
+    // req.user['sub']
     return this.usersService.create(createUserDto)
   }
 
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Roles(Role.Admin)
+  // @ApiBearerAuth()
+  // @UseGuards(RolesGuard)
+  // @Roles(Role.Admin)
   @Get()
   findAll(@Req() req: Request) {
     return this.usersService.findAll();
