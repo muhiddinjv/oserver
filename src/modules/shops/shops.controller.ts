@@ -23,6 +23,7 @@ export class ShopsController {
   @Post()
   async create(@Body() createShopDto: CreateShopDto, @Req() req: Request) {
     console.log(req['user'], 'sss')
+    console.log(createShopDto, 'createShopDto')
     return await this.ShopsService.create(createShopDto, String(req['user']['sub']));
   }
   @Get()
