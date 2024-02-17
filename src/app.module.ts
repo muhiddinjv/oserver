@@ -24,10 +24,10 @@ import { APP_GUARD } from '@nestjs/core';
     ItemsShopModule,
   ],
   providers: [
-    // {
-    // provide: APP_GUARD,
-    // useClass: AuthGuard,
-    // }
+    {
+    provide: APP_GUARD,
+    useClass: AuthGuard,
+    }
   ],
 })
 export class AppModule {}
