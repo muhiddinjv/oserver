@@ -11,7 +11,7 @@ import { UsersModule } from '../users/users.module';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '120s' },
+      signOptions: { expiresIn: '120000s' },
     }),
   ],
   providers: [AuthService],
