@@ -20,7 +20,6 @@ export class ItemsService {
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    // console.log(Item?.name, 'name')
     const createdItem = new this.itemsModel(createItemDto);
     return createdItem.save();
   }

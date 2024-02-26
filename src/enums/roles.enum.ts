@@ -1,7 +1,7 @@
 //store these roles within a database
 export enum Role {
   Admin = 'admin',
-  Merchant = 'merchant',
+  Wholesaler = 'wholesaler',
   Retailer = 'retailer',
   Customer = 'customer',
   Cashier = 'cashier',

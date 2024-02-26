@@ -44,7 +44,7 @@ export class SingUpUserDto {
 
   @ApiProperty({
     description: 'role',
-    example: 'merchant',
+    example: 'wholesaler',
   })
   role: string;
 

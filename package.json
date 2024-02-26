@@ -35,7 +35,6 @@
     "@nestjs/swagger": "^7.1.14",
     "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",
-    "infobip-nodejs": "^0.1.1",
     "install": "^0.13.0",
     "libphonenumber-js": "^1.10.49",
     "markdown-it": "^13.0.2",

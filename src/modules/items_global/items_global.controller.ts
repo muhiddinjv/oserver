@@ -13,6 +13,7 @@ import { ItemsService } from './items_global.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import {ApiTags} from '@nestjs/swagger';
+import { Public } from '../auth/auth.metadata';
 
 @ApiTags('Items global')
 @Controller('items_global')
@@ -23,6 +24,7 @@ export class ItemsController {
     return this.itemsService.create(createItemDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.itemsService.findAll();

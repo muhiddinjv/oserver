@@ -1,6 +1,6 @@
 import { Types, Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Role } from '../roles/roles.enum';
+import { Role } from 'src/enums/roles.enum';
 
 export type UserDocument = User & Document;
 
@@ -30,7 +30,7 @@ export class User {
   @Prop({ unique: true, maxlength: 15, required: true, default:'+998997811356' })
   phone_number: string;
 
-  @Prop({ type: String, enum: Role, required: true, default:Role.Merchant }) 
+  @Prop({ type: String, enum: Role, required: true, default:Role.Wholesaler }) 
   role: Role;
 
   // @Prop({ ref:'shops', type: [{ type: Types.ObjectId }] })

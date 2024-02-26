@@ -3,16 +3,14 @@
  * and create an object for them
  * @param {string} name The person's full name
  * @param {number} age The person's age
- * @param {boolean} isDeveloper Whether the person is a developer 
+ * @param {boolean} isDeveloper Whether the person is a developer
  * @returns {Object} The person object
  */
 
-function createPerson(name, age, isDeveloper){
-    return {
-        name: name,
-        age: age,
-        isDeveloper: isDeveloper
-    }
+function createPerson(name, age, isDeveloper) {
+  return {
+    name: name,
+    age: age,
+    isDeveloper: isDeveloper,
+  };
 }
-
-console.log(createPerson('Muhiddin', 35, true))

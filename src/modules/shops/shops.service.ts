@@ -13,8 +13,6 @@ export class ShopsService {
     @InjectModel(Shop?.name) private ShopsModel: Model<ShopDocument>,
 ) {}  
   async create(createShopDto: CreateShopDto, userId: string) {
-    // console.log(CreateShopDto.prototype, 'prototype')
-    // console.log(CreateShopDto.arguments, 'arguments')
     // const User = await this.UserModel.findOne({ _id: userId })
     const createdShops = new this.ShopsModel({...createShopDto, owner: userId});
     // User.shops.push(createdShops.id)

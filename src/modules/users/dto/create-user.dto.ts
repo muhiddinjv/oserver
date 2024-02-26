@@ -22,14 +22,14 @@ export class CreateUserDto {
  
   @ApiProperty({
     description: 'phone_number',
-    example: '+998997811356',
+    example: '+998935399093',
   })
   phone_number: string;
 
 
   @ApiProperty({
     description: 'Password',
-    example: 'dsk_45lldD&',
+    example: 'admin123',
   })
   password: string;
 
@@ -38,14 +38,14 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'email',
-    example: 'email@gmail.com',
+    example: 'admin@gmail.com',
   })
   email: string
   
 
   @ApiProperty({
     description: 'role',
-    example: 'merchant',
+    example: 'admin',
   })
   role: string;
  

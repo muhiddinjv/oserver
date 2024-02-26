@@ -16,7 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags, ApiBearerAuth} from '@nestjs/swagger';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles } from '../roles/roles.decorator';
-import { Role } from '../roles/roles.enum';
+import { Role } from 'src/enums/roles.enum';
 
 @ApiTags('Users')
 @Controller('users')

@@ -5,6 +5,9 @@ export type ItemDocument = ItemShop & Document;
 
 @Schema({ collection: 'items_shop' })
 export class ItemShop {
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  owner_id: { type: Types.ObjectId };
+
   @Prop({ maxlength: 64, default: 0, required: true})
   price: number;
 
