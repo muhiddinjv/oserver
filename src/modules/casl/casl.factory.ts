@@ -29,9 +29,9 @@ import {
   
       if (user?.roles.includes(Role.Wholesaler)) {
         can(Action.Create, ItemShop);
-        can(Action.Update, ItemShop, { owner_id: user._id });
-        can(Action.Delete, ItemShop, { owner_id: user._id, track_stock: false });
-        can(Action.Read, ItemShop, { owner_id: user._id, track_stock: false });
+        can(Action.Update, ItemShop, { user_id: user._id });
+        can(Action.Delete, ItemShop, { user_id: user._id, track_stock: false });
+        can(Action.Read, ItemShop, { user_id: user._id, track_stock: false });
   
         can(Action.Read, User, {
           phone_number: user.phone_number,

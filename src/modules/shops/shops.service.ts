@@ -21,7 +21,7 @@ export class ShopsService {
   }
 
   async findAll(): Promise<ShopDocument[]> {
-    return this.ShopsModel.find().populate('owner')
+    return this.ShopsModel.find().populate('owner_id')
   }
 
   async findById(id: string): Promise<ShopDocument> {

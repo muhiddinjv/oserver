@@ -3,6 +3,14 @@
 ### [Database diagram on lucid.app](https://lucid.app/lucidchart/02a4c30e-69f1-4441-96b4-faabffe6f817/edit?viewport_loc=-376%2C-372%2C2828%2C1248%2C0_0&invitationId=inv_1bdeb9e8-221b-430c-9ee5-6670c27a76c2)
 ![database image](./assets/olliodb.jpeg)
 
+Userflow: 
+Create
+1. user
+2. shop
+3. category
+4. item_global
+5. item_shop
+
 ### User Story 1:
 As a super admin, I want to have a centralized platform to manage wholesalers, retailers, and their direct customers, so that I can efficiently oversee the entire system.
 

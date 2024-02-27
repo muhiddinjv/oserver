@@ -34,8 +34,8 @@ export class ItemGlobal {
   @Prop({ default: false })
   is_group_item: boolean;
 
-  @Prop({ ref:'categories', type: Types.ObjectId })
-  category_id: { type: Types.ObjectId };
+  @Prop({ type: Types.ObjectId, ref:'Category',  })
+  category: { type: Types.ObjectId };
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;

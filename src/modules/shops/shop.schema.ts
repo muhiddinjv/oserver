@@ -5,7 +5,7 @@ export type ShopDocument = Shop & Document;
 
 @Schema({ collection: 'shops' })
 export class Shop {
-  @Prop(({required: true}))
+  @Prop({required: true})
   name: string;
 
   @Prop({ref:'User', type: Types.ObjectId, default: null, required: true})

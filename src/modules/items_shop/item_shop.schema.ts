@@ -1,27 +1,35 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ItemGlobal } from '../items_global/item_global.schema';
+import { Shop } from '../shops/shop.schema';
 
 export type ItemDocument = ItemShop & Document;
 
 @Schema({ collection: 'items_shop' })
 export class ItemShop {
   @Prop({ type: Types.ObjectId, ref: 'User' })
-  owner_id: { type: Types.ObjectId };
+  user_id: { type: Types.ObjectId };
 
-  @Prop({ maxlength: 64, default: 0, required: true})
+  @Prop({required: true})
+  name: string;
+
+  @Prop({ default: 0})
   price: number;
 
-  @Prop({default: 0, required: true})
+  @Prop({default: 0})
   cost: number;
 
-  @Prop({default: 0, required: true})
+  @Prop({default: 0})
   count: number;
 
-  @Prop({ ref:'ItemGlobal', type: Types.ObjectId, required: true })
-  item_global_id: { type: Types.ObjectId };
+  @Prop({ type: Types.ObjectId, ref:'ItemGlobal' })
+  item_global: ItemGlobal[];
 
-  @Prop({ ref:'Shop', type: Types.ObjectId, required: true })
-  shop_id: { type: Types.ObjectId };
+  @Prop({ type: Types.ObjectId, ref:'Shop', required: true })
+  shop: Shop[];
+
+  @Prop({ type: Types.ObjectId, ref:'Category', required: true })
+  category: { type: Types.ObjectId };
 
   @Prop({ default: false })
   track_stock: boolean;
@@ -29,7 +37,7 @@ export class ItemShop {
   @Prop({ default: false })
   is_group_item: boolean;
 
-  @Prop({type: Date, required: false})
+  @Prop({type: Date})
   expire_date: Date
 
   @Prop({ type: Date, default: Date.now })

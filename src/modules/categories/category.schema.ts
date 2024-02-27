@@ -17,14 +17,14 @@ export class Category {
   @Prop({ maxlength: 64 })
   sort_order: string;
 
-  @Prop({ type: Types.ObjectId, ref:'Shop' })
-  shop_id: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref:'Shop', required: true })
+  shop: Types.ObjectId;
 
   @Prop({ maxlength: 64 })
   slug: string;
 
-  @Prop({ ref:'items', type: [{ type: Types.ObjectId }] })
-  items: ItemGlobal[];
+  @Prop({ type: [{ type: Types.ObjectId }], ref:'ItemGlobal' })
+  items_global: ItemGlobal[];
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;

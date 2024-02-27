@@ -25,7 +25,7 @@ export class ItemsService {
   }
 
   async findAll(): Promise<ItemDocument[]> {
-    return await this.itemsModel.find().populate('shop_id').populate('item_global_id')
+    return await this.itemsModel.find().populate('shop').populate('item_global')
   }
 
   async findById(id: string): Promise<ItemDocument> {

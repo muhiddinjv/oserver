@@ -13,12 +13,12 @@ export class Transfer{
 
   @Prop({type:[
     {
-      items_global_id: {
+      items_global: {
         type: Types.ObjectId,
         ref: 'ItemGlobal',
         required: true
       } ,
-      items_shop_id: {
+      items_shop: {
         type: Types.ObjectId,
         ref: 'ItemShop',
         required: true
@@ -43,10 +43,10 @@ export class Transfer{
   // item_global_id: { type: Types.ObjectId };
 
   @Prop({ ref:'Shop', type: Types.ObjectId, required: true })
-  sender_id: { type: Types.ObjectId };
+  sender: { type: Types.ObjectId };
 
   @Prop({ ref:'Shop', type: Types.ObjectId, required: true, default: null })
-  receiver_id: { type: Types.ObjectId };
+  receiver: { type: Types.ObjectId };
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;
