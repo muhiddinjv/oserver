@@ -8,7 +8,7 @@ export class Category {
   @Prop({ maxlength: 64 })
   image: string;
 
-  @Prop({ maxlength: 64, required: true })
+  @Prop({ maxlength: 64, required: true, trim: true })
   name: string;
 
   @Prop({ default: true })

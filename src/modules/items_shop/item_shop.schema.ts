@@ -10,25 +10,25 @@ export class ItemShop {
   @Prop({ type: Types.ObjectId, ref: 'User' })
   user_id: { type: Types.ObjectId };
 
-  @Prop({required: true})
+  @Prop({ required: true })
   name: string;
 
-  @Prop({ default: 0})
+  @Prop({ default: 0 })
   price: number;
 
-  @Prop({default: 0})
+  @Prop({ default: 0 })
   cost: number;
 
-  @Prop({default: 0})
+  @Prop({ default: 0 })
   count: number;
 
-  @Prop({ type: Types.ObjectId, ref:'ItemGlobal' })
+  @Prop({ type: Types.ObjectId, ref: 'ItemGlobal' })
   item_global: ItemGlobal[];
 
-  @Prop({ type: Types.ObjectId, ref:'Shop', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'Shop', required: true })
   shop: Shop[];
 
-  @Prop({ type: Types.ObjectId, ref:'Category', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'Category', required: true })
   category: { type: Types.ObjectId };
 
   @Prop({ default: false })
@@ -37,8 +37,8 @@ export class ItemShop {
   @Prop({ default: false })
   is_group_item: boolean;
 
-  @Prop({type: Date})
-  expire_date: Date
+  @Prop({ type: Date })
+  expire_date: Date;
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;
