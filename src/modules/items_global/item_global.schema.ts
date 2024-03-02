@@ -1,41 +1,35 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Variant } from '../variants/variant.schema';
-import { PricingType } from 'src/enums/pricing_type.enum';
+import { Shop } from '../shops/shop.schema';
 
 export type ItemDocument = ItemGlobal & Document;
 
 @Schema({ collection: 'items_global' })
+
 export class ItemGlobal {
-  @Prop({ maxlength: 64, required: true })
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
-  shape: string;
+  @Prop({ default: 0 })
+  price: number;
 
-  @Prop()
-  color: string;
+  @Prop({ default: 0 })
+  cost: number;
 
-  @Prop()
-  image: string;
+  @Prop({ default: 0 })
+  count: number;
 
-  @Prop()
-  description: string;
-
-  @Prop({ default: PricingType.VARIABLE, enum: PricingType })
-  pricing_type: PricingType;
-
-  @Prop({ type: [{ type: Types.ObjectId }] })
-  variants: Variant[];
+  @Prop({ type: Types.ObjectId, ref: 'Shop', required: true })
+  shop: Shop[];
 
   @Prop({ default: false })
-  sold_by_weight: boolean;
+  track_stock: boolean;
 
   @Prop({ default: false })
   is_group_item: boolean;
 
-  @Prop({ type: Types.ObjectId, ref:'Category',  })
-  category: { type: Types.ObjectId };
+  @Prop({ type: Date })
+  expire_date: Date;
 
   @Prop({ type: Date, default: Date.now })
   created_at: Date;
@@ -48,3 +42,5 @@ export const ItemGlobalSchema = SchemaFactory.createForClass(ItemGlobal).set(
   'versionKey',
   false,
 );
+
+
