@@ -6,7 +6,7 @@
 Userflow: 
 Create
 1. user
-2. shop
+2. shop.
 4. item_global
 5. item_shop
 
