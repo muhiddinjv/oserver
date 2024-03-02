@@ -6,7 +6,7 @@
 Userflow: 
 Create
 1. user
-2. shop.
+2. shop
 4. item_global
 5. item_shop
 
@@ -93,8 +93,6 @@ These user stories, acceptance criteria, and tasks cover the main features of th
 | chore    | Other changes that don't modify src or test files      |
 | revert   | Reverts a previous commit                             |
 
-access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTliZGNhNmM1OTI0NDc0MTgwN2EyYTciLCJwaG9uZV9udW1iZXIiOiIrOTk4OTkzNDU2Nzg5IiwiaWF0IjoxNzA0NzE0ODc2LCJleHAiOjE3MDQ3MTU3NzZ9.yLgTOGfgR6C46nTiT3NVfClcm7kD4iwmlQVvmaxtXd0
-
 In a blog, a user can:
 - read any Article
 - create a Comment for any Article
@@ -113,4 +111,15 @@ export default (user) => defineAbility((can) => {
     can('update', 'Comment', { authorId: user.id });
   }
 });
+```
+
+Git Push Local Branch to Remote
+```code
+git init
+git add 
+git commit -m "commit message"
+git remote add origin https://github.com/muhiddinjv/ollio-server.git
+git branch -M main
+git push -u origin https://github.com/muhiddinjv/ollio-server.git
+git remote -v
 ```
