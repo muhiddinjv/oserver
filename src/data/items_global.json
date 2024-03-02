@@ -1,0 +1,64 @@
+[{
+  "_id": {
+    "$oid": "65e2c0e9c79be04b59284356"
+  },
+  "name": "fanta global",
+  "price": 0,
+  "cost": 0,
+  "count": 0,
+  "shop": null,
+  "track_stock": false,
+  "is_group_item": false,
+  "created_at": {
+    "$date": {
+      "$numberLong": "1709359337383"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1709359337383"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "65e2c0fec79be04b59284358"
+  },
+  "name": "cola global",
+  "price": 0,
+  "cost": 0,
+  "count": 0,
+  "shop": null,
+  "track_stock": false,
+  "is_group_item": false,
+  "created_at": {
+    "$date": {
+      "$numberLong": "1709359358057"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1709359358057"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "65e2cae4b1ac0e859a7d3c57"
+  },
+  "name": "apple global",
+  "price": 0,
+  "cost": 0,
+  "count": 0,
+  "shop": null,
+  "track_stock": false,
+  "is_group_item": false,
+  "created_at": {
+    "$date": {
+      "$numberLong": "1709359358057"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1709359358057"
+    }
+  }
+}]
