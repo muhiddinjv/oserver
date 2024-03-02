@@ -1,11 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import {
-  Category,
-  CategoryDocument,
-} from '../categories/category.schema';
-import { Variant, VariantDocument } from '../variants/variant.schema';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemShop, ItemDocument } from './item_shop.schema';
@@ -14,9 +9,7 @@ import { ItemShop, ItemDocument } from './item_shop.schema';
 export class ItemsService {
   constructor(
     @InjectModel(ItemShop?.name)
-    private itemsModel: Model<ItemDocument>,
-    @InjectModel(Category?.name)
-    private categoriesModel: Model<CategoryDocument>,
+    private itemsModel: Model<ItemDocument>
   ) {}
 
   async create(createItemDto: CreateItemDto) {

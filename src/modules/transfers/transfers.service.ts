@@ -30,8 +30,8 @@ export class TransfersService {
     try {
       return this.transfersModel
         .findById(id)
-        .populate("variants")
-        .populate("components");
+        // .populate("variants")
+        // .populate("components");
     } catch (error) {
       new BadRequestException("Item not found.");
     }
