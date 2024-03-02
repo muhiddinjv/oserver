@@ -21,7 +21,7 @@ export class ItemShop {
   @Prop({ default: 0 })
   count: number;
 
-  @Prop({ type: Types.ObjectId || null, ref: 'Shop', required: true })
+  @Prop({ type: Types.ObjectId || null, ref: 'Shop' })
   shop: Shop[];
 
   @Prop({ default: false })

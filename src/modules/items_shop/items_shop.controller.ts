@@ -11,18 +11,20 @@ import {
 import { ItemsService } from './items_shop.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import {ApiTags} from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Items shop')
 @Controller('items_shop')
 export class ItemsController {
-  constructor(private readonly itemsService: ItemsService) {}
+  constructor(
+    private readonly itemsService: ItemsService
+  ) { }
 
   @Post()
   create(@Body() createItemDto: CreateItemDto) {
     return this.itemsService.create(createItemDto);
   }
-  
+
   @Get()
   findAll() {
     return this.itemsService.findAll();

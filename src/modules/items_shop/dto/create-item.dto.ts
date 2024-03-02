@@ -1,15 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateItemDto {
-  
   @ApiProperty({
-    description: 'item_global_id',
-    example: '659fe3e10eb1b06276851be5',
+    description: 'product name',
+    example: 'coca-cola',
   })
   name: string;
   
   @ApiProperty({
-    description: 'shop_id',
+    description: 'shop id',
     example: '659fd2e1c9b1203a769f9542',
   })
-  description: string;
+  shop: string | any;
+
+  item_global_ids: string[] | null;
 }
