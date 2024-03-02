@@ -3,13 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { ItemGlobal, ItemDocument } from './item_global.schema';
+import { ItemGlobal, ItemGlobalDocument } from './item_global.schema';
 
 @Injectable()
 export class ItemsService {
   constructor(
     @InjectModel(ItemGlobal?.name)
-    private itemsModel: Model<ItemDocument>
+    private itemsModel: Model<ItemGlobalDocument>
   ) {}
 
   async create(createItemDto: CreateItemDto) {
@@ -17,7 +17,7 @@ export class ItemsService {
     return createdItem.save();
   }
 
-  async findAll(): Promise<ItemDocument[]> {
+  async findAll(): Promise<ItemGlobalDocument[]> {
     return await this.itemsModel.aggregate([
       // {
       //   $lookup: {
@@ -46,7 +46,7 @@ export class ItemsService {
     ]);
   }
 
-  async findById(id: string): Promise<ItemDocument> {
+  async findById(id: string): Promise<ItemGlobalDocument> {
     try {
       return this.itemsModel
         .findById(id)
@@ -57,20 +57,20 @@ export class ItemsService {
     }
   }
 
-  async findByreferenceId(id: string): Promise<ItemDocument> {
+  async findByreferenceId(id: string): Promise<ItemGlobalDocument> {
     return this.itemsModel.findOne({ reference_id: id });
   }
 
   async update(
     id: string,
     updateItemDto: UpdateItemDto,
-  ): Promise<ItemDocument> {
+  ): Promise<ItemGlobalDocument> {
     return this.itemsModel
       .findByIdAndUpdate(id, updateItemDto, { new: true })
       .exec();
   }
 
-  async remove(id: string): Promise<ItemDocument> {
+  async remove(id: string): Promise<ItemGlobalDocument> {
     return this.itemsModel.findByIdAndDelete(id).exec();
   }
 }

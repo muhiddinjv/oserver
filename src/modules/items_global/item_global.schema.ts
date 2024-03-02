@@ -1,8 +1,7 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Shop } from '../shops/shop.schema';
 
-export type ItemDocument = ItemGlobal & Document;
+export type ItemGlobalDocument = ItemGlobal & Document;
 
 @Schema({ collection: 'items_global' })
 
@@ -19,8 +18,8 @@ export class ItemGlobal {
   @Prop({ default: 0 })
   count: number;
 
-  @Prop({ type: Types.ObjectId, ref: 'Shop', required: true })
-  shop: Shop[];
+  @Prop({ type: Types.ObjectId || null })
+  shop: null;
 
   @Prop({ default: false })
   track_stock: boolean;

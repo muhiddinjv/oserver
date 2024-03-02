@@ -2,7 +2,7 @@ import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Shop } from '../shops/shop.schema';
 
-export type ItemDocument = ItemShop & Document;
+export type ItemShopDocument = ItemShop & Document;
 
 @Schema({ collection: 'items_shop' })
 export class ItemShop {
@@ -21,7 +21,7 @@ export class ItemShop {
   @Prop({ default: 0 })
   count: number;
 
-  @Prop({ type: Types.ObjectId, ref: 'Shop', required: true })
+  @Prop({ type: Types.ObjectId || null, ref: 'Shop', required: true })
   shop: Shop[];
 
   @Prop({ default: false })
