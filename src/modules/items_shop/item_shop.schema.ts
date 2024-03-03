@@ -19,10 +19,10 @@ export class ItemShop {
   cost: number;
 
   @Prop({ default: 0 })
-  count: number;
+  quantity: number;
 
   @Prop({ type: Types.ObjectId || null, ref: 'Shop' })
-  shop: Shop[];
+  shop_ids: Shop[];
 
   @Prop({ default: false })
   track_stock: boolean;

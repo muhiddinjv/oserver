@@ -18,28 +18,30 @@ export class ItemsService {
     private itemsGlobalModel: Model<ItemGlobalDocument>
   ) { }
 
+  async createItemFromGlobalItems(global_ids: string[], shop_ids: string[]) {
+    try {
+      const promises = global_ids.map(async (id) => {
+        const response = await this.itemsGlobalModel.findById(id);
+        const globalItems = response.toJSON();
+        globalItems.shop_ids = shop_ids;
+        console.log(1111,globalItems)
+        const createdItem = new this.itemsShopModel(globalItems);
+        return createdItem.save();
+      });
+      const createdItems = await Promise.all(promises);
+      return createdItems;
+    } catch (error) {
+      throw new BadRequestException({error});
+    }
+  }
+
   async create(createItemDto: CreateItemDto) {
     if (createItemDto.item_global_ids) {
-      try {
-        const promises = createItemDto.item_global_ids.map(async (id) => {
-          const response = await this.itemsGlobalModel.findById(id);
-          const globalItems = response.toJSON();
-          globalItems.shop = createItemDto.shop
-          const createdItem = new this.itemsShopModel(globalItems);
-          return createdItem.save();
-        });
-
-        const createdItems = await Promise.all(promises);
-        console.log(111, createdItems)
-        return createdItems;
-      } catch (error) {
-        throw new BadRequestException();
-      }
+      return this.createItemFromGlobalItems(createItemDto.item_global_ids, createItemDto.shop_ids);
+    } else {
+      const createdItem = new this.itemsShopModel(createItemDto);
+      return createdItem.save();
     }
-
-    const createdItem = new this.itemsShopModel(createItemDto);
-    console.log(222, createdItem)
-    return createdItem.save();
   }
 
   async findAll(): Promise<ItemShopDocument[]> {

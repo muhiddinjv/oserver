@@ -27,7 +27,7 @@ export class Transfer{
         type: Number,
         required: true
       }, 
-      count: {
+      quantity: {
         type: Number,
         required: true
       }, 
@@ -37,7 +37,7 @@ export class Transfer{
       } 
     },
   ]})
-  items:{items_global_id: Types.ObjectId, count: number, price: number,cost: number, items_shop_id: Types.ObjectId}[]
+  items:{items_global_id: Types.ObjectId, quantity: number, price: number,cost: number, items_shop_id: Types.ObjectId}[]
 
   // @Prop({ ref:'ItemGlobal', type: Types.ObjectId, required: true })
   // item_global_id: { type: Types.ObjectId };

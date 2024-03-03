@@ -16,10 +16,10 @@ export class ItemGlobal {
   cost: number;
 
   @Prop({ default: 0 })
-  count: number;
+  quantity: number;
 
-  @Prop({ type: Types.ObjectId || null })
-  shop: null;
+  @Prop({ type: [String], default: null })
+  shop_ids: string[] | null;
 
   @Prop({ default: false })
   track_stock: boolean;

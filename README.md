@@ -15,13 +15,13 @@ As a super admin, I want to have a centralized platform to manage wholesalers, r
 
 #### Acceptance Criteria:
 1. The super admin should have access to an admin dashboard with role-based authentication.
-2. The dashboard should allow the super admin to manage user accounts, including wholesalers, retailers, and customers.
+2. The dashboard should allow the super admin to manage user acquantitys, including wholesalers, retailers, and customers.
 3. The super admin should be able to view and update user details, such as contact information and access privileges.
 4. The dashboard should provide analytics and reporting features to track sales, inventory, and user activities.
 
 #### Tasks:
 1. Design and develop an admin dashboard with role-based authentication.
-2. Implement user management functionalities, including account creation, update, and access control.
+2. Implement user management functionalities, including acquantity creation, update, and access control.
 3. Integrate analytics and reporting features to provide insights on sales, inventory, and user activities.
 4. Test and validate the admin dashboard to ensure its functionality and usability.
 
