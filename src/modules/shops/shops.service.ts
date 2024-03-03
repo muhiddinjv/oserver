@@ -13,15 +13,17 @@ export class ShopsService {
     @InjectModel(Shop?.name) private ShopsModel: Model<ShopDocument>,
 ) {}  
   async create(createShopDto: CreateShopDto, userId: string) {
-    // const User = await this.UserModel.findOne({ _id: userId })
+    const User = await this.UserModel.findOne({ _id: userId })
     const createdShops = new this.ShopsModel({...createShopDto, owner: userId});
+    console.log('User', User)
+    console.log('createdShops', createdShops)
     // User.shops.push(createdShops.id)
     // User.save()
-    return createdShops.save();
+    // return createdShops.save();
   }
 
   async findAll(): Promise<ShopDocument[]> {
-    return this.ShopsModel.find().populate('owner_id')
+    return this.ShopsModel.find().populate('owner')
   }
 
   async findById(id: string): Promise<ShopDocument> {

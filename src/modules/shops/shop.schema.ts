@@ -9,7 +9,7 @@ export class Shop {
   name: string;
 
   @Prop({ref:'User', type: Types.ObjectId, default: null, required: true})
-  owner_id: Types.ObjectId;
+  owner: Types.ObjectId;
 
   // @Prop({ ref:'users', type: [{ type: Types.ObjectId }], default: [] })
   // staff: User[];

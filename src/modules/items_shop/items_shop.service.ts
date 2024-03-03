@@ -45,15 +45,15 @@ export class ItemsService {
   }
 
   async findAll(): Promise<ItemShopDocument[]> {
-    return await this.itemsShopModel.find().populate("shop");
+    return await this.itemsShopModel.find().populate("shop_ids");
   }
 
   async findById(id: string): Promise<ItemShopDocument> {
     try {
       return this.itemsShopModel
         .findById(id)
-        .populate("variants")
-        .populate("components");
+        // .populate("variants")
+        // .populate("components");
     } catch (error) {
       new BadRequestException("Item not found.");
     }

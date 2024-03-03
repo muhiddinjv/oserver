@@ -50,8 +50,8 @@ export class ItemsService {
     try {
       return this.itemsModel
         .findById(id)
-        .populate('variants')
-        .populate('components');
+        // .populate('variants')
+        // .populate('components');
     } catch (error) {
       new BadRequestException('Item not found.');
     }
