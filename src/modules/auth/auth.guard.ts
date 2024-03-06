@@ -10,10 +10,6 @@ import { jwtConstants } from './constants';
 import { IS_PUBLIC_KEY } from './auth.metadata';
 import { Request } from 'express';
 
-function parseJwt(token: any) {
-  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-}
-
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService, private reflector: Reflector) { }
@@ -26,15 +22,8 @@ export class AuthGuard implements CanActivate {
     if (isPublic) {
       return true;
     }
-
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-
-    console.log(parseJwt(token))
-    // const [, payloadBase64] = token.split('.');
-    // const decodedPayload = Buffer.from(payloadBase64, 'base64').toString('utf-8');
-    // const payload = JSON.parse(decodedPayload);
-    // console.log(payload);
 
     if (!token) { throw new UnauthorizedException() }
 

@@ -19,8 +19,8 @@ import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 export class ShopsController {
   constructor(private readonly ShopsService: ShopsService) { }
 
-  @ApiBearerAuth()
   @Post()
+  @ApiBearerAuth()
   async create(@Body() createShopDto: CreateShopDto, @Req() req: Request) {
     return await this.ShopsService.create(createShopDto, String(req['user']['sub']));
   }

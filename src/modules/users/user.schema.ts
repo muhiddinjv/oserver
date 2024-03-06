@@ -7,14 +7,11 @@ export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
 export class User {
-  @Prop({ minlength:3, maxlength: 64, required: true, default:"James" })
+  @Prop({ minlength:3, maxlength: 64, default:"James" })
   first_name: string;
 
   @Prop({ minlength:3,maxlength: 64 })
   last_name: string;
-
-  @Prop({ type: Types.ObjectId, default: 'Akfa Group' })
-  business: Types.ObjectId;
   
   @Prop({minlength:3, maxlength: 192 })
   address: string;
@@ -28,7 +25,7 @@ export class User {
   @Prop()
   refresh_token: string;
 
-  @Prop({ unique: true, maxlength: 15, required: true, default:'+998997811356' })
+  @Prop({ unique: true, maxlength: 15, required: true, default:'+998935399093' })
   phone_number: string;
 
   @Prop({ type: String, enum: Role, required: true, default:Role.Wholesaler }) 

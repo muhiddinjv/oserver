@@ -21,7 +21,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('signin')
   signIn(@Body() user: Record<string, any>) {
-    return this.authService.signIn(user.id, user.password);
+    return this.authService.signIn(user.password, user.phone_number);
   }
 
   @Get('profile')

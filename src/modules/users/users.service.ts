@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AuthService } from '../auth/auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './user.schema';
@@ -13,7 +12,7 @@ export class UsersService {
   ) { }
 
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
-    const userExists = await this.findByPhoneNumber(
+    const userExists = await this.findOne(
       createUserDto.phone_number,
     );
     if (userExists) {
@@ -31,12 +30,8 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
-  async findByPhoneNumber(phone_number: string): Promise<UserDocument> {
+  async findOne(phone_number: string): Promise<UserDocument> {
     return this.userModel.findOne({ phone_number }).exec();
-  }
-  
-  async findByEmail(email: string): Promise<UserDocument> {
-    return this.userModel.findOne({ email }).exec();
   }
 
   async findByPinCode(PinCode: string): Promise<UserDocument> {

@@ -13,13 +13,15 @@ import { Request } from 'express';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags, ApiBearerAuth} from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from 'src/enums/roles.enum';
+import { parseJwt } from 'src/utils';
 
 @ApiTags('Users')
 @Controller('users')
+@UseGuards(RolesGuard)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService
@@ -27,18 +29,17 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
-    // req.user['sub']
     return this.usersService.create(createUserDto)
   }
 
-  // @ApiBearerAuth()
-  // @UseGuards(RolesGuard)
-  // @Roles(Role.Admin)
   @Get()
+  @Roles(Role.Admin)
   findAll(@Req() req: Request) {
+    const {sub} = parseJwt(req.headers.authorization)
+
+    console.log('userId', sub)
     return this.usersService.findAll();
   }
-
 
   @Get(':id')
   findById(@Param('id') id: string) {
