@@ -35,7 +35,7 @@ export class ItemsService {
     }
   }
 
-  async create(createItemDto: CreateItemDto) {
+  async create(createItemDto: CreateItemDto, userId: string) {
     if (createItemDto.item_global_ids) {
       return this.createItemFromGlobalItems(createItemDto.item_global_ids, createItemDto.shop_ids);
     } else {

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 
 import { ItemsService } from './items_shop.service';
@@ -21,8 +22,8 @@ export class ItemsController {
   ) { }
 
   @Post()
-  create(@Body() createItemDto: CreateItemDto) {
-    return this.itemsService.create(createItemDto);
+  create(@Body() createItemDto: CreateItemDto, @Req() req: Request) {
+    return this.itemsService.create(createItemDto, String(req['user']['sub']));
   }
 
   @Get()
