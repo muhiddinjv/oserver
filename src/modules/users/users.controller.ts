@@ -17,7 +17,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from 'src/enums/roles.enum';
-import { parseJwt } from 'src/utils';
 
 @ApiTags('Users')
 @Controller('users')
@@ -35,13 +34,11 @@ export class UsersController {
   @Get()
   @Roles(Role.Admin)
   findAll(@Req() req: Request) {
-    const {sub} = parseJwt(req.headers.authorization)
-
-    console.log('userId', sub)
     return this.usersService.findAll();
   }
 
   @Get(':id')
+  @Roles(Role.Admin)
   findById(@Param('id') id: string) {
     return this.usersService.findById(id);
   }

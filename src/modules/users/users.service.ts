@@ -18,7 +18,7 @@ export class UsersService {
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
-    const createdUser = await new this.userModel(createUserDto);
+    const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }
 
