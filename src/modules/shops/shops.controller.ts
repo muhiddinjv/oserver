@@ -24,9 +24,10 @@ export class ShopsController {
   async create(@Body() createShopDto: CreateShopDto, @Req() req: Request) {
     return await this.ShopsService.create(createShopDto, String(req['user']['sub']));
   }
+  
   @Get()
-  findAll() {
-    return this.ShopsService.findAll();
+  findAll(@Req() req: Request) {
+    return this.ShopsService.findAll(String(req['user']['sub']));
   }
 
   @Get(':id')
