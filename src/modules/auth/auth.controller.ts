@@ -4,8 +4,6 @@ import {
   Post,
   Get,
   Request,
-  HttpCode,
-  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './auth.metadata';
@@ -18,10 +16,9 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Public()
-  @HttpCode(HttpStatus.OK)
   @Post('signin')
-  signIn(@Body() user: Record<string, any>) {
-    return this.authService.signIn(user.password, user.phone_number);
+  signIn(@Request() req) {
+    return this.authService.signIn(req.body);
   }
 
   @Get('profile')

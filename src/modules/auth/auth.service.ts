@@ -9,19 +9,16 @@ export class AuthService {
     private jwtService: JwtService
   ) { }
 
-  async signIn(
-    password: string,
-    phone_number: string,
-  ): Promise<{ access_token: string }> {
-    const user = await this.usersService.findOne(phone_number)
+  async signIn(user: any){
+    const foundUser = await this.usersService.findOne(user.phone_number);
 
-    if (user?.password !== password) {
-      throw new UnauthorizedException();
+    if (!foundUser || foundUser.password !== user.password) {
+      throw new UnauthorizedException('Invalid credentials');
     }
-    const payload = { sub: user.id, phone_number: user.phone_number };
 
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+    const payload = { sub: foundUser.id, phone_number: foundUser.phone_number };
+    const access_token = await this.jwtService.signAsync(payload);
+
+    return { access_token };
   }
 }

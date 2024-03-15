@@ -118,10 +118,13 @@ Git Push Local Branch to Remote
 git init
 git add 
 git commit -m "commit message"
+git remote -v
 git remote add origin https://github.com/muhiddinjv/ollio-server.git
 git remote -v
 git branch -M main
 git branch -a
-git git checkout Azimjon
+git fetch
+git branch -a
+git checkout Azimjon
 git push
 ```
