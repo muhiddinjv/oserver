@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ItemsController } from './items_global.controller';
+import { ItemsGlobalController } from './items_global.controller';
 import { ItemGlobal, ItemGlobalSchema } from './item_global.schema';
 import { ItemsService } from './items_global.service';
 
@@ -8,7 +8,7 @@ import { ItemsService } from './items_global.service';
   imports: [
     MongooseModule.forFeature([{ name: ItemGlobal.name, schema: ItemGlobalSchema }])
   ],
-  controllers: [ItemsController],
+  controllers: [ItemsGlobalController],
   providers: [ItemsService],
   exports: [ItemsService],
 })

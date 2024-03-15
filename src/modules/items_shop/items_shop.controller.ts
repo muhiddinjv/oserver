@@ -16,7 +16,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Items shop')
 @Controller('items_shop')
-export class ItemsController {
+export class ItemsShopController {
   constructor(
     private readonly itemsService: ItemsService
   ) { }

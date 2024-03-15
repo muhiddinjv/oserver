@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ItemGlobal,ItemGlobalSchema } from '../items_global/item_global.schema';
 import { Shop, ShopSchema } from '../shops/shop.schema';
-import { ItemsController } from './items_shop.controller';
+import { ItemsShopController } from './items_shop.controller';
 import { ItemShop, Itemschema } from './item_shop.schema';
 import { ItemsService } from './items_shop.service';
 
@@ -12,7 +12,7 @@ import { ItemsService } from './items_shop.service';
     MongooseModule.forFeature([{ name: ItemGlobal.name, schema: ItemGlobalSchema }]),
     MongooseModule.forFeature([{ name: Shop.name, schema: ShopSchema }])
   ],
-  controllers: [ItemsController],
+  controllers: [ItemsShopController],
   providers: [ItemsService],
   exports: [ItemsService],
 })
