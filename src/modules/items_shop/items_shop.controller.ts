@@ -27,8 +27,8 @@ export class ItemsShopController {
   }
 
   @Get()
-  findAll() {
-    return this.itemsService.findAll();
+  findAll(@Req() req: Request) {
+    return this.itemsService.findAll(String(req['user']['sub']));
   }
 
   @Get(':id')

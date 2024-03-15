@@ -6,9 +6,6 @@ export type ItemShopDocument = ItemShop & Document;
 
 @Schema({ collection: 'items_shop' })
 export class ItemShop {
-  @Prop({ type: Types.ObjectId, ref: 'User' })
-  user_id: { type: Types.ObjectId };
-
   @Prop({ required: true })
   name: string;
 
@@ -20,6 +17,9 @@ export class ItemShop {
 
   @Prop({ default: 0 })
   quantity: number;
+
+  @Prop({ required: true })
+  user_id: string;
 
   @Prop({ type: Types.ObjectId || null, ref: 'Shop' })
   shop_ids: Shop[];

@@ -18,12 +18,13 @@ export class ItemsService {
     private itemsGlobalModel: Model<ItemGlobalDocument>
   ) { }
 
-  async createItemFromGlobalItems(global_ids: string[], shop_ids: string[]) {
+  async createItemFromGlobalItems(global_ids: string[], shop_ids: string[], userId: string){
     try {
       const promises = global_ids.map(async (id) => {
         const response = await this.itemsGlobalModel.findById(id);
         const globalItems = response.toJSON();
         globalItems.shop_ids = shop_ids;
+        globalItems.user_id = userId;
         console.log(1111,globalItems)
         const createdItem = new this.itemsShopModel(globalItems);
         return createdItem.save();
@@ -34,18 +35,20 @@ export class ItemsService {
       throw new BadRequestException({error});
     }
   }
-
+//"item_global_ids": ["65f3de6de925250402c5ed6b","65f3de9ae925250402c5ed6d"]
   async create(createItemDto: CreateItemDto, userId: string) {
     if (createItemDto.item_global_ids) {
-      return this.createItemFromGlobalItems(createItemDto.item_global_ids, createItemDto.shop_ids);
+      return this.createItemFromGlobalItems(createItemDto.item_global_ids, createItemDto.shop_ids, userId);
     } else {
       const createdItem = new this.itemsShopModel(createItemDto);
+      createdItem.user_id = userId;
       return createdItem.save();
     }
   }
 
-  async findAll(): Promise<ItemShopDocument[]> {
-    return await this.itemsShopModel.find().populate("shop_ids");
+  async findAll(userId: string): Promise<ItemShopDocument[]> {
+    return await this.itemsShopModel.find({user_id: userId});
+    // return await this.itemsShopModel.find().populate("shop_ids");
   }
 
   async findById(id: string): Promise<ItemShopDocument> {

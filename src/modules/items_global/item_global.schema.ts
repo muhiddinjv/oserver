@@ -18,6 +18,9 @@ export class ItemGlobal {
   @Prop({ default: 0 })
   quantity: number;
 
+  @Prop({ default: null })
+  user_id: string;
+
   @Prop({ type: [String], default: null })
   shop_ids: string[] | null;
 
