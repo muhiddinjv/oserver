@@ -18,36 +18,44 @@ export class ItemsService {
     private itemsGlobalModel: Model<ItemGlobalDocument>
   ) { }
 
-  async createItemFromGlobalItems(global_ids: string[], shop_ids: string[], userId: string){
+  async createItemFromGlobalItems(global_ids: string[], shop_ids: string[], user_id: string) {
     try {
-      const promises = global_ids.map(async (id) => {
-        const response = await this.itemsGlobalModel.findById(id);
-        const globalItems = response.toJSON();
-        globalItems.shop_ids = shop_ids;
-        globalItems.user_id = userId;
-        console.log(1111,globalItems)
-        const createdItem = new this.itemsShopModel(globalItems);
-        return createdItem.save();
-      });
-      const createdItems = await Promise.all(promises);
+      const createdItems = await Promise.all(global_ids.map(async (id) => {
+        const globalItem = await this.itemsGlobalModel.findById(id);
+  
+        const newItemData = {
+          ...globalItem.toJSON(),
+          shop_ids,
+          user_id,
+          _id: undefined // to generate a unique _id
+        };
+  
+        const existingItem = await this.itemsShopModel.findOne({ name: newItemData.name, user_id });
+        if (existingItem) {
+          throw new Error(`This user already has: ${newItemData.name}`);
+        }
+  
+        return this.itemsShopModel.create(newItemData);
+      }));
+  
       return createdItems;
     } catch (error) {
-      throw new BadRequestException({error});
+      throw new BadRequestException({ error: error.message });
     }
   }
-//"item_global_ids": ["65f3de6de925250402c5ed6b","65f3de9ae925250402c5ed6d"]
-  async create(createItemDto: CreateItemDto, userId: string) {
+  
+  async create(createItemDto: CreateItemDto, user_id: string) {
     if (createItemDto.item_global_ids) {
-      return this.createItemFromGlobalItems(createItemDto.item_global_ids, createItemDto.shop_ids, userId);
+      return this.createItemFromGlobalItems(createItemDto.item_global_ids, createItemDto.shop_ids, user_id);
     } else {
       const createdItem = new this.itemsShopModel(createItemDto);
-      createdItem.user_id = userId;
+      createdItem.user_id = user_id;
       return createdItem.save();
     }
   }
 
   async findAll(userId: string): Promise<ItemShopDocument[]> {
-    return await this.itemsShopModel.find({user_id: userId});
+    return await this.itemsShopModel.find({ user_id: userId });
     // return await this.itemsShopModel.find().populate("shop_ids");
   }
 
@@ -55,8 +63,8 @@ export class ItemsService {
     try {
       return this.itemsShopModel
         .findById(id)
-        // .populate("variants")
-        // .populate("components");
+      // .populate("variants")
+      // .populate("components");
     } catch (error) {
       new BadRequestException("Item not found.");
     }
