@@ -18,14 +18,13 @@ export class ItemsService {
     private itemsGlobalModel: Model<ItemGlobalDocument>
   ) { }
 
-  async createItemFromGlobalItems(global_ids: string[], shop_ids: string[], user_id: string) {
+  async createItemFromGlobalItems(global_ids: string[], user_id: string) {
     try {
       const createdItems = await Promise.all(global_ids.map(async (id) => {
         const globalItem = await this.itemsGlobalModel.findById(id);
   
         const newItemData = {
           ...globalItem.toJSON(),
-          shop_ids,
           user_id,
           _id: undefined // to generate a unique _id
         };
@@ -46,7 +45,7 @@ export class ItemsService {
   
   async create(createItemDto: CreateItemDto, user_id: string) {
     if (createItemDto.item_global_ids) {
-      return this.createItemFromGlobalItems(createItemDto.item_global_ids, createItemDto.shop_ids, user_id);
+      return this.createItemFromGlobalItems(createItemDto.item_global_ids, user_id);
     } else {
       const createdItem = new this.itemsShopModel(createItemDto);
       createdItem.user_id = user_id;

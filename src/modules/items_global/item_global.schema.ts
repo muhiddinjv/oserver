@@ -21,9 +21,6 @@ export class ItemGlobal {
   @Prop({ default: null })
   user_id: string;
 
-  @Prop({ type: [String], default: null })
-  shop_ids: string[] | null;
-
   @Prop({ default: false })
   track_stock: boolean;
 

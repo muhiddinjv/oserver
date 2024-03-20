@@ -128,3 +128,56 @@ git branch -a
 git checkout Azimjon
 git push
 ```
+
+# POS IMPORTANT FEATURES
+### ~~crossed out~~ = not found in Loyverse
+- Restaurant POS
+- eCommerce Management
+- ~~Commission Management~~
+- Electronic Payments
+- Employee Management
+- Multi-Location
+- Inventory Management
+- Credit Card Processing
+- Retail POS
+- Returns Management
+- Inventory Tracking
+- Barcode/Ticket Scanning
+- Sales Reports
+- Loyalty Program
+- Payment Processing
+- Ordering Automation
+- Point of Sale (POS)
+- Electronic Signature
+- Accounting Integration
+- API
+- ~~Gift Card Management~~
+- Discount Management
+- Order Management
+- Customer Accounts
+- ~~Layaway Management~~
+- Reporting & Statistics
+- ~~Activity Dashboard~~
+- ~~Promotions Management~~
+- Access Controls/Permissions
+- Third-Party Integrations
+- Receipt Management
+- ~~Invoice Management~~
+- Retail Inventory Management
+- ~~Customizable Reports~~
+- Sales Tax Management
+- Purchase Order Management
+- Real Time Data
+- Sales Orders
+- Stock Management
+- Transaction History
+- CRM
+- Customer Database
+- ~~Billing & Invoicing~~
+- Real Time Updates
+- Customer History
+- Sales Trend Analysis
+- Alerts/Notifications
+- Real Time Reporting
+- Offline Access
+- Barcode Recognition

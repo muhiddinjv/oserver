@@ -1,6 +1,5 @@
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Shop } from '../shops/shop.schema';
 
 export type ItemShopDocument = ItemShop & Document;
 
@@ -20,9 +19,6 @@ export class ItemShop {
 
   @Prop({ required: true })
   user_id: string;
-
-  @Prop({ type: Types.ObjectId || null, ref: 'Shop' })
-  shop_ids: Shop[];
 
   @Prop({ default: false })
   track_stock: boolean;

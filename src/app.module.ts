@@ -5,7 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { ItemsModule } from './modules/items_global/items_global.module';
 import { ItemsShopModule } from './modules/items_shop/items_shop.module';
-import { ShopsModule } from './modules/shops/shops.module';
 import { TransfersModule } from './modules/transfers/transfers.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
@@ -17,7 +16,6 @@ import { APP_GUARD } from '@nestjs/core';
     AuthModule,
     UsersModule,
     TransfersModule,
-    ShopsModule,
     ItemsModule,
     ItemsShopModule,
   ],
