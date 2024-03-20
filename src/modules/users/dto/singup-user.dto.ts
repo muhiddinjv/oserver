@@ -35,14 +35,6 @@ export class SingUpUserDto {
   email: string
 
   @ApiProperty({
-    description: 'shop',
-    example: ['shop_id','shop_id'],
-  })
-  shop: string;
-
-
-
-  @ApiProperty({
     description: 'role',
     example: 'wholesaler',
   })

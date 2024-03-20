@@ -6,9 +6,8 @@
 Userflow: 
 Create
 1. user
-2. shop
-4. item_global
-5. item_shop
+2. item_global
+3. item_shop
 
 ### User Story 1:
 As a super admin, I want to have a centralized platform to manage wholesalers, retailers, and their direct customers, so that I can efficiently oversee the entire system.

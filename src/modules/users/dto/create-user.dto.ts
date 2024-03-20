@@ -33,9 +33,6 @@ export class CreateUserDto {
   })
   password: string;
 
-
-  shop: string;
-
   @ApiProperty({
     description: 'email',
     example: 'admin@gmail.com',
