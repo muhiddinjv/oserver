@@ -16,7 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles } from '../roles/roles.decorator';
-import { Role } from 'src/enums/roles.enum';
+import { Role } from '../roles/roles.enum';
 
 @ApiTags('Users')
 @Controller('users')
@@ -27,6 +27,7 @@ export class UsersController {
   ) { }
 
   @Post()
+  @Roles(Role.Admin)
   async create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
     return this.usersService.create(createUserDto)
   }

@@ -1,11 +1,17 @@
 import { Types, Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Role } from 'src/enums/roles.enum';
+import { Role } from 'src/modules/roles/roles.enum';
 
 export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
 export class User {
+  @Prop({ default: null })
+  boss_id: string;
+
+  @Prop({ required: true })
+  device_id: string;
+
   @Prop({ minlength:3, maxlength: 64, default:"James" })
   first_name: string;
 

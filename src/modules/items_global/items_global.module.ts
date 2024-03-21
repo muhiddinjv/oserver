@@ -12,4 +12,4 @@ import { ItemsService } from './items_global.service';
   providers: [ItemsService],
   exports: [ItemsService],
 })
-export class ItemsModule {}
+export class ItemsGlobalModule {}

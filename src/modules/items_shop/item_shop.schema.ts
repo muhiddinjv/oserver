@@ -6,6 +6,9 @@ export type ItemShopDocument = ItemShop & Document;
 @Schema({ collection: 'items_shop' })
 export class ItemShop {
   @Prop({ required: true })
+  user_id: string;
+  
+  @Prop({ required: true })
   name: string;
 
   @Prop({ default: 0 })
@@ -16,9 +19,6 @@ export class ItemShop {
 
   @Prop({ default: 0 })
   quantity: number;
-
-  @Prop({ required: true })
-  user_id: string;
 
   @Prop({ default: false })
   track_stock: boolean;

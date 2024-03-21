@@ -1,13 +1,35 @@
-## Epic: POS & Inventory Management System
+## User Active Session Check
+- The user signs in to the POS app with a username and device ID. 
+- The app sends the sign-in information to the server, which stores user session data. 
+- If the user tries to sign in on another device, the app sends a sign-in request to the server. 
+- The server checks for active sessions, and if an active session is found on another device, it triggers the message "No available POS" to inform the user to sign out from the other device. 
+ 
+```mermaid
+sequenceDiagram
+    participant User
+    participant App
+    participant Server
+
+    User ->> App: Sign in with username and device ID
+    App ->> Server: Send sign-in information
+    Server -->> App: Store user session data
+
+    User ->> App: Sign in on another device
+    App ->> Server: Send sign-in request for new device
+    Server -->> App: Check active sessions
+
+    alt Active Session Found
+        Server -->> App: Send "No available POS" message
+    else No Active Session Found
+        Server -->> App: Allow sign-in on new device
+    end
+```
 
 ### [Database diagram on lucid.app](https://lucid.app/lucidchart/02a4c30e-69f1-4441-96b4-faabffe6f817/edit?viewport_loc=-376%2C-372%2C2828%2C1248%2C0_0&invitationId=inv_1bdeb9e8-221b-430c-9ee5-6670c27a76c2)
-![database image](./assets/olliodb.jpeg)
+<!-- ![database image](./assets/olliodb.jpeg) -->
 
-Userflow: 
-Create
-1. user
-2. item_global
-3. item_shop
+
+## Epic: POS & Inventory Management System
 
 ### User Story 1:
 As a super admin, I want to have a centralized platform to manage wholesalers, retailers, and their direct customers, so that I can efficiently oversee the entire system.
@@ -127,6 +149,8 @@ git branch -a
 git checkout Azimjon
 git push
 ```
+
+
 
 # POS IMPORTANT FEATURES
 ### ~~crossed out~~ = not found in Loyverse

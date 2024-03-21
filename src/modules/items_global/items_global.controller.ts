@@ -16,7 +16,7 @@ import {ApiTags} from '@nestjs/swagger';
 import { Public } from '../auth/auth.metadata';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles } from '../roles/roles.decorator';
-import { Role } from 'src/enums/roles.enum';
+import { Role } from 'src/modules/roles/roles.enum';
 
 @ApiTags('Items global')
 @Controller('items_global')
