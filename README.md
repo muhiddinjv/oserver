@@ -204,3 +204,92 @@ git push
 - Real Time Reporting
 - Offline Access
 - Barcode Recognition
+
+In loyverse pos mobile app, on sales screen, when a user taps on an item from a list of all the items, an item quantity screen pops up where the user can manually enter the quantity of the item. When he hits the OK button, he is taken back to the sales screen with a list of items and the badge over the ticket section in the appbar gets incremented based on the quantity entered by the user. Then, the user can follow the same process to add more items to ticket. When the user, taps on the ticket, he is taken to the tickets screen where he can see the total price of each item based on its quantity and the total price of all items. When he taps on an item in the tickets screen, he is taken to the item quantity screen where he can either increment or decrement the quantity of the item. When he taps save button, he is taken back to the ticket screen which has 2 buttons on the bottom: save and charge. If the user taps the charge button, he is taken to the payment type selection screen, where there are 2 buttons; cash and card and the total amount due. When the user taps cash, he is taken to the final screen where there is only one button called new sales which takes the user all the way back to the sales screen where can repeat this whole process to make another sale and the ticket is saved in the tickets section. How does this algorithm works in the frontend and the backend?
+
+To implement the described workflow in the Loyverse POS mobile app, both frontend and backend components need to work together. Below is an outline of how the algorithm might function:
+
+### Frontend:
+1. **Sales Screen:**
+   - Displays a list of all items available for sale.
+   - Allows users to tap on an item to add it to the current ticket.
+   - When an item is tapped, an item quantity screen pops up.
+
+2. **Item Quantity Screen:**
+   - Allows the user to manually enter the quantity of the selected item.
+   - Upon hitting the OK button, the screen closes, and the user is returned to the sales screen.
+   - The badge over the ticket section in the app bar gets incremented based on the quantity entered by the user.
+
+3. **Ticket Screen:**
+   - Displays the current ticket with all added items and their quantities.
+   - Shows the total price of each item based on its quantity and the total price of all items.
+   - Allows users to tap on an item to adjust its quantity, leading to the item quantity screen.
+
+4. **Payment Type Selection Screen:**
+   - Appears after the user taps the "charge" button on the ticket screen.
+   - Displays the total amount due and provides options for payment types (e.g., cash, card).
+
+5. **Final Screen:**
+   - Appears after the user selects a payment type (e.g., cash) and confirms payment.
+   - Displays a confirmation message or receipt.
+   - Provides a button to start a new sale, leading the user back to the sales screen.
+
+### Backend:
+1. **API Calls:**
+   - When a user adds an item to the ticket, a request is sent to the backend to update the ticket's item list and quantities.
+   - Upon adjustment of item quantity, another request updates the ticket accordingly.
+
+2. **Ticket Management:**
+   - The backend manages the state of the ticket, including items, quantities, and total price calculation.
+
+3. **Payment Processing:**
+   - When the user selects a payment type (e.g., cash), the backend processes the payment and updates relevant records (e.g., sales history, inventory).
+
+4. **Ticket Saving:**
+   - After payment confirmation, the backend saves the ticket in the tickets section for record-keeping and reporting purposes.
+
+### Workflow Summary:
+1. User interacts with the frontend by selecting items and entering quantities.
+2. Frontend sends requests to the backend to update the ticket accordingly.
+3. Backend processes these requests, updates the ticket state, and calculates prices.
+4. Upon completion of the sale, the backend handles payment processing and ticket saving.
+5. Frontend reflects relevant changes and guides the user through the sales process.
+
+By coordinating between the frontend and backend, the Loyverse POS mobile app can provide a seamless and efficient sales experience for users.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend as Frontend
+    participant Backend as Backend
+
+    User ->> Frontend: Tap on item to add to ticket
+    Frontend ->> Backend: Add item to ticket
+    Backend -->> Frontend: Update ticket with item
+    Frontend -->> User: Increment badge on ticket
+
+    User ->> Frontend: Tap on ticket
+    Frontend ->> Backend: Request ticket details
+    Backend -->> Frontend: Send ticket details
+    Frontend ->> User: Display ticket details
+
+    User ->> Frontend: Adjust item quantity
+    Frontend ->> Backend: Update item quantity in ticket
+    Backend -->> Frontend: Update ticket with new quantity
+
+    User ->> Frontend: Tap on charge button
+    Frontend ->> Backend: Request payment type selection
+    Backend -->> Frontend: Send payment type selection screen
+    Frontend ->> User: Display payment type selection screen
+
+    User ->> Frontend: Select payment type
+    Frontend ->> Backend: Process payment
+    Backend -->> Frontend: Payment processed successfully
+    Frontend ->> Backend: Save ticket
+    Backend -->> Frontend: Ticket saved
+    Frontend ->> User: Display confirmation message
+
+    User ->> Frontend: Tap on new sales button
+    Frontend ->> User: Return to sales screen
+
+```

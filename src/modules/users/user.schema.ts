@@ -7,10 +7,10 @@ export type UserDocument = User & Document;
 @Schema({ collection: 'users' })
 export class User {
   @Prop({ default: null })
-  boss_id: string;
+  boss_id: Types.ObjectId;
 
   @Prop({ required: true })
-  device_id: string;
+  device_id: Types.ObjectId;
 
   @Prop({ minlength:3, maxlength: 64, default:"James" })
   first_name: string;
@@ -33,7 +33,7 @@ export class User {
   @Prop({ unique: true, maxlength: 15, required: true, default:'+998935399093' })
   phone_number: string;
 
-  @Prop({ type: String, enum: Role, required: true, default:Role.Wholesaler }) 
+  @Prop({ type: String, enum: Role, required: true, default: Role.Wholesaler }) 
   role: Role;
 
   @Prop({ default: true })
