@@ -205,57 +205,70 @@ git push
 - Offline Access
 - Barcode Recognition
 
-In loyverse pos mobile app, on sales screen, when a user taps on an item from a list of all the items, an item quantity screen pops up where the user can manually enter the quantity of the item. When he hits the OK button, he is taken back to the sales screen with a list of items and the badge over the ticket section in the appbar gets incremented based on the quantity entered by the user. Then, the user can follow the same process to add more items to ticket. When the user, taps on the ticket, he is taken to the tickets screen where he can see the total price of each item based on its quantity and the total price of all items. When he taps on an item in the tickets screen, he is taken to the item quantity screen where he can either increment or decrement the quantity of the item. When he taps save button, he is taken back to the ticket screen which has 2 buttons on the bottom: save and charge. If the user taps the charge button, he is taken to the payment type selection screen, where there are 2 buttons; cash and card and the total amount due. When the user taps cash, he is taken to the final screen where there is only one button called new sales which takes the user all the way back to the sales screen where can repeat this whole process to make another sale and the ticket is saved in the tickets section. How does this algorithm works in the frontend and the backend?
+in loyverse pos mobile app, on sales screen, when a user taps on an item from a list of all the items, an item quantity screen pops up where the user can manually enter the quantity of the item. When he hits the OK button, he is taken back to the sales screen with a list of items and a new bill is created in the bill section in the appbar and a badge appears over it with a number based on the quantity entered by the user. Then, the user can follow the same process to add more items to bill and each time the badge gets updated. When the user, taps on the bill, he is taken to the bills screen where he can see the total price of each item based on its quantity and the total price of all items. When he taps on an item in the bills screen, he is taken to the item quantity screen where he can either increment or decrement the quantity of the item. When he taps save button, he is taken back to the bill screen which has 2 buttons on the bottom: save and charge. If the user taps the charge button, he is taken to the payment type selection screen, where there are 2 buttons; cash and card and the total amount due. When the user taps cash, he is taken to the final screen where there is only one button called new sales which takes the user all the way back to the sales screen where can repeat this whole process to make another sale and the bill is saved in the bills section. How does this algorithm work in the front end and the back end? Be as detailed as possible. Explain everything clearly by using specific examples.
 
-To implement the described workflow in the Loyverse POS mobile app, both frontend and backend components need to work together. Below is an outline of how the algorithm might function:
+Sure, let's break down the algorithm for the Loyverse POS mobile app in both frontend and backend components.
 
 ### Frontend:
+
 1. **Sales Screen:**
-   - Displays a list of all items available for sale.
-   - Allows users to tap on an item to add it to the current ticket.
-   - When an item is tapped, an item quantity screen pops up.
+   - The user taps on an item from the list.
+   - An item quantity screen appears where the user enters the quantity.
+   - Example: User taps on "Coffee" and enters a quantity of 2.
 
 2. **Item Quantity Screen:**
-   - Allows the user to manually enter the quantity of the selected item.
-   - Upon hitting the OK button, the screen closes, and the user is returned to the sales screen.
-   - The badge over the ticket section in the app bar gets incremented based on the quantity entered by the user.
+   - After entering the quantity and hitting OK, the user is taken back to the sales screen.
+   - A new bill is created in the bill section of the app bar, and a badge appears with the quantity.
+   - Example: User enters a quantity of 2 for "Coffee," and a new bill is created with a badge showing "2."
 
-3. **Ticket Screen:**
-   - Displays the current ticket with all added items and their quantities.
-   - Shows the total price of each item based on its quantity and the total price of all items.
-   - Allows users to tap on an item to adjust its quantity, leading to the item quantity screen.
+3. **Bills Screen:**
+   - The user taps on the bill to view the details.
+   - Total prices for each item based on quantity and the overall total are displayed.
+   - Example: User taps on the bill and sees "Coffee: $4 (2x), Total: $8."
 
-4. **Payment Type Selection Screen:**
-   - Appears after the user taps the "charge" button on the ticket screen.
-   - Displays the total amount due and provides options for payment types (e.g., cash, card).
+4. **Item Quantity Adjustment:**
+   - If the user taps on an item in the bills screen, they are taken to the item quantity screen.
+   - Here, they can adjust the quantity of the item.
+   - Example: User taps on "Coffee" in the bills screen and adjusts the quantity to 3.
 
-5. **Final Screen:**
-   - Appears after the user selects a payment type (e.g., cash) and confirms payment.
-   - Displays a confirmation message or receipt.
-   - Provides a button to start a new sale, leading the user back to the sales screen.
+5. **Save/Charge Screen:**
+   - After making adjustments, the user taps the save button.
+   - The user is taken back to the bill screen, which has buttons for save and charge.
+   - Example: User saves the adjustments made to the quantity of "Coffee."
+
+6. **Payment Type Selection Screen:**
+   - If the user taps the charge button, they are taken to the payment type selection screen.
+   - Here, they can choose between cash and card payment options.
+   - Example: User selects cash payment.
+
+7. **Final Screen:**
+   - After selecting the payment type, the user is taken to the final screen.
+   - Here, they see a confirmation message and a button to start a new sale.
+   - Example: User sees a confirmation message and a button to start a new sale.
 
 ### Backend:
-1. **API Calls:**
-   - When a user adds an item to the ticket, a request is sent to the backend to update the ticket's item list and quantities.
-   - Upon adjustment of item quantity, another request updates the ticket accordingly.
 
-2. **Ticket Management:**
-   - The backend manages the state of the ticket, including items, quantities, and total price calculation.
+1. **Bill Creation:**
+   - When the frontend triggers the creation of a new bill, it sends a request to the backend.
+   - The backend creates a new bill object and associates it with the user's session.
+   - Example: Backend receives a request to create a new bill for the user.
+
+2. **Item Addition and Adjustment:**
+   - When the user adds or adjusts items, the frontend sends requests to the backend to update the bill accordingly.
+   - The backend updates the bill object with the new item quantities.
+   - Example: Backend receives a request to add "Coffee" with a quantity of 2 to the bill.
 
 3. **Payment Processing:**
-   - When the user selects a payment type (e.g., cash), the backend processes the payment and updates relevant records (e.g., sales history, inventory).
+   - When the user selects a payment type, the frontend sends a request to the backend to process the payment.
+   - The backend handles payment processing and updates relevant records.
+   - Example: Backend receives a request to process a cash payment.
 
-4. **Ticket Saving:**
-   - After payment confirmation, the backend saves the ticket in the tickets section for record-keeping and reporting purposes.
+4. **Bill Saving:**
+   - After payment confirmation, the backend saves the bill object in the bills section for record-keeping.
+   - Example: Backend saves the bill with the updated item quantities and payment information.
 
-### Workflow Summary:
-1. User interacts with the frontend by selecting items and entering quantities.
-2. Frontend sends requests to the backend to update the ticket accordingly.
-3. Backend processes these requests, updates the ticket state, and calculates prices.
-4. Upon completion of the sale, the backend handles payment processing and ticket saving.
-5. Frontend reflects relevant changes and guides the user through the sales process.
-
-By coordinating between the frontend and backend, the Loyverse POS mobile app can provide a seamless and efficient sales experience for users.
+### Summary:
+This algorithm ensures a smooth sales process for users of the Loyverse POS mobile app. The frontend handles user interactions and updates the UI accordingly, while the backend manages data storage, processing, and business logic. By coordinating between the frontend and backend, the app provides a seamless experience for managing sales, adjusting item quantities, processing payments, and saving bills for future reference.
 
 ```mermaid
 sequenceDiagram
@@ -263,33 +276,60 @@ sequenceDiagram
     participant Frontend as Frontend
     participant Backend as Backend
 
-    User ->> Frontend: Tap on item to add to ticket
-    Frontend ->> Backend: Add item to ticket
-    Backend -->> Frontend: Update ticket with item
-    Frontend -->> User: Increment badge on ticket
+    User ->> Frontend: Tap on item to add to bill
+    Frontend ->> Frontend: Display item quantity screen
+    Frontend ->> User: Prompt for quantity input
+    User ->> Frontend: Enter quantity and hit OK
+    Frontend ->> Frontend: Close item quantity screen
+    Frontend ->> Backend: Create new bill
+    Backend -->> Frontend: Bill created successfully
+    Frontend ->> Frontend: Update UI with new bill and badge
+    Frontend ->> User: Display sales screen with updated bill
 
-    User ->> Frontend: Tap on ticket
-    Frontend ->> Backend: Request ticket details
-    Backend -->> Frontend: Send ticket details
-    Frontend ->> User: Display ticket details
+    User ->> Frontend: Tap on bill
+    Frontend ->> Backend: Request bill details
+    Backend -->> Frontend: Send bill details
+    Frontend ->> User: Display bill details screen
 
+    User ->> Frontend: Tap on item in bills screen
+    Frontend ->> Frontend: Display item quantity adjustment screen
+    Frontend ->> User: Prompt for quantity adjustment
     User ->> Frontend: Adjust item quantity
-    Frontend ->> Backend: Update item quantity in ticket
-    Backend -->> Frontend: Update ticket with new quantity
+    Frontend ->> Frontend: Close item quantity adjustment screen
+    Frontend ->> Backend: Update item quantity in bill
+    Backend -->> Frontend: Update bill with new quantity
+    Frontend ->> Frontend: Update UI with adjusted bill
 
+    User ->> Frontend: Tap on save button
+    Frontend ->> Frontend: Display save/charge screen
+    Frontend ->> User: Display save/charge options
     User ->> Frontend: Tap on charge button
     Frontend ->> Backend: Request payment type selection
     Backend -->> Frontend: Send payment type selection screen
     Frontend ->> User: Display payment type selection screen
-
     User ->> Frontend: Select payment type
     Frontend ->> Backend: Process payment
     Backend -->> Frontend: Payment processed successfully
-    Frontend ->> Backend: Save ticket
-    Backend -->> Frontend: Ticket saved
+    Frontend ->> Backend: Save bill
+    Backend -->> Frontend: Bill saved
     Frontend ->> User: Display confirmation message
-
     User ->> Frontend: Tap on new sales button
     Frontend ->> User: Return to sales screen
 
+
 ```
+
+```mermaid
+sequenceDiagram
+    participant Frontend
+    participant Backend
+    participant Database
+
+    Frontend ->> Backend: Request with item ID and quantity
+    Backend ->> Database: Retrieve item details
+    Database -->> Backend: Item details
+    Backend ->> Backend: Construct bill object with item details
+    Backend -->> Frontend: Send bill object
+    Frontend ->> Frontend: Update UI with new bill details
+```
+

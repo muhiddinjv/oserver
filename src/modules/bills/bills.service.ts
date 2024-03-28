@@ -1,50 +1,75 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
 import { InjectModel } from '@nestjs/mongoose';
+import { Bill, BillDocument } from './bill.schema';
+import { Model } from 'mongoose';
+import { ItemShop, ItemShopDocument } from '../items_shop/item_shop.schema';
 
 @Injectable()
 export class BillsService {
-  // constructor(@InjectModel(bill.name) private ticketModel: Model<Bill>) {}
+  constructor(
+    @InjectModel(Bill?.name) private billModel: Model<BillDocument>,
+    @InjectModel(ItemShop?.name) private itemsShopModel: Model<ItemShopDocument>,) { }
 
-  create(createBillDto: CreateBillDto) {
-    return 'This action adds a new bill';
+
+  async create(createBillDto: CreateBillDto, userId: string) {
+    const itemsIds = createBillDto.items.map(item => item.id);
+
+    // Fetch all items in one query using populate
+    const items = await this.itemsShopModel.find({ _id: { $in: itemsIds }, user_id: userId });
+
+    const newBills = items.map(item => {
+      const { name, price } = item;
+      const foundItem = createBillDto.items.find(i => i.id === item._id);
+      const quantity = foundItem ? foundItem.quantity : 0; // Check if foundItem is not undefined
+      return {
+          name,
+          price,
+          quantity,
+          total: price * quantity
+      };
+    });
+
+    console.log(newBills);
+    // Continue with the rest of the logic
+    // const createdBill = new this.billModel(createBillDto);
+    // createdBill.staff_id = userId;
+    // return createdBill.save();
   }
 
-  findAll() {
-    return `This action returns all bills`;
+  async findAll(userId: string): Promise<BillDocument[]> {
+    return this.billModel.find({ staff_id: userId });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bill`;
+  async findOne(id: string): Promise<BillDocument> {
+    const bill = this.billModel.findById(id);
+    if (!bill) {
+      throw new NotFoundException('Bill not found');
+    }
+    return bill
   }
 
-  update(ticketData: number, updateBillDto: UpdateBillDto) {
-    // return `This action updates a #${id} bill`;
+  async update(id: string, updateBillDto: UpdateBillDto): Promise<Bill> {
+    const bill = await this.billModel.findById(id);
 
-    const billId = ticketData.id;
-    const updatedItems = ticketData.items;
-
-    // Retrieve the ticket from the database
-    const ticket = await this.ticketModel.findById(billId);
-
-    if (!ticket) {
-        throw new Error('Ticket not found');
+    if (!bill) {
+      throw new NotFoundException('Bill not found');
     }
 
-    // Update the items in the ticket
-    ticket.items = updatedItems;
+    // Update the items in the bill
+    // bill.items = updateBillDto.items;
 
     // Calculate the total price based on the updated items
-    ticket.total = ticket.items.reduce((total, item) => total + item.price, 0);
+    bill.total_price = bill.items.reduce((total, item) => total + item.price, 0);
 
-    // Save the updated ticket back to the database
-    const updatedTicket = await ticket.save();
-
-    return updatedTicket;
+    // Save the updated bill back to the database
+    return await bill.save();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bill`;
+  async remove(id: number) {
+    return this.billModel.findByIdAndDelete(id);
   }
 }
+
+

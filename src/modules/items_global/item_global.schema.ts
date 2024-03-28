@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type ItemGlobalDocument = ItemGlobal & Document;
 
-@Schema({ collection: 'items_global' })
+@Schema({ collection: 'items_global', timestamps: true, versionKey: false })
 
 export class ItemGlobal {
   @Prop({ required: true })
@@ -29,17 +29,8 @@ export class ItemGlobal {
 
   @Prop({ type: Date })
   expire_date: Date;
-
-  @Prop({ type: Date, default: Date.now })
-  created_at: Date;
-
-  @Prop({ type: Date, default: Date.now })
-  updated_at: Date;
 }
 
-export const ItemGlobalSchema = SchemaFactory.createForClass(ItemGlobal).set(
-  'versionKey',
-  false,
-);
+export const ItemGlobalSchema = SchemaFactory.createForClass(ItemGlobal)
 
 

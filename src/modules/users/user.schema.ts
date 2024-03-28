@@ -4,8 +4,12 @@ import { Role } from 'src/modules/roles/roles.enum';
 
 export type UserDocument = User & Document;
 
-@Schema({ collection: 'users' })
+@Schema({ collection: 'users', timestamps: true, versionKey: false })
+
 export class User {
+  @Prop({ required: false })
+  _id: Types.ObjectId;
+
   @Prop({ default: null })
   boss_id: Types.ObjectId;
 
@@ -64,7 +68,4 @@ export class User {
   total_points: number;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User).set(
-  'versionKey',
-  false,
-);
+export const UserSchema = SchemaFactory.createForClass(User)

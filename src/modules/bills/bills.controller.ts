@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
 import { BillsService } from './bills.service';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
@@ -8,23 +8,23 @@ export class BillsController {
   constructor(private readonly billsService: BillsService) {}
 
   @Post()
-  create(@Body() createBillDto: CreateBillDto) {
-    return this.billsService.create(createBillDto);
+  create(@Body() createBillDto: CreateBillDto, @Req() req: Request) {
+    return this.billsService.create(createBillDto,String(req['user']['sub']));
   }
 
   @Get()
-  findAll() {
-    return this.billsService.findAll();
+  findAll(@Req() req: Request) {
+    return this.billsService.findAll(String(req['user']['sub']));
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.billsService.findOne(+id);
+    return this.billsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBillDto: UpdateBillDto) {
-    return this.billsService.update(+id, updateBillDto);
+    return this.billsService.update(id, updateBillDto);
   }
 
   @Delete(':id')

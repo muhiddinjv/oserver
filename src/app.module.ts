@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { ItemsGlobalModule } from './modules/items_global/items_global.module';
 import { ItemsShopModule } from './modules/items_shop/items_shop.module';
+import { BillsModule } from './modules/bills/bills.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 
@@ -16,6 +17,7 @@ import { APP_GUARD } from '@nestjs/core';
     UsersModule,
     ItemsGlobalModule,
     ItemsShopModule,
+    BillsModule
   ],
   providers: [
     {

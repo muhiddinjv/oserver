@@ -3,7 +3,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type ItemShopDocument = ItemShop & Document;
 
-@Schema({ collection: 'items_shop' })
+@Schema({ collection: 'items_shop', timestamps: true, versionKey: false })
+
 export class ItemShop {
   @Prop({ required: true })
   user_id: string;
@@ -28,15 +29,6 @@ export class ItemShop {
 
   @Prop({ type: Date })
   expire_date: Date;
-
-  @Prop({ type: Date, default: Date.now })
-  created_at: Date;
-
-  @Prop({ type: Date, default: Date.now })
-  updated_at: Date;
 }
 
-export const Itemschema = SchemaFactory.createForClass(ItemShop).set(
-  'versionKey',
-  false,
-);
+export const Itemschema = SchemaFactory.createForClass(ItemShop)

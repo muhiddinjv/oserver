@@ -22,27 +22,27 @@ export class ItemsService {
     try {
       const createdItems = await Promise.all(global_ids.map(async (id) => {
         const globalItem = await this.itemsGlobalModel.findById(id);
-  
+
         const newItemData = {
           ...globalItem.toJSON(),
           user_id,
-          _id: undefined // to generate a unique _id
+          _id: undefined // generates new _id
         };
-  
+
         const existingItem = await this.itemsShopModel.findOne({ name: newItemData.name, user_id });
         if (existingItem) {
           throw new Error(`This user already has: ${newItemData.name}`);
         }
-  
+
         return this.itemsShopModel.create(newItemData);
       }));
-  
+
       return createdItems;
     } catch (error) {
       throw new BadRequestException({ error: error.message });
     }
   }
-  
+
   async create(createItemDto: CreateItemDto, user_id: string) {
     if (createItemDto.item_global_ids) {
       return this.createItemFromGlobalItems(createItemDto.item_global_ids, user_id);
@@ -79,10 +79,9 @@ export class ItemsService {
   ): Promise<ItemShopDocument> {
     return this.itemsShopModel
       .findByIdAndUpdate(id, updateItemDto, { new: true })
-      .exec();
   }
 
   async remove(id: string): Promise<ItemShopDocument> {
-    return this.itemsShopModel.findByIdAndDelete(id).exec();
+    return this.itemsShopModel.findByIdAndDelete(id)
   }
 }

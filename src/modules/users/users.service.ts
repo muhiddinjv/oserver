@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -11,31 +11,38 @@ export class UsersService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) { }
 
-  async create(createUserDto: CreateUserDto): Promise<UserDocument> {
-    const userExists = await this.findOne(
-      createUserDto.phone_number,
-    );
+  async create(user: CreateUserDto): Promise<UserDocument> {
+    const userExists = await this.userModel.exists({ phone_number: user.phone_number }).lean();
     if (userExists) {
-      throw new BadRequestException('User already exists');
+      throw new ConflictException(`User with that phone number already exists`);
     }
-    const createdUser = new this.userModel(createUserDto);
+    const createdUser = new this.userModel(user);
     return createdUser.save();
+    /*
+    const passwordHash = await hash(user.password, 10);
+    const userToCreate: User = { ...user, userId: randomUUID(), password: passwordHash };
+    return this.userModel.create(userToCreate);
+    */
   }
 
-  async findAll(): Promise<UserDocument[]> {
-    return this.userModel.find().exec();
+  async findAll(): Promise<User[]> {
+    return this.userModel.find();
   }
 
-  async findById(id: string): Promise<UserDocument> {
+  async findById(id: string): Promise<User> {
     return this.userModel.findById(id);
   }
 
-  async findOne(phone_number: string): Promise<UserDocument> {
-    return this.userModel.findOne({ phone_number }).exec();
+  async findOne(phone_number: string): Promise<User> {
+    const user = await this.userModel.findOne({ phone_number });
+    if (!user) {
+      throw new NotFoundException(`User with the phone number ${user.phone_number} not found`);
+    }
+    return user;
   }
 
   async findByPinCode(PinCode: string): Promise<UserDocument> {
-    return this.userModel.findOne({ user_qr_code:PinCode }).exec();
+    return this.userModel.findOne({ user_pincode: PinCode });
   }
 
   async update(
@@ -43,11 +50,10 @@ export class UsersService {
     updateUserDto: UpdateUserDto,
   ): Promise<UserDocument> {
     return this.userModel
-      .findByIdAndUpdate(id, updateUserDto, { new: true })
-      .exec();
+      .findByIdAndUpdate(id, updateUserDto, { new: true });
   }
 
   async remove(id: string): Promise<UserDocument> {
-    return this.userModel.findByIdAndDelete(id).exec();
+    return this.userModel.findByIdAndDelete(id);
   }
 }

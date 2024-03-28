@@ -67,10 +67,9 @@ export class ItemsService {
   ): Promise<ItemGlobalDocument> {
     return this.itemsModel
       .findByIdAndUpdate(id, updateItemDto, { new: true })
-      .exec();
   }
 
   async remove(id: string): Promise<ItemGlobalDocument> {
-    return this.itemsModel.findByIdAndDelete(id).exec();
+    return this.itemsModel.findByIdAndDelete(id)
   }
 }
