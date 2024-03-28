@@ -1,3 +1,3 @@
 export class CreateBillDto {
-    readonly items: { id: string, quantity: number }[];
+    lineItems: { _id: string, name: string, price: number, quantity: number, totalPrice: number }[];
 }

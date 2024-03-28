@@ -1,6 +1,5 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ItemShop, Itemschema } from '../items_shop/item_shop.schema';
 
 export type BillDocument = Bill & Document;
 
@@ -8,22 +7,19 @@ export type BillDocument = Bill & Document;
 
 export class Bill {
   @Prop({ type: String, required: true, ref: 'User' })
-  staff_id: string;
+  staffId: string;
 
   @Prop({ type: String, default: null, ref: 'User' })
-  buyer_id: string;
+  buyerId: string;
 
-  @Prop({ type: [Itemschema] })
-  items: ItemShop[]
+  @Prop({ type: [] })
+  lineItems: any[];
 
   @Prop({ type: Number, required: true })
-  total_price: number;
+  totalPrices: number;
 
-  @Prop({ type: Number, default: 0 })
+  @Prop({ type: Number, default: 1 })
   status: number;
-
-  @Prop({ type: Date, default: Date.now })
-  created_at: Date;
 }
 
 export const Billschema = SchemaFactory.createForClass(Bill);

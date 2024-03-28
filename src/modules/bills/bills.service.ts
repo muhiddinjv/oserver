@@ -12,34 +12,27 @@ export class BillsService {
     @InjectModel(Bill?.name) private billModel: Model<BillDocument>,
     @InjectModel(ItemShop?.name) private itemsShopModel: Model<ItemShopDocument>,) { }
 
-
   async create(createBillDto: CreateBillDto, userId: string) {
-    const itemsIds = createBillDto.items.map(item => item.id);
-
-    // Fetch all items in one query using populate
-    const items = await this.itemsShopModel.find({ _id: { $in: itemsIds }, user_id: userId });
-
-    const newBills = items.map(item => {
-      const { name, price } = item;
-      const foundItem = createBillDto.items.find(i => i.id === item._id);
-      const quantity = foundItem ? foundItem.quantity : 0; // Check if foundItem is not undefined
+    const bills = await Promise.all(createBillDto.lineItems.map(async item => {
+      const { _id, name, price } = await this.itemsShopModel.findOne({ _id: item._id, user_id: userId });
+      
       return {
-          name,
-          price,
-          quantity,
-          total: price * quantity
+        _id: String(_id),
+        name, price, quantity: item.quantity,
+        totalPrice: price * item.quantity
       };
-    });
+    }));
 
-    console.log(newBills);
-    // Continue with the rest of the logic
-    // const createdBill = new this.billModel(createBillDto);
-    // createdBill.staff_id = userId;
-    // return createdBill.save();
+    const createdBill = new this.billModel(createBillDto);
+    createdBill.staffId = userId
+    createdBill.lineItems = bills
+    createdBill.totalPrices = bills.reduce((total, item) => total + item.totalPrice, 0);
+
+    return createdBill.save();
   }
 
   async findAll(userId: string): Promise<BillDocument[]> {
-    return this.billModel.find({ staff_id: userId });
+    return this.billModel.find({ staffId: userId });
   }
 
   async findOne(id: string): Promise<BillDocument> {
@@ -50,21 +43,28 @@ export class BillsService {
     return bill
   }
 
-  async update(id: string, updateBillDto: UpdateBillDto): Promise<Bill> {
-    const bill = await this.billModel.findById(id);
+  async update(id: string, updateBillDto: UpdateBillDto) {
+    const updatedBill = await this.billModel.findById(id);
 
-    if (!bill) {
+    if (!updatedBill) {
       throw new NotFoundException('Bill not found');
     }
 
     // Update the items in the bill
-    // bill.items = updateBillDto.items;
+    updatedBill.lineItems = updateBillDto.lineItems.map(item => {
+      const {price} = updatedBill.lineItems.find(it => it._id === item._id);
+      return {
+        ...item,
+        totalPrice: price * item.quantity
+      }
+    });
 
     // Calculate the total price based on the updated items
-    bill.total_price = bill.items.reduce((total, item) => total + item.price, 0);
+    updatedBill.totalPrices = updatedBill.lineItems.reduce((total, item) => total + item.totalPrice, 0);
 
     // Save the updated bill back to the database
-    return await bill.save();
+    console.log(updatedBill)
+    // return await updatedBill.save();
   }
 
   async remove(id: number) {

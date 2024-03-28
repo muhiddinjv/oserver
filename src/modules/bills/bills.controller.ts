@@ -8,8 +8,8 @@ export class BillsController {
   constructor(private readonly billsService: BillsService) {}
 
   @Post()
-  create(@Body() createBillDto: CreateBillDto, @Req() req: Request) {
-    return this.billsService.create(createBillDto,String(req['user']['sub']));
+  create(@Body() bill: CreateBillDto, @Req() req: Request) {
+    return this.billsService.create(bill, String(req['user']['sub']));
   }
 
   @Get()
