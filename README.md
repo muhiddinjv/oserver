@@ -319,17 +319,3 @@ sequenceDiagram
 
 ```
 
-```mermaid
-sequenceDiagram
-    participant Frontend
-    participant Backend
-    participant Database
-
-    Frontend ->> Backend: Request with item ID and quantity
-    Backend ->> Database: Retrieve item details
-    Database -->> Backend: Item details
-    Backend ->> Backend: Construct bill object with item details
-    Backend -->> Frontend: Send bill object
-    Frontend ->> Frontend: Update UI with new bill details
-```
-
