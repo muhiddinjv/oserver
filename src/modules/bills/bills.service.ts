@@ -44,27 +44,24 @@ export class BillsService {
   }
 
   async update(id: string, updateBillDto: UpdateBillDto) {
-    const updatedBill = await this.billModel.findById(id);
+    const billToUpdate = await this.billModel.findById(id);
 
-    if (!updatedBill) {
+    if (!billToUpdate) {
       throw new NotFoundException('Bill not found');
     }
 
-    // Update the items in the bill
-    updatedBill.lineItems = updateBillDto.lineItems.map(item => {
-      const {price} = updatedBill.lineItems.find(it => it._id === item._id);
+    const updatedBill = updateBillDto.lineItems.map((item,index) => {
+      const {price} = billToUpdate.lineItems.find(it => it._id === item._id);
       return {
-        ...item,
+        ...billToUpdate.lineItems[index],
+        quantity: item.quantity,
         totalPrice: price * item.quantity
       }
     });
 
-    // Calculate the total price based on the updated items
-    updatedBill.totalPrices = updatedBill.lineItems.reduce((total, item) => total + item.totalPrice, 0);
-
-    // Save the updated bill back to the database
-    console.log(updatedBill)
-    // return await updatedBill.save();
+    billToUpdate.lineItems = updatedBill
+    billToUpdate.totalPrices = billToUpdate.lineItems.reduce((total, item) => total + item.totalPrice, 0);
+    return await billToUpdate.save();
   }
 
   async remove(id: number) {
