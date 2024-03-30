@@ -27,7 +27,9 @@
   "firstName": "admin",
   "phoneNumber": "998935399095",
   "password": "admin",
-  "role": "admin"
+  "role": "admin",
+  "status": 1,
+  "photo": "defaultavatar.png"
 },
 {
   "_id": {
@@ -36,7 +38,9 @@
   "firstName": "wholesaler2",
   "phoneNumber": "998935399096",
   "password": "wholesaler2",
-  "role": "wholesaler2"
+  "role": "wholesaler2",
+  "status": 1,
+  "photo": "defaultavatar.png"
 },
 {
   "_id": {
@@ -45,5 +49,7 @@
   "firstName": "retailer2",
   "phoneNumber": "998935399097",
   "password": "retailer2",
-  "role": "retailer2"
+  "role": "retailer2",
+  "status": 1,
+  "photo": "defaultavatar.png"
 }]
