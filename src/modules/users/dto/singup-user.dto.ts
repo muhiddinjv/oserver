@@ -1,17 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class SingUpUserDto {
   @ApiProperty({
-    description: 'first_name',
+    description: 'firstName',
     example: 'Jones',
   })
-  first_name: string;
+  firstName: string;
 
 
   @ApiProperty({
-    description: 'last_name',
+    description: 'lastName',
     example: 'Show',
   })
-  last_name: string;
+  lastName: string;
 
   @ApiProperty({
     description: 'business',
@@ -21,10 +21,10 @@ export class SingUpUserDto {
 
  
   @ApiProperty({
-    description: 'phone_number',
+    description: 'phoneNumber',
     example: '+998997811356',
   })
-  phone_number: string;
+  phoneNumber: string;
 
 
   @ApiProperty({
@@ -41,7 +41,7 @@ export class SingUpUserDto {
   role: string;
 
  
-  refresh_token: string;
+  refreshToken: string;
 
 
   @ApiProperty({
@@ -52,8 +52,8 @@ export class SingUpUserDto {
 
 
   @ApiProperty({
-    description: 'user_qr_code',
+    description: 'userQrCode',
     example: 4444,
   })
-  user_qr_code: number;
+  userQrCode: number;
 }

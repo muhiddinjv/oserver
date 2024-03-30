@@ -1,11 +1,11 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type ItemGlobalDocument = ItemGlobal & Document;
+export type CatalogDocument = Catalog & Document;
 
-@Schema({ collection: 'items_global', timestamps: true, versionKey: false })
+@Schema({ collection: 'catalogs', timestamps: true, versionKey: false })
 
-export class ItemGlobal {
+export class Catalog {
   @Prop({ required: true })
   name: string;
 
@@ -19,18 +19,18 @@ export class ItemGlobal {
   quantity: number;
 
   @Prop({ default: null })
-  user_id: string;
+  userId: string;
 
   @Prop({ default: false })
-  track_stock: boolean;
+  trackStock: boolean;
 
   @Prop({ default: false })
-  is_group_item: boolean;
+  isGroupItem: boolean;
 
   @Prop({ type: Date })
-  expire_date: Date;
+  expireDate: Date;
 }
 
-export const ItemGlobalSchema = SchemaFactory.createForClass(ItemGlobal)
+export const CatalogSchema = SchemaFactory.createForClass(Catalog)
 
 

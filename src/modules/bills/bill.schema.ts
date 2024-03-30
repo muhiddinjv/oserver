@@ -13,7 +13,7 @@ export class Bill {
   buyerId: string;
 
   @Prop({ type: [] })
-  lineItems: any[];
+  goods: any[];
 
   @Prop({ type: Number, required: true })
   totalPrices: number;

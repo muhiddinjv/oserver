@@ -2,40 +2,48 @@
   "_id": {
     "$oid": "65a563060cf863d8da31cc1b"
   },
-  "first_name": "wholesaler",
-  "phone_number": "998935399093",
-  "password": "wholesaler123",
-  "role": "wholesaler"
-},{
+  "firstName": "wholesaler",
+  "phoneNumber": "998935399093",
+  "password": "wholesaler",
+  "role": "wholesaler",
+  "status": 1,
+  "photo": "defaultavatar.png"
+},
+{
   "_id": {
     "$oid": "65a564b00cf863d8da31cc1e"
   },
-  "first_name": "retailer",
-  "phone_number": "998931234567",
-  "password": "retailer123",
-  "role": "retailer"
-},{
+  "firstName": "retailer",
+  "phoneNumber": "998935399094",
+  "password": "retailer",
+  "role": "retailer",
+  "status": 1,
+  "photo": "defaultavatar.png"
+},
+{
   "_id": {
     "$oid": "65dc70c6a441a798ba5e8562"
   },
-  "first_name": "admin",
-  "phone_number": "998935399094",
-  "password": "admin123",
+  "firstName": "admin",
+  "phoneNumber": "998935399095",
+  "password": "admin",
   "role": "admin"
-},{
+},
+{
   "_id": {
     "$oid": "65ddb03066594ddf922a51f2"
   },
-  "first_name": "wholesaler2",
-  "phone_number": "998935399092",
-  "password": "wholesaler1232",
+  "firstName": "wholesaler2",
+  "phoneNumber": "998935399096",
+  "password": "wholesaler2",
   "role": "wholesaler2"
-},{
+},
+{
   "_id": {
     "$oid": "65ddb08f66594ddf922a51f4"
   },
-  "first_name": "retailer2",
-  "phone_number": "998935399095",
-  "password": "retailer1232",
+  "firstName": "retailer2",
+  "phoneNumber": "998935399097",
+  "password": "retailer2",
   "role": "retailer2"
 }]

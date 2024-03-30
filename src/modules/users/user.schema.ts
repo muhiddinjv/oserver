@@ -14,13 +14,13 @@ export class User {
   boss_id: Types.ObjectId;
 
   // @Prop({ required: true })
-  // device_id: Types.ObjectId;
+  // deviceId: Types.ObjectId;
 
   @Prop({ minlength: 3, maxlength: 64, default: "James" })
-  first_name: string;
+  firstName: string;
 
   @Prop({ minlength: 3, maxlength: 64 })
-  last_name: string;
+  lastName: string;
 
   @Prop({ minlength: 3, maxlength: 192 })
   address: string;
@@ -29,7 +29,7 @@ export class User {
   password: string;
 
   @Prop({ unique: true, maxlength: 15, required: true, default: '+998935399093' })
-  phone_number: string;
+  phoneNumber: string;
 
   @Prop({ type: String, enum: Role, required: true, default: Role.Wholesaler })
   role: Role;
@@ -38,7 +38,7 @@ export class User {
   status: number;
 
   // @Prop()
-  // refresh_token: string;
+  // refreshToken: string;
 
   // @Prop({  maxlength: 100 })
   // email: string;
@@ -47,25 +47,25 @@ export class User {
   // photo: string;
 
   // @Prop({minlength:4, maxlength: 40 })
-  // user_qr_code: string;
+  // userQrCode: string;
 
   // @Prop({minlength:3, maxlength: 255 })
   // note: string;
 
   // @Prop()
-  // first_visit: Date;
+  // firstVisit: Date;
 
   // @Prop()
-  // last_visit: Date;
+  // lastVisit: Date;
 
   // @Prop({ default: 0 })
-  // total_visits: number;
+  // totalVisits: number;
 
   // @Prop({ default: 0 })
-  // total_spent: number;
+  // totalSpent: number;
 
   // @Prop({ default: 0 })
-  // total_points: number;
+  // totalPoints: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

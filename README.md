@@ -1,3 +1,6 @@
+## Mongodb start in linux
+terminal: sudo systemctl start mongod
+
 ## User Active Session Check
 - The user signs in to the POS app with a username and device ID. 
 - The app sends the sign-in information to the server, which stores user session data. 

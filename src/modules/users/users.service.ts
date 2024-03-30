@@ -12,7 +12,7 @@ export class UsersService {
   ) { }
 
   async create(user: CreateUserDto): Promise<UserDocument> {
-    const userExists = await this.userModel.exists({ phone_number: user.phone_number }).lean();
+    const userExists = await this.userModel.exists({ phoneNumber: user.phoneNumber }).lean();
     if (userExists) {
       throw new ConflictException(`User with that phone number already exists`);
     }
@@ -33,10 +33,10 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
-  async findOne(phone_number: string): Promise<User> {
-    const user = await this.userModel.findOne({ phone_number });
+  async findOne(phoneNumber: string): Promise<User> {
+    const user = await this.userModel.findOne({ phoneNumber });
     if (!user) {
-      throw new NotFoundException(`User with the phone number ${user.phone_number} not found`);
+      throw new NotFoundException(`User with the phone number ${user.phoneNumber} not found`);
     }
     return user;
   }

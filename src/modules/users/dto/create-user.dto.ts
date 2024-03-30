@@ -1,17 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateUserDto {
   @ApiProperty({
-    description: 'first_name',
+    description: 'firstName',
     example: 'James',
   })
-  first_name: string;
+  firstName: string;
 
 
   @ApiProperty({
-    description: 'last_name',
+    description: 'lastName',
     example: 'Bond',
   })
-  last_name: string;
+  lastName: string;
 
   @ApiProperty({
     description: 'business',
@@ -21,10 +21,10 @@ export class CreateUserDto {
 
  
   @ApiProperty({
-    description: 'phone_number',
+    description: 'phoneNumber',
     example: '+998935399093',
   })
-  phone_number: string;
+  phoneNumber: string;
 
 
   @ApiProperty({
@@ -46,7 +46,7 @@ export class CreateUserDto {
   })
   role: string;
  
-  refresh_token: string;
+  refreshToken: string;
 
 
   @ApiProperty({
@@ -57,8 +57,8 @@ export class CreateUserDto {
 
 
   @ApiProperty({
-    description: 'user_qr_code',
+    description: 'userQrCode',
     example: 4444,
   })
-  user_qr_code: number;
+  userQrCode: number;
 }

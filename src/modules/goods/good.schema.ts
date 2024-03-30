@@ -1,13 +1,13 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type ItemShopDocument = ItemShop & Document;
+export type GoodDocument = Good & Document;
 
-@Schema({ collection: 'items_shop', timestamps: true, versionKey: false })
+@Schema({ collection: 'goods', timestamps: true, versionKey: false })
 
-export class ItemShop {
+export class Good {
   @Prop({ required: true })
-  user_id: string;
+  userId: string;
   
   @Prop({ required: true })
   name: string;
@@ -22,13 +22,13 @@ export class ItemShop {
   quantity: number;
 
   @Prop({ default: false })
-  track_stock: boolean;
+  trackStock: boolean;
 
   @Prop({ default: false })
-  is_group_item: boolean;
+  isGroupItem: boolean;
 
   @Prop({ type: Date })
-  expire_date: Date;
+  expireDate: Date;
 }
 
-export const Itemschema = SchemaFactory.createForClass(ItemShop)
+export const GoodSchema = SchemaFactory.createForClass(Good)
