@@ -7,7 +7,7 @@ import { Good, GoodDocument } from "./good.schema";
 import {
   Catalog,
   CatalogDocument,
-} from "../catalogs/catalog.schema";
+} from "../catalog/catalog.schema";
 
 @Injectable()
 export class GoodsService {

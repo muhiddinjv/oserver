@@ -1,57 +1,41 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateUserDto {
   @ApiProperty({
-    description: 'firstName',
-    example: 'James',
+    description: 'first name',
+    example: 'Michael',
   })
   firstName: string;
 
-
   @ApiProperty({
-    description: 'lastName',
-    example: 'Bond',
+    description: 'last name',
+    example: 'Jackson',
   })
   lastName: string;
-
-  @ApiProperty({
-    description: 'business',
-    example: 'Mega Planet',
-  })
-  business: string;
-
  
   @ApiProperty({
-    description: 'phoneNumber',
-    example: '+998935399093',
+    description: 'phone number',
+    example: '998935399093',
+    required: true
   })
   phoneNumber: string;
 
-
   @ApiProperty({
-    description: 'Password',
+    description: 'password',
     example: 'admin123',
   })
-  password: string;
-
-  @ApiProperty({
-    description: 'email',
-    example: 'admin@gmail.com',
-  })
-  email: string
-  
+  password: string;  
 
   @ApiProperty({
     description: 'role',
-    example: 'admin',
+    example: "Admin|Wholesaler|Retailer"
   })
   role: string;
  
   refreshToken: string;
 
-
   @ApiProperty({
     description: 'address',
-    example: 'Toshkent Chorsu 1 street',
+    example: 'Toshkent Chorsu Apple street',
   })
   address: string;
 

@@ -14,7 +14,7 @@ import { CreateGoodDto } from './dto/create-good.dto';
 import { UpdateGoodDto } from './dto/update-good.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Items shop')
+@ApiTags('Goods')
 @Controller('goods')
 export class GoodsController {
   constructor(

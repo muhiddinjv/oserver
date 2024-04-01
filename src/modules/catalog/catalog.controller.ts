@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { CatalogsService } from './catalogs.service';
+import { CatalogService } from './catalog.service';
 import { CreateCatalogDto } from './dto/create-catalog.dto';
 import { UpdateCatalogDto } from './dto/update-catalog.dto';
 import {ApiTags} from '@nestjs/swagger';
@@ -18,39 +18,39 @@ import { RolesGuard } from '../roles/roles.guard';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from 'src/modules/roles/roles.enum';
 
-@ApiTags('Items global')
-@Controller('catalogs')
+@ApiTags('Catalog')
+@Controller('catalog')
 @UseGuards(RolesGuard)
-export class CatalogsController {
-  constructor(private readonly catalogsService: CatalogsService) {}
+export class CatalogController {
+  constructor(private readonly catalogService: CatalogService) {}
 
   @Post()
   // @Roles(Role.Admin)
   create(@Body() createCatalogDto: CreateCatalogDto) {
-    return this.catalogsService.create(createCatalogDto);
+    return this.catalogService.create(createCatalogDto);
   }
 
   @Public()
   @Get()
   findAll() {
-    return this.catalogsService.findAll();
+    return this.catalogService.findAll();
   }
 
   @Public()
   @Get(':id')
   findById(@Param('id') id: string) {
-    return this.catalogsService.findById(id);
+    return this.catalogService.findById(id);
   }
 
   @Patch(':id')
   @Roles(Role.Admin)
   update(@Param('id') id: string, @Body() updateCatalogDto: UpdateCatalogDto) {
-    return this.catalogsService.update(id, updateCatalogDto);
+    return this.catalogService.update(id, updateCatalogDto);
   }
 
   @Delete(':id')
   @Roles(Role.Admin)
   remove(@Param('id') id: string) {
-    return this.catalogsService.remove(id);
+    return this.catalogService.remove(id);
   }
 }

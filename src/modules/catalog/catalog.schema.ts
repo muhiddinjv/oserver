@@ -1,9 +1,9 @@
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type CatalogDocument = Catalog & Document;
 
-@Schema({ collection: 'catalogs', timestamps: true, versionKey: false })
+@Schema({ collection: 'catalog', timestamps: true, versionKey: false })
 
 export class Catalog {
   @Prop({ required: true })

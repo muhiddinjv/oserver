@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Catalog,CatalogSchema } from '../catalogs/catalog.schema';
+import { Catalog,CatalogSchema } from '../catalog/catalog.schema';
 import { GoodsController } from './goods.controller';
 import { Good, GoodSchema } from './good.schema';
 import { GoodsService } from './goods.service';

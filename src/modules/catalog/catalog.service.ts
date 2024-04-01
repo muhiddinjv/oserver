@@ -6,7 +6,7 @@ import { UpdateCatalogDto } from './dto/update-catalog.dto';
 import { Catalog, CatalogDocument } from './catalog.schema';
 
 @Injectable()
-export class CatalogsService {
+export class CatalogService {
   constructor(
     @InjectModel(Catalog?.name)
     private catalogsModel: Model<CatalogDocument>
