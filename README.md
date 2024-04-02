@@ -1,3 +1,59 @@
+# API Documentation
+
+### Environments
+http://localhost:3000/ = Localhost
+https://dev.ollio.uz/ = Developer
+https://api.ollio.uz/ = Production
+
+### Endpoints
+
+<details>
+<summary>AUTH</summary>
+
+#### POST /auth/signin
+
+#### Headers:
+
+- Content-Type: application/json
+
+#### Request:
+    {
+        "phoneNumber": "998935399093",
+        "password": "wholesaler"
+    }
+
+#### Response:
+    {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWE1NjMwNjBjZjg2M2Q4ZGEzMWNjMWIiLCJwaG9uZU51bWJlciI6Ijk5ODkzNTM5OTA5MyIsImlhdCI6MTcxMjAyNzc1NSwiZXhwIjoxNzEyMDMxMzU1fQ.nvBKOx6zayHgu1JwFZCO-TngeMDU2LIVcpt4QN4S-UM"
+    }
+</details>
+
+<details>
+<summary>USERS</summary>
+
+#### 1) POST /users
+
+#### Headers:
+
+- Content-Type: application/json
+- headers > authorization: Bearer Token = accessToken
+
+#### Request:
+    {
+        "phoneNumber": "998935399093",
+        "password": "wholesaler"
+    }
+
+#### Response:
+    {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWE1NjMwNjBjZjg2M2Q4ZGEzMWNjMWIiLCJwaG9uZU51bWJlciI6Ijk5ODkzNTM5OTA5MyIsImlhdCI6MTcxMjAyNzc1NSwiZXhwIjoxNzEyMDMxMzU1fQ.nvBKOx6zayHgu1JwFZCO-TngeMDU2LIVcpt4QN4S-UM"
+    }
+</details>
+
+
+--------
+# NOTES
+
 ## Mongodb start in linux
 terminal: sudo systemctl start mongod
 

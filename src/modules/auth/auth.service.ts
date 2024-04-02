@@ -17,8 +17,8 @@ export class AuthService {
     }
 
     const payload = { sub: String(foundUser._id), phoneNumber: foundUser.phoneNumber };
-    const access_token = await this.jwtService.signAsync(payload);
+    const accessToken = await this.jwtService.signAsync(payload);
 
-    return { access_token };
+    return { accessToken };
   }
 }
