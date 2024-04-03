@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "65f3de6de925250402c5ed6b"
+  },
+  "name": "cola global",
+  "price": 0,
+  "cost": 0,
+  "quantity": 0,
+  "userId": null,
+  "trackStock": false,
+  "isGroupItem": false
+},
+{
+  "_id": {
+    "$oid": "65f3de9ae925250402c5ed6d"
+  },
+  "name": "fanta global",
+  "price": 0,
+  "cost": 0,
+  "quantity": 0,
+  "userId": null,
+  "trackStock": false,
+  "isGroupItem": false
+},
+{
+  "_id": {
+    "$oid": "65f5653b0cf09b572bb543d7"
+  },
+  "name": "sprite global",
+  "price": 0,
+  "cost": 0,
+  "quantity": 0,
+  "userId": null,
+  "trackStock": false,
+  "isGroupItem": false
+}]

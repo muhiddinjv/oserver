@@ -1,0 +1,62 @@
+[{
+  "_id": {
+    "$oid": "6605579c75670ee7c420d76b"
+  },
+  "buyerId": null,
+  "goods": [
+    {
+      "_id": "65f3eaf003f4137b8cb6dbc4",
+      "name": "cola wholesaler",
+      "price": 10,
+      "quantity": 4,
+      "totalPrice": 40
+    },
+    {
+      "_id": "65f3eaf803f4137b8cb6dbc6",
+      "name": "fanta wholesaler",
+      "price": 20,
+      "quantity": 30,
+      "totalPrice": 600
+    }
+  ],
+  "status": 1,
+  "staffId": "65a563060cf863d8da31cc1b",
+  "totalPrices": 640,
+  "createdAt": {
+    "$date": "2024-03-28T11:42:20.923Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-29T11:04:32.802Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6605592099ac0964ff1337dd"
+  },
+  "buyerId": null,
+  "goods": [
+    {
+      "_id": "65f3eaf003f4137b8cb6dbc4",
+      "name": "cola wholesaler",
+      "price": 10,
+      "quantity": 8,
+      "totalPrice": 80
+    },
+    {
+      "_id": "65f3eaf803f4137b8cb6dbc6",
+      "name": "fanta wholesaler",
+      "price": 20,
+      "quantity": 9,
+      "totalPrice": 180
+    }
+  ],
+  "status": 1,
+  "staffId": "65a563060cf863d8da31cc1b",
+  "totalPrices": 260,
+  "createdAt": {
+    "$date": "2024-03-28T11:48:48.743Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-28T11:48:48.743Z"
+  }
+}]
