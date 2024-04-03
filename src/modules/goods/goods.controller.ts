@@ -12,9 +12,7 @@ import {
 import { GoodsService } from './goods.service';
 import { CreateGoodDto } from './dto/create-good.dto';
 import { UpdateGoodDto } from './dto/update-good.dto';
-import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Goods')
 @Controller('goods')
 export class GoodsController {
   constructor(

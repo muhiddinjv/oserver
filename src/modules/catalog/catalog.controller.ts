@@ -12,13 +12,11 @@ import {
 import { CatalogService } from './catalog.service';
 import { CreateCatalogDto } from './dto/create-catalog.dto';
 import { UpdateCatalogDto } from './dto/update-catalog.dto';
-import {ApiTags} from '@nestjs/swagger';
 import { Public } from '../auth/auth.metadata';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from 'src/modules/roles/roles.enum';
 
-@ApiTags('Catalog')
 @Controller('catalog')
 @UseGuards(RolesGuard)
 export class CatalogController {

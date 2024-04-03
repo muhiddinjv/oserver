@@ -7,10 +7,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './auth.metadata';
-import { ApiTags } from '@nestjs/swagger';
 // import ability from 'src/modules/roles/defineAbility';
 
-@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
