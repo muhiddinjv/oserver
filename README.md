@@ -1,9 +1,9 @@
 # API Documentation
 
 ### Environments
-http://localhost:3000/ = Localhost
-https://dev.ollio.uz/ = Developer
-https://api.ollio.uz/ = Production
+- http://localhost:3000/ = Localhost
+- https://dev.ollio.uz/ = Developer
+- https://api.ollio.uz/ = Production
 
 ### Endpoints
 
