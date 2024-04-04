@@ -18,23 +18,25 @@ export class GoodsService {
     private catalogsModel: Model<CatalogDocument>
   ) { }
 
-  async copyGoodFromCatalog(catalogIds: string[], userId: string) {
+  async copyItemFromCatalog(catalogIds: string[], userId: string) {
     try {
       const createdItems = await Promise.all(catalogIds.map(async (id) => {
-        const catalog = await this.catalogsModel.findById(id);
+        const catalogItem = await this.catalogsModel.findById(id);
 
-        const newGoodData = {
-          ...catalog.toJSON(),
+        const newItemData = {
+          ...catalogItem.toJSON(),
           userId,
           _id: undefined // generates new _id
         };
+        console.log(newItemData)
 
-        const existingItem = await this.goodsModel.findOne({ name: newGoodData.name, userId });
+        const existingItem = await this.goodsModel.findOne({ name: newItemData.name, userId });
+
         if (existingItem) {
-          throw new Error(`This user already has: ${newGoodData.name}`);
+          throw new Error(`This user already has [${newItemData.name}]`);
         }
 
-        return this.goodsModel.create(newGoodData);
+        return this.goodsModel.create(newItemData);
       }));
 
       return createdItems;
@@ -45,7 +47,7 @@ export class GoodsService {
 
   async create(createGoodDto: CreateGoodDto, userId: string) {
     if (createGoodDto.catalogIds) {
-      return this.copyGoodFromCatalog(createGoodDto.catalogIds, userId);
+      return this.copyItemFromCatalog(createGoodDto.catalogIds, userId);
     } else {
       const createdItem = new this.goodsModel(createGoodDto);
       createdItem.userId = userId;
@@ -67,10 +69,6 @@ export class GoodsService {
     } catch (error) {
       new BadRequestException("Good not found.");
     }
-  }
-
-  async findByreferenceId(id: string): Promise<GoodDocument> {
-    return this.goodsModel.findOne({ referenceId: id });
   }
 
   async update(

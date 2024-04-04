@@ -9,7 +9,7 @@ export class Good {
   @Prop({ required: true })
   userId: string;
   
-  @Prop({ required: true })
+  @Prop({ default: "good name" })
   name: string;
 
   @Prop({ default: 0 })

@@ -12,6 +12,7 @@ export class AuthService {
   async signIn(user: any){
     const foundUser = await this.usersService.findOne(user.phoneNumber);
 
+    // if (!foundUser || !bcryptjs.compareSync(password, foundUser.password)) {
     if (!foundUser || foundUser.password !== user.password) {
       throw new UnauthorizedException('Invalid credentials');
     }

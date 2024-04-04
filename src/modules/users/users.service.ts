@@ -20,7 +20,7 @@ export class UsersService {
     return createdUser.save();
     /*
     const passwordHash = await hash(user.password, 10);
-    const userToCreate: User = { ...user, userId: randomUUID(), password: passwordHash };
+    const userToCreate: User = { ...user, password: passwordHash };
     return this.userModel.create(userToCreate);
     */
   }
@@ -33,16 +33,12 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
-  async findOne(phoneNumber: string): Promise<User> {
+  async findOne(phoneNumber: string) {
     const user = await this.userModel.findOne({ phoneNumber });
     if (!user) {
       throw new NotFoundException(`User with the phone number ${user.phoneNumber} not found`);
     }
     return user;
-  }
-
-  async findByPinCode(PinCode: string): Promise<UserDocument> {
-    return this.userModel.findOne({ user_pincode: PinCode });
   }
 
   async update(

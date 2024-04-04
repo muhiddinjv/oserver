@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCatalogDto } from './dto/create-catalog.dto';
@@ -9,24 +9,20 @@ import { Catalog, CatalogDocument } from './catalog.schema';
 export class CatalogService {
   constructor(
     @InjectModel(Catalog?.name)
-    private catalogsModel: Model<CatalogDocument>
+    private catalogModel: Model<CatalogDocument>
   ) {}
 
   async create(createCatalogDto: CreateCatalogDto) {
-    const createdItem = new this.catalogsModel(createCatalogDto);
+    const itemExists = await this.catalogModel.exists({ name: createCatalogDto.name });
+    if (itemExists) {
+      throw new ConflictException(`Item with that name already exists`);
+    }
+    const createdItem = new this.catalogModel(createCatalogDto);
     return createdItem.save();
   }
 
   async findAll(): Promise<CatalogDocument[]> {
-    return await this.catalogsModel.aggregate([
-      {
-        $lookup: {
-          from: 'variants',
-          localField: 'variants',
-          foreignField: '_id',
-          as: 'variantsArr',
-        },
-      },
+    await this.catalogModel.aggregate([
       {
         $lookup: {
           from: 'components',
@@ -39,16 +35,17 @@ export class CatalogService {
         $lookup: {
           from: 'categories',
           localField: 'categories',
-          foreignField: 'category_id',
-          as: 'category_id',
+          foreignField: 'categoryId',
+          as: 'categoryId',
         },
       },
     ]);
+    return await this.catalogModel.find();
   }
 
   async findById(id: string): Promise<CatalogDocument> {
     try {
-      return this.catalogsModel
+      return this.catalogModel
         .findById(id)
         // .populate('variants')
         // .populate('components');
@@ -57,19 +54,15 @@ export class CatalogService {
     }
   }
 
-  async findByreferenceId(id: string): Promise<CatalogDocument> {
-    return this.catalogsModel.findOne({ reference_id: id });
-  }
-
   async update(
     id: string,
     updateCatalogDto: UpdateCatalogDto,
   ): Promise<CatalogDocument> {
-    return this.catalogsModel
+    return this.catalogModel
       .findByIdAndUpdate(id, updateCatalogDto, { new: true })
   }
 
   async remove(id: string): Promise<CatalogDocument> {
-    return this.catalogsModel.findByIdAndDelete(id)
+    return this.catalogModel.findByIdAndDelete(id)
   }
 }

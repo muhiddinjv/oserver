@@ -3,32 +3,20 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type CatalogDocument = Catalog & Document;
 
-@Schema({ collection: 'catalog', timestamps: true, versionKey: false })
+@Schema({ collection: 'catalog', versionKey: false })
 
 export class Catalog {
+  @Prop({ default: null })
+  userId: string;
+  
   @Prop({ required: true })
   name: string;
 
-  @Prop({ default: 0 })
-  price: number;
+  @Prop({ default: 'temp_image.png' })
+  image: string;
 
-  @Prop({ default: 0 })
-  cost: number;
-
-  @Prop({ default: 0 })
-  quantity: number;
-
-  @Prop({ default: null })
-  userId: string;
-
-  @Prop({ default: false })
-  trackStock: boolean;
-
-  @Prop({ default: false })
+  @Prop({ required: true, default: false })
   isGroupItem: boolean;
-
-  @Prop({ type: Date })
-  expireDate: Date;
 }
 
 export const CatalogSchema = SchemaFactory.createForClass(Catalog)

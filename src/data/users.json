@@ -1,55 +1,58 @@
-[{
-  "_id": {
-    "$oid": "65a563060cf863d8da31cc1b"
+[
+  {
+    "_id": {
+      "$oid": "65dc70c6a441a798ba5e8562"
+    },
+    "firstName": "admin",
+    "phoneNumber": "998935399095",
+    "address": "Tashkent, Uzbekistan",
+    "password": "admin",
+    "role": "admin",
+    "status": 1
   },
-  "firstName": "wholesaler",
-  "phoneNumber": "998935399093",
-  "password": "wholesaler",
-  "role": "wholesaler",
-  "status": 1,
-  "photo": "defaultavatar.png"
-},
-{
-  "_id": {
-    "$oid": "65a564b00cf863d8da31cc1e"
+  {
+    "_id": {
+      "$oid": "65a563060cf863d8da31cc1b"
+    },
+    "firstName": "wholesaler",
+    "phoneNumber": "998935399093",
+    "address": "Tashkent, Uzbekistan",
+    "password": "wholesaler",
+    "role": "wholesaler",
+    "status": 1
   },
-  "firstName": "retailer",
-  "phoneNumber": "998935399094",
-  "password": "retailer",
-  "role": "retailer",
-  "status": 1,
-  "photo": "defaultavatar.png"
-},
-{
-  "_id": {
-    "$oid": "65dc70c6a441a798ba5e8562"
+  {
+    "_id": {
+      "$oid": "65a564b00cf863d8da31cc1e"
+    },
+    "firstName": "retailer",
+    "phoneNumber": "998935399094",
+    "address": "Tashkent, Uzbekistan",
+    "password": "retailer",
+    "role": "retailer",
+    "status": 1
   },
-  "firstName": "admin",
-  "phoneNumber": "998935399095",
-  "password": "admin",
-  "role": "admin",
-  "status": 1,
-  "photo": "defaultavatar.png"
-},
-{
-  "_id": {
-    "$oid": "65ddb03066594ddf922a51f2"
+
+  {
+    "_id": {
+      "$oid": "65ddb03066594ddf922a51f2"
+    },
+    "firstName": "wholesaler2",
+    "phoneNumber": "998935399096",
+    "address": "Tashkent, Uzbekistan",
+    "password": "wholesaler2",
+    "role": "wholesaler2",
+    "status": 1
   },
-  "firstName": "wholesaler2",
-  "phoneNumber": "998935399096",
-  "password": "wholesaler2",
-  "role": "wholesaler2",
-  "status": 1,
-  "photo": "defaultavatar.png"
-},
-{
-  "_id": {
-    "$oid": "65ddb08f66594ddf922a51f4"
-  },
-  "firstName": "retailer2",
-  "phoneNumber": "998935399097",
-  "password": "retailer2",
-  "role": "retailer2",
-  "status": 1,
-  "photo": "defaultavatar.png"
-}]
+  {
+    "_id": {
+      "$oid": "65ddb08f66594ddf922a51f4"
+    },
+    "firstName": "retailer2",
+    "phoneNumber": "998935399097",
+    "address": "Tashkent, Uzbekistan",
+    "password": "retailer2",
+    "role": "retailer2",
+    "status": 1
+  }
+]

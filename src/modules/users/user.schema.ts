@@ -1,34 +1,28 @@
 import { Types, Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Role } from 'src/modules/roles/roles.enum';
+import { Role } from '../roles/roles.decorator';
 
 export type UserDocument = User & Document;
 
 @Schema({ collection: 'users', timestamps: true, versionKey: false })
 
 export class User {
-  @Prop({ required: false })
-  _id: Types.ObjectId;
-
   @Prop({ default: null })
-  boss_id: Types.ObjectId;
+  bossId: Types.ObjectId;
 
-  // @Prop({ required: true })
-  // deviceId: Types.ObjectId;
-
-  @Prop({ minlength: 3, maxlength: 64, default: "James" })
+  @Prop({ minlength: 3, maxlength: 64, required: true })
   firstName: string;
 
-  @Prop({ minlength: 3, maxlength: 64 })
+  @Prop({ minlength: 3, maxlength: 64, required: true })
   lastName: string;
 
-  @Prop({ minlength: 3, maxlength: 192 })
+  @Prop({ minlength: 3, maxlength: 192, required: true })
   address: string;
 
   @Prop({ nullable: true, maxlength: 100, required: true })
   password: string;
 
-  @Prop({ unique: true, maxlength: 15, required: true, default: '+998935399093' })
+  @Prop({ unique: true, maxlength: 15, required: true, })
   phoneNumber: string;
 
   @Prop({ type: String, enum: Role, required: true, default: Role.Wholesaler })
@@ -36,6 +30,9 @@ export class User {
 
   @Prop({ default: 1 })
   status: number;
+  
+  // @Prop({ required: true })
+  // deviceId: Types.ObjectId;
 
   // @Prop()
   // refreshToken: string;

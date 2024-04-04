@@ -1,5 +1,4 @@
 import {
-  Controller,
   Get,
   Post,
   Body,
@@ -7,6 +6,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Controller,
 } from '@nestjs/common';
 
 import { CatalogService } from './catalog.service';
@@ -14,16 +14,15 @@ import { CreateCatalogDto } from './dto/create-catalog.dto';
 import { UpdateCatalogDto } from './dto/update-catalog.dto';
 import { Public } from '../auth/auth.metadata';
 import { RolesGuard } from '../roles/roles.guard';
-import { Roles } from '../roles/roles.decorator';
-import { Role } from 'src/modules/roles/roles.enum';
+import { Roles, Role } from '../roles/roles.decorator';
 
 @Controller('catalog')
 @UseGuards(RolesGuard)
 export class CatalogController {
-  constructor(private readonly catalogService: CatalogService) {}
+  constructor(private readonly catalogService: CatalogService) { }
 
   @Post()
-  // @Roles(Role.Admin)
+  @Roles(Role.Admin)
   create(@Body() createCatalogDto: CreateCatalogDto) {
     return this.catalogService.create(createCatalogDto);
   }
