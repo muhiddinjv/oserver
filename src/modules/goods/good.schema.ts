@@ -15,6 +15,12 @@ export class Good {
   @Prop({ default: 0 })
   price: number;
 
+  pricePoints: [{
+    price: number,
+    source: string, // seller's ID or name
+    quantity: number, // Quantity for this specific price point
+  }]
+
   @Prop({ default: 0 })
   cost: number;
 

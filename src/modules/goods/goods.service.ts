@@ -13,9 +13,9 @@ import {
 export class GoodsService {
   constructor(
     @InjectModel(Good?.name)
-    private goodsModel: Model<GoodDocument>,
+    private goodsModel: Model<Good>,
     @InjectModel(Catalog?.name)
-    private catalogsModel: Model<CatalogDocument>
+    private catalogsModel: Model<Catalog>
   ) { }
 
   async copyItemFromCatalog(catalogIds: string[], userId: string) {
@@ -78,6 +78,50 @@ export class GoodsService {
     return this.goodsModel
       .findByIdAndUpdate(id, updateGoodDto, { new: true })
   }
+
+  // async updateGoods(goodDetails: any, quantity: number): Promise<Good> {
+  //   const { name, price } = goodDetails;
+  //   const product = await this.goodsModel.findOneAndUpdate(
+  //     { name }, // Find a document with that filter
+  //     {
+  //       $inc: { quantity: quantity }, // Increment the quantity
+  //       $set: { price: price }, // Set the price
+  //     },
+  //     { new: true, upsert: true } // Options: return the new document and create if not found
+  //   );
+  //   return product;
+  // }
+
+  async updateGoods(goodDetails: any, quantity: number, source: string): Promise<Good> {
+    const { name, price } = goodDetails;
+    let good = await this.goodsModel.findOne({ name });
+
+    if (!good) {
+      // good not found, create a new entry with the provided price point
+      good = new this.goodsModel({
+        name,
+        quantity,
+        pricePoints: [{ price, source }],
+      });
+      await good.save();
+    } else {
+      // Check if the price point from the wholesaler already exists
+      const pricePointIndex = good.pricePoints.findIndex(pp => pp.source === source);
+
+      if (pricePointIndex !== -1) {
+        // Update the quantity for the existing price point
+        good.pricePoints[pricePointIndex].quantity += quantity;
+      } else {
+        // Add a new price point
+        good.pricePoints.push({ price, source, quantity });
+      }
+
+      await good.save();
+    }
+
+    return good;
+  }
+
 
   async remove(id: string): Promise<GoodDocument> {
     return this.goodsModel.findByIdAndDelete(id)

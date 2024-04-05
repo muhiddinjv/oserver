@@ -8,6 +8,7 @@ import { GoodsModule } from './modules/goods/goods.module';
 import { BillsModule } from './modules/bills/bills.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { TransfersModule } from './transfers/transfers.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { APP_GUARD } from '@nestjs/core';
     UsersModule,
     CatalogsModule,
     GoodsModule,
-    BillsModule
+    BillsModule,
+    TransfersModule
   ],
   providers: [{
     provide: APP_GUARD,

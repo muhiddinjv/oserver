@@ -39,6 +39,11 @@ export class GoodsController {
     return this.goodsService.update(id, updateGoodDto);
   }
 
+  @Post('update-goods')
+  updateGoods(@Body() goodDetails: any, @Body('quantity') quantity: number, @Body('source') source: string): Promise<any> {
+    return this.goodsService.updateGoods(goodDetails, quantity, source);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.goodsService.remove(id);
