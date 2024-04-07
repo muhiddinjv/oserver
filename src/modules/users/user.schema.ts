@@ -19,6 +19,9 @@ export class User {
   @Prop({ minlength: 3, maxlength: 192, required: true })
   address: string;
 
+  @Prop({ default: 'defaultavatar.png' })
+  photo: string;
+
   @Prop({ nullable: true, maxlength: 100, required: true })
   password: string;
 
@@ -40,8 +43,6 @@ export class User {
   // @Prop({  maxlength: 100 })
   // email: string;
 
-  // @Prop({ default: 'defaultavatar.png' })
-  // photo: string;
 
   // @Prop({minlength:4, maxlength: 40 })
   // userQrCode: string;
