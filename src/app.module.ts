@@ -7,8 +7,8 @@ import { CatalogsModule } from './modules/catalog/catalog.module';
 import { GoodsModule } from './modules/goods/goods.module';
 import { BillsModule } from './modules/bills/bills.module';
 import { AuthGuard } from './modules/auth/auth.guard';
+import { TransfersModule } from './modules/transfers/transfers.module';
 import { APP_GUARD } from '@nestjs/core';
-import { TransfersModule } from './transfers/transfers.module';
 
 @Module({
   imports: [
