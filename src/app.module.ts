@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { CatalogsModule } from './modules/catalog/catalog.module';
+import { TransfersModule } from './modules/transfers/transfers.module';
 import { GoodsModule } from './modules/goods/goods.module';
 import { BillsModule } from './modules/bills/bills.module';
 import { AuthGuard } from './modules/auth/auth.guard';

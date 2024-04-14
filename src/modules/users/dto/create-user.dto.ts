@@ -36,9 +36,4 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   address: string;
-
-  // async hashPassword(): Promise<void> {
-  //   const saltRounds = 10;
-  //   this.password = await bcryptjs.hash(this.password, saltRounds);
-  // }
 }

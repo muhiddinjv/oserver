@@ -1,6 +1,7 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { validatePassword } from 'src/utils';
 
 @Injectable()
 export class AuthService {
@@ -9,17 +10,27 @@ export class AuthService {
     private jwtService: JwtService
   ) { }
 
-  async signIn(user: any){
-    const foundUser = await this.usersService.findOne(user.phoneNumber);
-
-    // if (!foundUser || !bcryptjs.compareSync(password, foundUser.password)) {
-    if (!foundUser || foundUser.password !== user.password) {
-      throw new UnauthorizedException('Invalid credentials');
+  async signIn(user: any) {
+    try {
+      const dbUser = await this.usersService.findOne(user.phoneNumber);
+  
+      const isValid = await validatePassword(
+        user.password, 
+        dbUser.password  
+      );
+  
+      if(!dbUser || !isValid) {
+        throw new UnauthorizedException('The provided phone number or password is incorrect. Please try again.');
+      }
+  
+      const payload = { sub: String(dbUser._id), phoneNumber: dbUser.phoneNumber };
+      const accessToken = await this.jwtService.signAsync(payload);
+  
+      return { accessToken };
+  
+    } catch (error) {
+      throw new InternalServerErrorException(error.response); 
     }
-
-    const payload = { sub: String(foundUser._id), phoneNumber: foundUser.phoneNumber };
-    const accessToken = await this.jwtService.signAsync(payload);
-
-    return { accessToken };
+  
   }
 }
