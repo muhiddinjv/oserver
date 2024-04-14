@@ -9,14 +9,13 @@ import { Good, GoodDocument } from '../goods/good.schema';
 @Injectable()
 export class BillsService {
   constructor(
-    @InjectModel(Bill?.name) private billModel: Model<BillDocument>,
+    @InjectModel(Bill?.name) private billsModel: Model<BillDocument>,
     @InjectModel(Good?.name) private goodsModel: Model<GoodDocument>,) { }
 
   async create(createBillDto: CreateBillDto, userId: string) {
     const bills = await Promise.all(createBillDto.goods.map(async item => {
-      const { _id, name, price } = await this.goodsModel.findOne({ _id: item._id, userId: userId });
-      console.log(111);
-      console.log(_id, name, price);
+      console.log(222,item._id)
+      const { _id, name, price } = await this.goodsModel.findOne({ _id: item._id });
       
       return {
         _id: String(_id),
@@ -25,20 +24,25 @@ export class BillsService {
       };
     }));
 
-    const createdBill = new this.billModel(createBillDto);
-    createdBill.staffId = userId
+    const createdBill = new this.billsModel(createBillDto);
+    createdBill.buyer = createBillDto.buyer
+    createdBill.staff = userId
     createdBill.goods = bills
-    createdBill.totalPrices = bills.reduce((total, item) => total + item.totalPrice, 0);
+    createdBill.grandTotal = bills.reduce((total, item) => total + item.totalPrice, 0);
 
     return createdBill.save();
   }
 
   async findAll(userId: string): Promise<BillDocument[]> {
-    return this.billModel.find({ staffId: userId });
+    return this.billsModel.find({ staffId: userId });
   }
 
   async findOne(id: string): Promise<BillDocument> {
-    const bill = this.billModel.findById(id);
+    const bill = await this.billsModel
+      .findById(id)
+      .populate('buyer')
+      .populate('staff');
+
     if (!bill) {
       throw new NotFoundException('Bill not found');
     }
@@ -46,7 +50,7 @@ export class BillsService {
   }
 
   async update(id: string, updateBillDto: UpdateBillDto) {
-    const billToUpdate = await this.billModel.findById(id);
+    const billToUpdate = await this.billsModel.findById(id);
 
     if (!billToUpdate) {
       throw new NotFoundException('Bill not found');
@@ -62,12 +66,12 @@ export class BillsService {
     });
 
     billToUpdate.goods = updatedBill
-    billToUpdate.totalPrices = billToUpdate.goods.reduce((total, item) => total + item.totalPrice, 0);
+    billToUpdate.grandTotal = billToUpdate.goods.reduce((total, item) => total + item.totalPrice, 0);
     return await billToUpdate.save();
   }
 
   async remove(id: number) {
-    return this.billModel.findByIdAndDelete(id);
+    return this.billsModel.findByIdAndDelete(id);
   }
 }
 

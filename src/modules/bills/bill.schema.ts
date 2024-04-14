@@ -7,16 +7,16 @@ export type BillDocument = Bill & Document;
 
 export class Bill {
   @Prop({ type: String, required: true, ref: 'User' })
-  staffId: string;
+  staff: string;
 
   @Prop({ type: String, default: null, ref: 'User' })
-  buyerId: string;
+  buyer: string;
 
   @Prop({ type: [] })
   goods: any[];
 
   @Prop({ type: Number, required: true })
-  totalPrices: number;
+  grandTotal: number;
 
   @Prop({ type: Number, default: 1 })
   status: number;

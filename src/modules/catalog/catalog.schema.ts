@@ -12,10 +12,19 @@ export class Catalog {
   @Prop({ required: true })
   name: string;
 
+  @Prop({ default: 0 })
+  price: string;
+
+  @Prop({ default: 0 })
+  cost: string;
+
+  @Prop({ default: 0 })
+  quantity: string;
+
   @Prop({ default: 'temp_image.png' })
   image: string;
 
-  @Prop({ required: true, default: false })
+  @Prop({ default: false, required: true })
   isGroupItem: boolean;
 }
 

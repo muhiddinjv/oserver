@@ -15,6 +15,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles,Role } from '../roles/roles.decorator';
+import { Public } from '../auth/auth.metadata';
 
 @Controller('users')
 @UseGuards(RolesGuard)
