@@ -33,11 +33,15 @@ export class UsersService {
   }
 
   async findOne(phoneNumber: string) {
-    const user = await this.userModel.findOne({ phoneNumber });
-    if (!user) {
-      throw new NotFoundException(`User with the phone number ${user.phoneNumber} not found`);
+    try {
+      const user = await this.userModel.findOne({ phoneNumber });
+      if (!user) {
+        throw new Error(`User with the phone number ${phoneNumber} not found`);
+      }
+      return user;
+    } catch (error) {
+      throw new NotFoundException(error.message);
     }
-    return user;
   }
 
   async update(

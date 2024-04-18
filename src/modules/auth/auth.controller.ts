@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './auth.metadata';
+import { SignInDto } from './signin.dto';
 // import ability from 'src/modules/roles/defineAbility';
 
 @Controller('auth')
@@ -15,8 +16,8 @@ export class AuthController {
 
   @Public()
   @Post('signin')
-  signIn(@Request() req) {
-    return this.authService.signIn(req.body);
+  signIn(@Body() signInDto: SignInDto) {
+    return this.authService.signIn(signInDto);
   }
 
   @Get('profile')
