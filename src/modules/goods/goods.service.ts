@@ -19,30 +19,28 @@ export class GoodsService {
   ) { }
 
   async copyItemFromCatalog(catalogIds: string[], userId: string) {
-    try {
-      const createdItems = await Promise.all(catalogIds.map(async (id) => {
-        const catalogItem = await this.catalogsModel.findById(id);
+ 
+    const createdItems = await Promise.all(catalogIds.map(async (id) => {
+      const catalogItem = await this.catalogsModel.findById(id);
 
-        const newItemData = {
-          ...catalogItem.toJSON(),
-          userId,
-          _id: undefined // generates new _id
-        };
-        console.log(newItemData)
+      const newItemData = {
+        ...catalogItem.toJSON(),
+        userId,
+        _id: undefined // generates new _id
+      };
+      console.log(newItemData)
 
-        const existingItem = await this.goodsModel.findOne({ name: newItemData.name, userId });
+      const existingItem = await this.goodsModel.findOne({ name: newItemData.name, userId });
 
-        if (existingItem) {
-          throw new Error(`This user already has [${newItemData.name}]`);
-        }
+      if (existingItem) {
+        throw new BadRequestException([{field: 'item', text: `This user already has [${newItemData.name}]` }]);
+      }
 
-        return this.goodsModel.create(newItemData);
-      }));
+      return this.goodsModel.create(newItemData);
+    }));
 
-      return createdItems;
-    } catch (error) {
-      throw new BadRequestException({ error: error.message });
-    }
+    return createdItems;
+
   }
 
   async create(createGoodDto: CreateGoodDto, userId: string) {
@@ -67,7 +65,7 @@ export class GoodsService {
       // .populate("variants")
       // .populate("components");
     } catch (error) {
-      new BadRequestException("Good not found.");
+      throw new BadRequestException([{field: 'item', text: "Good not found." }]);
     }
   }
 

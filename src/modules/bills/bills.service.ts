@@ -53,7 +53,7 @@ export class BillsService {
     const billToUpdate = await this.billsModel.findById(id);
 
     if (!billToUpdate) {
-      throw new NotFoundException('Bill not found');
+      throw new NotFoundException([{field: 'bill', text: 'Bill not found'}]);
     }
 
     const updatedBill = updateBillDto.goods.map((item,index) => {

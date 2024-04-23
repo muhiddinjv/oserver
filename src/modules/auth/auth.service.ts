@@ -18,7 +18,7 @@ export class AuthService {
     );
     
     if(!dbUser || !isValidPass) {
-      throw new UnauthorizedException('Password is incorrect');
+      throw new UnauthorizedException([{field: 'password', text: 'Password is incorrect'}]);
     }
     
     const payload = { sub: String(dbUser._id), phoneNumber: dbUser.phoneNumber };

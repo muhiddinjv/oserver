@@ -15,7 +15,7 @@ export class UsersService {
   async create(user: CreateUserDto): Promise<UserDocument> {
     const userExists = await this.userModel.exists({ phoneNumber: user.phoneNumber }).lean();
     if (userExists) {
-      throw new ConflictException(`User with ${user.phoneNumber} already exists`);
+      throw new ConflictException([{field: 'phoneNumber', text: `User with ${user.phoneNumber} already exists`}]);
     }
     const passwordHash = await hashPassword(user.password)
     const userToCreate = { ...user, password: passwordHash };
@@ -35,7 +35,7 @@ export class UsersService {
   async findOne(phoneNumber: string) {
     const user = await this.userModel.findOne({ phoneNumber });
     if (!user) {
-      throw new NotFoundException(`User with the phone number ${phoneNumber} not found`);
+      throw new NotFoundException([{field: 'phoneNumber', text: `User with ${phoneNumber} not found`}]);
     }
     return user;
   }
