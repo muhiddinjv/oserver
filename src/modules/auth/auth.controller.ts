@@ -8,6 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { Public } from './auth.metadata';
 import { SignInDto } from './signin.dto';
+import { CustomValidationPipe } from 'src/utils/validationPipe';
 // import ability from 'src/modules/roles/defineAbility';
 
 @Controller('auth')
@@ -16,7 +17,7 @@ export class AuthController {
 
   @Public()
   @Post('signin')
-  signIn(@Body() signInDto: SignInDto) {
+  signIn(@Body(new CustomValidationPipe())  signInDto: SignInDto) {
     return this.authService.signIn(signInDto);
   }
 

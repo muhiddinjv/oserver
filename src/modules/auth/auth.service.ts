@@ -11,25 +11,19 @@ export class AuthService {
   ) { }
 
   async signIn(user: any) {
-    try {
-      const dbUser = await this.usersService.findOne(user.phoneNumber);
-      
-      const isValidPass = await validate(
-        user.password, dbUser.password  
-      );
-      
-      if(!dbUser || !isValidPass) {
-        throw new UnauthorizedException('Password is incorrect');
-      }
-      
-      const payload = { sub: String(dbUser._id), phoneNumber: dbUser.phoneNumber };
-      const accessToken = await this.jwtService.signAsync(payload);
-      
-      return { accessToken };
-      
-    } catch (error) {
-      throw new InternalServerErrorException(error.response); 
+    const dbUser = await this.usersService.findOne(user.phoneNumber);
+    
+    const isValidPass = await validate(
+      user.password, dbUser.password  
+    );
+    
+    if(!dbUser || !isValidPass) {
+      throw new UnauthorizedException('Password is incorrect');
     }
-  
+    
+    const payload = { sub: String(dbUser._id), phoneNumber: dbUser.phoneNumber };
+    const accessToken = await this.jwtService.signAsync(payload);
+    
+    return { accessToken };  
   }
 }

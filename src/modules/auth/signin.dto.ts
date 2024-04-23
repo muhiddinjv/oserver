@@ -2,21 +2,22 @@ import {
     IsNotEmpty,
     IsOptional,
     IsString,
-    MinLength,
     Matches,
     IsIn,
+    IsPhoneNumber,
+    IsStrongPassword,
   } from 'class-validator';
   
   export class SignInDto {
-    @IsNotEmpty()
-    @IsString()
-    @Matches(/^998\d{9}$/, { message: 'phone number must start with 998 and be 12 digits long' })
+    // @Matches(/^998\d{9}$/, { message: 'Phone number must start with 998 and be 12 digits long' })
+    @IsString({message: "Phone number must be a string"})
+    @IsNotEmpty({message: "Phone number should not be empty"})
+    @IsPhoneNumber('UZ')
     phoneNumber: string;
   
+    // @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/, { message: 'Password must contain at least \n-one number, \n-one lowercase letter \n-one uppercase letter \n-be min 5 chars long' })
+    // @IsStrongPassword()
     @IsNotEmpty()
-    @IsString()
-    @MinLength(5)
-    // @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/, { message: 'Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 5 characters long' })
     password: string;
       
     @IsOptional()
