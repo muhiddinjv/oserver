@@ -10,7 +10,6 @@ import {
   
   export class SignInDto {
     // @Matches(/^998\d{9}$/, { message: 'Phone number must start with 998 and be 12 digits long' })
-    @IsString({message: "Phone must be a string"})
     @IsPhoneNumber('UZ',{message: "Phone must match 998912345678"})
     phoneNumber: string;
   
