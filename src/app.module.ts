@@ -9,9 +9,14 @@ import { GoodsModule } from './modules/goods/goods.module';
 import { BillsModule } from './modules/bills/bills.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule.register({
+      secret: process.env.JWT_ACCESS_SECRET,
+      signOptions: { expiresIn: '1h' },
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,

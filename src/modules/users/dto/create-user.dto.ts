@@ -4,6 +4,7 @@ import {
   MinLength,
   Matches,
   IsIn,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -32,6 +33,10 @@ export class CreateUserDto {
   @MinLength(5)
   // @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/, { message: 'Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 5 characters long' })
   password: string;
+
+  @IsString()
+  @IsOptional()
+  refreshToken: string;
 
   @IsNotEmpty()
   @IsString()

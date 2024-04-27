@@ -25,6 +25,9 @@ export class User {
   @Prop({ nullable: true, maxlength: 100, required: true })
   password: string;
 
+  @Prop()
+  refreshToken: string;
+
   @Prop({ unique: true, maxlength: 15, required: true, })
   phoneNumber: string;
 
@@ -37,8 +40,7 @@ export class User {
   // @Prop({ required: true })
   // deviceId: Types.ObjectId;
 
-  // @Prop()
-  // refreshToken: string;
+
 
   // @Prop({  maxlength: 100 })
   // email: string;

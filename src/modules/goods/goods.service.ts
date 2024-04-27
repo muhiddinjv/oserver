@@ -3,11 +3,8 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateGoodDto } from "./dto/create-good.dto";
 import { UpdateGoodDto } from "./dto/update-good.dto";
+import { Catalog } from "../catalog/catalog.schema";
 import { Good, GoodDocument } from "./good.schema";
-import {
-  Catalog,
-  CatalogDocument,
-} from "../catalog/catalog.schema";
 
 @Injectable()
 export class GoodsService {
@@ -28,7 +25,6 @@ export class GoodsService {
         userId,
         _id: undefined // generates new _id
       };
-      console.log(newItemData)
 
       const existingItem = await this.goodsModel.findOne({ name: newItemData.name, userId });
 

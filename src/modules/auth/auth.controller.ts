@@ -4,10 +4,15 @@ import {
   Post,
   Get,
   Request,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './auth.metadata';
 import { SignInDto } from './signin.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { AccessTokenGuard } from 'src/shared/guards/accessToken.guard';
+import { RefreshTokenGuard } from 'src/shared/guards/refreshToken.guard';
 // import ability from 'src/modules/roles/defineAbility';
 
 @Controller('auth')
@@ -15,10 +20,35 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Public()
+  @Post('signup')
+  signup(@Body() createUserDto: CreateUserDto) {
+    return this.authService.signUp(createUserDto);
+  }
+
+  @Public()
   @Post('signin')
   signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto);
   }
+  
+  @Public()
+  @UseGuards(AccessTokenGuard)
+  @Get('signout')
+  signOut(@Req() req: Request) {
+    this.authService.signOut(req['user']['sub']);
+  }
+
+  @Public()
+  @UseGuards(RefreshTokenGuard)
+  @Get('refresh')
+  refreshTokens(@Req() req: Request) {
+    const userId = req['user']['sub'];
+    console.log(req['user']['sub']);
+    const refreshToken = req['user']['refreshToken'];
+    return this.authService.refreshTokens(userId, refreshToken);
+  }
+
+
 
   @Get('profile')
   getProfile(@Request() req) {

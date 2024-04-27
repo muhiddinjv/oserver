@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './user.schema';
-import { hashPassword } from 'src/utils';
+import { hashData } from 'src/utils';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +17,7 @@ export class UsersService {
     if (userExists) {
       throw new ConflictException([{field: 'phoneNumber', text: `User with ${user.phoneNumber} already exists`}]);
     }
-    const passwordHash = await hashPassword(user.password)
+    const passwordHash = await hashData(user.password)
     const userToCreate = { ...user, password: passwordHash };
 
     const createdUser = new this.userModel(userToCreate);
@@ -33,11 +33,7 @@ export class UsersService {
   }
 
   async findOne(phoneNumber: string) {
-    const user = await this.userModel.findOne({ phoneNumber });
-    if (!user) {
-      throw new NotFoundException([{field: 'phoneNumber', text: `User with ${phoneNumber} not found`}]);
-    }
-    return user;
+    return await this.userModel.findOne({ phoneNumber });
   }
 
   async update(
