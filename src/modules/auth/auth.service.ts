@@ -1,17 +1,9 @@
-import { BadRequestException, ForbiddenException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { hashData, validate } from 'src/utils';
 import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-
-interface UserWithId {
-  _id: string;
-  phoneNumber: string; 
-  refreshToken: string
-  // Add other properties as needed
-}
-
 
 @Injectable()
 export class AuthService {
@@ -21,7 +13,7 @@ export class AuthService {
     private configService: ConfigService,
   ) { }
 
-  async signUp(createUserDto: CreateUserDto): Promise<any> {
+  async signUp(createUserDto: CreateUserDto){
     const userExists = await this.usersService.findOne(
       createUserDto.phoneNumber,
     );
@@ -46,16 +38,14 @@ export class AuthService {
       throw new NotFoundException([{field: 'phoneNumber', text: `User with ${user.phoneNumber} not found`}]);
     }
     
-    const passwordMatches = await validate(
-      user.password, dbUser.password  
-    );
+    const passwordMatches = validate(dbUser.password, user.password);
     
     if(!passwordMatches) {
       throw new UnauthorizedException([{field: 'password', text: 'Password is incorrect'}]);
     }
     
-    const tokens = await this.getTokens(user._id, user.phoneNumber);
-    await this.updateRefreshToken(user._id, tokens.refreshToken);
+    const tokens = await this.getTokens(dbUser._id, dbUser.phoneNumber);
+    await this.updateRefreshToken(dbUser._id, tokens.refreshToken);
     
     return tokens;  
   }
@@ -63,13 +53,6 @@ export class AuthService {
   async signOut(userId: string) {
     this.usersService.update(userId, { refreshToken: null });
     return 'ok'
-  }
-
-  async updateRefreshToken(userId: string, refreshToken: string) {
-    const hashedRefreshToken = await hashData(refreshToken);
-    await this.usersService.update(userId, {
-      refreshToken: hashedRefreshToken,
-    });
   }
 
   async getTokens(userId: string, phoneNumber: string) {
@@ -93,14 +76,13 @@ export class AuthService {
     return {
       accessToken,
       refreshToken,
-    };
+    }; 
   }
 
   async refreshTokens(userId: string, refreshToken: string) {
-    const user: UserWithId | any = await this.usersService.findById(userId);
-    console.log('user :>> ', user);
-    if (!user || !user.refreshToken)
-      throw new ForbiddenException('Access Denied');
+    const user = await this.usersService.findById(userId);
+    
+    if (!user || !user.refreshToken) throw new ForbiddenException('Access Denied');
 
     const refreshTokenMatches = await validate(
       user.refreshToken, refreshToken 
@@ -110,5 +92,11 @@ export class AuthService {
     await this.updateRefreshToken(user._id, tokens.refreshToken);
     return tokens;
   }
-  
+
+  async updateRefreshToken(userId: string, refreshToken: string) {
+    const hashedRefreshToken = await hashData(refreshToken);
+    await this.usersService.update(userId, {
+      refreshToken: hashedRefreshToken,
+    });
+  }  
 }

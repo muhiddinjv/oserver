@@ -29,7 +29,7 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User> {
-    return this.userModel.findById(id);
+    return await this.userModel.findById(id);
   }
 
   async findOne(phoneNumber: string) {

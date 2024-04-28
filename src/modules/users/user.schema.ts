@@ -7,6 +7,8 @@ export type UserDocument = User & Document;
 @Schema({ collection: 'users', timestamps: true, versionKey: false })
 
 export class User {
+  _id: string;
+
   @Prop({ default: null })
   bossId: Types.ObjectId;
 
@@ -40,11 +42,8 @@ export class User {
   // @Prop({ required: true })
   // deviceId: Types.ObjectId;
 
-
-
   // @Prop({  maxlength: 100 })
   // email: string;
-
 
   // @Prop({minlength:4, maxlength: 40 })
   // userQrCode: string;

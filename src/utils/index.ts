@@ -1,15 +1,14 @@
-import * as bcrypt from 'bcryptjs';
+import * as argon2 from 'argon2';
 
-export async function hashData(data: string) {
-  const salt = await bcrypt.genSalt();
-  return bcrypt.hash(data, salt);
+export function hashData(data: string) {
+  return argon2.hash(data);
 }
   
-export async function validate(value: string, hashed: string) {
-  return bcrypt.compare(value, hashed);
+export function validate(hashed: string, value: string) {
+  return argon2.verify(hashed, value);
 }
 
 export function parseJwt(token: any) {
-    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 }
 //const {sub} = parseJwt(req.headers.authorization)
