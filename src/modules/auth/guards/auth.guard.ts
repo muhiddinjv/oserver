@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { IS_PUBLIC_KEY } from '../modules/auth/auth.metadata';
+import { IS_PUBLIC_KEY } from '../auth.metadata';
 import { Request } from 'express';
 
 @Injectable()

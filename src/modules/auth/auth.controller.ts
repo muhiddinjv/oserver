@@ -10,8 +10,8 @@ import { AuthService } from './auth.service';
 import { Public } from './auth.metadata';
 import { SignInDto } from './signin.dto';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { AccessTokenGuard } from 'src/shared/accessToken.guard';
-import { RefreshTokenGuard } from 'src/shared/refreshToken.guard';
+import { AccessTokenGuard } from './guards/at.guard';
+import { RefreshTokenGuard } from './guards/rt.guard';
 // import ability from 'src/modules/roles/defineAbility';
 
 @Controller('auth')
@@ -44,10 +44,9 @@ export class AuthController {
     return this.authService.refreshTokens(req.user.sub, req.user.refreshToken);
   }
 
-  @Public()
+  // @Public()
   @Get('profile')
   getProfile(@Req() req) {
-    console.log(req);
     // console.log('can read Post', ability.can('read', 'Post'));
     // console.log('can read User', ability.can('read', 'User'));
     // console.log('can update User', ability.can('update', 'User'));
