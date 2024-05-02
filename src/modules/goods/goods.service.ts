@@ -29,7 +29,7 @@ export class GoodsService {
       const existingItem = await this.goodsModel.findOne({ name: newItemData.name, userId });
 
       if (existingItem) {
-        throw new BadRequestException([{field: 'item', text: `This user already has [${newItemData.name}]` }]);
+        throw new BadRequestException([{field: 'item', text: `You already have '${newItemData.name}'` }]);
       }
 
       return this.goodsModel.create(newItemData);
