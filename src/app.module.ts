@@ -24,7 +24,7 @@ import { RtGuard } from './modules/auth/guards/rt.guard';
   providers: [{
     provide: APP_GUARD,
     useClass: RtGuard,
-  }],
+  }],// console log this out to make it work
 })
 
 export class AppModule {}
