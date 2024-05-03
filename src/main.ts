@@ -5,9 +5,9 @@ import { ValidationError } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  // app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }));
   app.useGlobalPipes(
     new ValidationPipe({
+      stopAtFirstError: true,
       exceptionFactory: (validationErrors: ValidationError[] = []) => {
         return new BadRequestException(
           validationErrors.map((error) => ({

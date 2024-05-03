@@ -12,9 +12,9 @@ import {
 import { CatalogService } from './catalog.service';
 import { CreateCatalogDto } from './dto/create-catalog.dto';
 import { UpdateCatalogDto } from './dto/update-catalog.dto';
-import { Public } from '../auth/auth.metadata';
 import { RolesGuard } from '../roles/roles.guard';
 import { Roles, Role } from '../roles/roles.decorator';
+import { Public } from 'src/shared/decorators';
 
 @Controller('catalog')
 @UseGuards(RolesGuard)

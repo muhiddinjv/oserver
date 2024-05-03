@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -7,16 +8,10 @@ import { CatalogsModule } from './modules/catalog/catalog.module';
 import { TransfersModule } from './modules/transfers/transfers.module';
 import { GoodsModule } from './modules/goods/goods.module';
 import { BillsModule } from './modules/bills/bills.module';
-import { AuthGuard } from './modules/auth/guards/auth.guard';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtModule } from '@nestjs/jwt';
+import { RtGuard } from './modules/auth/guards/rt.guard';
 
 @Module({
   imports: [
-    JwtModule.register({
-      secret: process.env.JWT_ACCESS_SECRET,
-      signOptions: { expiresIn: '1h' },
-    }),
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
@@ -28,7 +23,7 @@ import { JwtModule } from '@nestjs/jwt';
   ],
   providers: [{
     provide: APP_GUARD,
-    useClass: AuthGuard,
+    useClass: RtGuard,
   }],
 })
 

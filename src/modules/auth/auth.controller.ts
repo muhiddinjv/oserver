@@ -5,13 +5,15 @@ import {
   Post,
   UseGuards,
   Controller,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Public } from './auth.metadata';
 import { SignInDto } from './signin.dto';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { AccessTokenGuard } from './guards/at.guard';
-import { RefreshTokenGuard } from './guards/rt.guard';
+import { Public, GetCurrentUserId, GetCurrentUser } from 'src/shared/decorators';
+import { RtGuard } from '../../shared/guards';
+import { Tokens } from './types';
 // import ability from 'src/modules/roles/defineAbility';
 
 @Controller('auth')
@@ -20,28 +22,33 @@ export class AuthController {
 
   @Public()
   @Post('signup')
-  signup(@Body() createUserDto: CreateUserDto) {
+  @HttpCode(HttpStatus.CREATED)
+  signUp(@Body() createUserDto: CreateUserDto): Promise<Tokens> {
     return this.authService.signUp(createUserDto);
   }
 
   @Public()
   @Post('signin')
-  signIn(@Body() signInDto: SignInDto) {
+  @HttpCode(HttpStatus.OK)
+  signIn(@Body() signInDto: SignInDto): Promise<Tokens> {
     return this.authService.signIn(signInDto);
   }
   
-  @Public()
-  @UseGuards(AccessTokenGuard)
   @Get('signout')
-  signOut(@Req() req: any) {
-    this.authService.signOut(req.user['sub']);
+  @HttpCode(HttpStatus.OK)
+  signOut(@GetCurrentUserId() userId: string) {
+    this.authService.signOut(userId);
   }
 
   @Public()
-  @UseGuards(RefreshTokenGuard)
-  @Get('refresh')
-  refreshTokens(@Req() req: any) {
-    return this.authService.refreshTokens(req.user.sub, req.user.refreshToken);
+  @UseGuards(RtGuard)
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  refreshTokens(
+    @GetCurrentUserId() userId: string,
+    @GetCurrentUser('refreshToken') refreshToken: string,
+  ): Promise<Tokens> {
+    return this.authService.refreshTokens(userId, refreshToken);
   }
 
   // @Public()

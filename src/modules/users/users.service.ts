@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './user.schema';
-import { hashData } from 'src/utils';
+import * as argon from 'argon2';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +17,7 @@ export class UsersService {
     if (userExists) {
       throw new ConflictException([{field: 'phoneNumber', text: `User with ${user.phoneNumber} already exists`}]);
     }
-    const passwordHash = await hashData(user.password)
+    const passwordHash = await argon.hash(user.password)
     const userToCreate = { ...user, password: passwordHash };
 
     const createdUser = new this.userModel(userToCreate);
