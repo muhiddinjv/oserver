@@ -14,9 +14,7 @@ export class BillsService {
 
   async create(createBillDto: CreateBillDto, userId: string) {
     const bills = await Promise.all(createBillDto.goods.map(async item => {
-      console.log(222,item._id)
       const { _id, name, price } = await this.goodsModel.findOne({ _id: item._id });
-      
       return {
         _id: String(_id),
         name, price, quantity: item.quantity,

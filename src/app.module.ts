@@ -8,7 +8,7 @@ import { CatalogsModule } from './modules/catalog/catalog.module';
 import { TransfersModule } from './modules/transfers/transfers.module';
 import { GoodsModule } from './modules/goods/goods.module';
 import { BillsModule } from './modules/bills/bills.module';
-import { RtGuard } from './modules/auth/guards/rt.guard';
+import { AtGuard } from './shared/guards';
 
 @Module({
   imports: [
@@ -23,8 +23,8 @@ import { RtGuard } from './modules/auth/guards/rt.guard';
   ],
   providers: [{
     provide: APP_GUARD,
-    useClass: RtGuard,
-  }],// console log this out to make it work
+    useClass: AtGuard,
+  }],
 })
 
 export class AppModule {}

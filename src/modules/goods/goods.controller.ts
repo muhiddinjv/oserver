@@ -12,6 +12,7 @@ import {
 import { GoodsService } from './goods.service';
 import { CreateGoodDto } from './dto/create-good.dto';
 import { UpdateGoodDto } from './dto/update-good.dto';
+import { GetCurrentUserId } from 'src/shared/decorators';
 
 @Controller('goods')
 export class GoodsController {
@@ -25,8 +26,8 @@ export class GoodsController {
   }
 
   @Get()
-  findAll(@Req() req: Request) {
-    return this.goodsService.findAll(String(req['user']['sub']));
+  findAll(@GetCurrentUserId() userId: string) {
+    return this.goodsService.findAll(userId);
   }
 
   @Get(':id')

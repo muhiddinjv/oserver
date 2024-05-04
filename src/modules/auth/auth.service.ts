@@ -13,38 +13,19 @@ export class AuthService {
     private configService: ConfigService,
   ) { }
 
-  async signUp(createUserDto: CreateUserDto){
-    const userExists = await this.usersService.findOne(
-      createUserDto.phoneNumber,
-    );
-    if (userExists) {
-      throw new BadRequestException('User already exists');
-    }
-
-    const hash = await argon.hash(createUserDto.password);
-    const newUser = await this.usersService.create({
-      ...createUserDto,
-      password: hash,
-    });
-    const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
-    await this.updateRtHash(newUser._id, tokens.refreshToken);
-    return tokens;
-  }
-
   async signIn(user: any) {
     const dbUser = await this.usersService.findOne(user.phoneNumber);
+
     if (!dbUser) {
       throw new NotFoundException([{field: 'phoneNumber', text: `User with ${user.phoneNumber} not found`}]);
     }
-    
     const passwordMatches = await argon.verify(dbUser.password, user.password);
     
     if(!passwordMatches) {
-      console.log(`Expected password hash: ${dbUser.password}, Provided password: ${user.password}`);
       throw new UnauthorizedException([{field: 'password', text: 'Password is incorrect'}]);
     }
     
-    const tokens = await this.getTokens(dbUser._id, dbUser.phoneNumber);
+    const tokens = await this.getTokens(dbUser._id.toString(), dbUser.phoneNumber);
     await this.updateRtHash(dbUser._id, tokens.refreshToken);
     
     return tokens;  
@@ -52,7 +33,22 @@ export class AuthService {
 
   async signOut(userId: string) {
     this.usersService.update(userId, { refreshToken: null });
-    return 'signed out'
+    return [{field: 'auth', text: 'user signed out'}]
+  }
+
+  async signUp(createUserDto: CreateUserDto){
+    const userExists = await this.usersService.findOne(
+      createUserDto.phoneNumber,
+    );
+    if (userExists) {
+      throw new BadRequestException('User already exists');
+    }
+    const newUser = await this.usersService.create(createUserDto);
+
+    const tokens = await this.getTokens(newUser._id, newUser.phoneNumber);
+    await this.updateRtHash(newUser._id, tokens.refreshToken);
+
+    return tokens;
   }
 
   async getTokens(userId: string, phoneNumber: string) {
@@ -61,7 +57,7 @@ export class AuthService {
         { sub: userId, phoneNumber },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: '15m',
+          expiresIn: 30,
         },
       ),
       this.jwtService.signAsync(
@@ -72,7 +68,7 @@ export class AuthService {
         },
       ),
     ]);
-
+    
     return {
       accessToken,
       refreshToken,
@@ -99,4 +95,13 @@ export class AuthService {
       refreshToken: hashedRefreshToken,
     });
   }  
+
+  async getProfile(id: string) {
+    const user = await this.usersService.findById(id);
+
+    user.password = null;
+    user.refreshToken = null;
+
+    return user;
+  }
 }

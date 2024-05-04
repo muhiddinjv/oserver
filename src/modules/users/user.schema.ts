@@ -12,7 +12,7 @@ export class User {
   @Prop({ default: null })
   bossId: Types.ObjectId;
 
-  @Prop({ minlength: 3, maxlength: 64, required: true })
+  @Prop({ index: true, minlength: 3, maxlength: 64, required: true })
   firstName: string;
 
   @Prop({ minlength: 3, maxlength: 64, required: true })
@@ -30,7 +30,7 @@ export class User {
   @Prop()
   refreshToken: string;
 
-  @Prop({ unique: true, maxlength: 15, required: true, })
+  @Prop({ index: true, unique: true, maxlength: 15, required: true, })
   phoneNumber: string;
 
   @Prop({ type: String, enum: Role, required: true, default: Role.Wholesaler })
