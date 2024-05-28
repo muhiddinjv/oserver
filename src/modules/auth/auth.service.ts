@@ -22,6 +22,7 @@ export class AuthService {
     const passwordMatches = await argon.verify(dbUser.password, user.password);
     
     if(!passwordMatches) {
+      console.log(passwordMatches);
       throw new UnauthorizedException([{field: 'password', text: 'Password is incorrect'}]);
     }
     
@@ -57,7 +58,7 @@ export class AuthService {
         { sub: userId, phoneNumber },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: 30,
+          expiresIn: '1d',
         },
       ),
       this.jwtService.signAsync(

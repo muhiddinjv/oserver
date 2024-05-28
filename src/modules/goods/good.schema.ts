@@ -9,15 +9,15 @@ export class Good {
   @Prop({ required: true })
   userId: string;
   
-  @Prop({ default: "good name" })
-  name: string;
+  @Prop({ default: "good title" })
+  title: string;
 
   @Prop({ default: 0 })
   price: number;
 
   pricePoints: [{
     price: number,
-    source: string, // seller's ID or name
+    source: string, // seller's ID or title
     quantity: number, // Quantity for this specific price point
   }]
 
@@ -31,7 +31,7 @@ export class Good {
   trackStock: boolean;
 
   @Prop({ default: false })
-  isGroupItem: boolean;
+  groupItem: boolean;
 
   @Prop({ type: Date })
   expireDate: Date;

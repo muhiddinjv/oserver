@@ -14,10 +14,10 @@ export class BillsService {
 
   async create(createBillDto: CreateBillDto, userId: string) {
     const bills = await Promise.all(createBillDto.goods.map(async item => {
-      const { _id, name, price } = await this.goodsModel.findOne({ _id: item._id });
+      const { _id, title, price } = await this.goodsModel.findOne({ _id: item._id });
       return {
         _id: String(_id),
-        name, price, quantity: item.quantity,
+        title, price, quantity: item.quantity,
         totalPrice: price * item.quantity
       };
     }));

@@ -26,10 +26,10 @@ export class GoodsService {
         _id: undefined // generates new _id
       };
 
-      const existingItem = await this.goodsModel.findOne({ name: newItemData.name, userId });
+      const existingItem = await this.goodsModel.findOne({ title: newItemData.title, userId });
 
       if (existingItem) {
-        throw new BadRequestException([{field: 'item', text: `You already have '${newItemData.name}'` }]);
+        throw new BadRequestException([{field: 'item', text: `You already have '${newItemData.title}'` }]);
       }
 
       return this.goodsModel.create(newItemData);
@@ -74,9 +74,9 @@ export class GoodsService {
   }
 
   // async updateGoods(goodDetails: any, quantity: number): Promise<Good> {
-  //   const { name, price } = goodDetails;
+  //   const { title, price } = goodDetails;
   //   const product = await this.goodsModel.findOneAndUpdate(
-  //     { name }, // Find a document with that filter
+  //     { title }, // Find a document with that filter
   //     {
   //       $inc: { quantity: quantity }, // Increment the quantity
   //       $set: { price: price }, // Set the price
@@ -87,13 +87,13 @@ export class GoodsService {
   // }
 
   async updateGoods(goodDetails: any, quantity: number, source: string): Promise<Good> {
-    const { name, price } = goodDetails;
-    let good = await this.goodsModel.findOne({ name });
+    const { title, price } = goodDetails;
+    let good = await this.goodsModel.findOne({ title });
 
     if (!good) {
       // good not found, create a new entry with the provided price point
       good = new this.goodsModel({
-        name,
+        title,
         quantity,
         pricePoints: [{ price, source }],
       });

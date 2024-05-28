@@ -13,9 +13,9 @@ export class CatalogService {
   ) {}
 
   async create(createCatalogDto: CreateCatalogDto) {
-    const itemExists = await this.catalogModel.exists({ name: createCatalogDto.name });
+    const itemExists = await this.catalogModel.exists({ title: createCatalogDto.title });
     if (itemExists) {
-      throw new ConflictException([{field: 'item', text: 'Item with that name already exists'}]);
+      throw new ConflictException([{field: 'item', text: 'Item with that title already exists'}]);
     }
     const createdItem = new this.catalogModel(createCatalogDto);
     return createdItem.save();

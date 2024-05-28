@@ -10,7 +10,7 @@ export class Catalog {
   userId: string;
   
   @Prop({ required: true })
-  name: string;
+  title: string;
 
   @Prop({ default: 0 })
   price: string;
@@ -25,7 +25,7 @@ export class Catalog {
   image: string;
 
   @Prop({ default: false, required: true })
-  isGroupItem: boolean;
+  groupItem: boolean;
 }
 
 export const CatalogSchema = SchemaFactory.createForClass(Catalog)
