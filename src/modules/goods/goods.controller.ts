@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Req,
+  Query,
 } from '@nestjs/common';
 
 import { GoodsService } from './goods.service';
@@ -26,8 +27,8 @@ export class GoodsController {
   }
 
   @Get()
-  findAll(@GetCurrentUserId() userId: string) {
-    return this.goodsService.findAll(userId);
+  findAll(@GetCurrentUserId() userId: string, @Query('page') page: number, @Query('limit') limit: number) {
+    return this.goodsService.findAll(userId, page, limit);
   }
 
   @Get(':id')

@@ -22,7 +22,6 @@ export class AuthService {
     const passwordMatches = await argon.verify(dbUser.password, user.password);
     
     if(!passwordMatches) {
-      console.log(passwordMatches);
       throw new UnauthorizedException([{field: 'password', text: 'Password is incorrect'}]);
     }
     

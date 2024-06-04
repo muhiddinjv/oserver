@@ -49,9 +49,9 @@ export class GoodsService {
     }
   }
 
-  async findAll(userId: string): Promise<GoodDocument[]> {
-    return await this.goodsModel.find({ userId });
-    // return await this.goodsModel.find().populate("shopIds");
+  async findAll(userId: string, page: number, limit: number): Promise<GoodDocument[]> {
+    const skip = (page - 1) * limit;
+    return await this.goodsModel.find({ userId }).skip(skip).limit(limit);
   }
 
   async findById(id: string): Promise<GoodDocument> {
