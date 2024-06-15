@@ -50,7 +50,7 @@ export class GoodsService {
   }
 
   async findAll(userId: string, page: number, limit: number): Promise<GoodDocument[]> {
-    const skip = (page - 1) * limit;
+    const skip = Math.max((page - 1) * limit, 0);
     return await this.goodsModel.find({ userId }).skip(skip).limit(limit);
   }
 
